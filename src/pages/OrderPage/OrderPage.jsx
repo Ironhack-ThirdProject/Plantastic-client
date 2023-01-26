@@ -6,7 +6,7 @@ import PlantDetails from "../../components/PlantDetails/PlantDetails";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 
 function OrderPage() {
-  const [plant, setPlant] = useState([]);
+  const [plants, setPlants] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
@@ -21,7 +21,7 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        setPlant(response.data[0].products[0]);
+        setPlants(response.data[0].products);
       })
       .catch((error) => console.log(error));
   };
@@ -55,7 +55,12 @@ function OrderPage() {
     <div>
       <h3>Your Order:</h3>
       <div>
-        <PlantOrderedCard props={plant} />
+        {plants.map(plant => {
+          return (
+            <PlantOrderedCard props={plant} />
+          )
+        })}
+        
         
       </div>
 
