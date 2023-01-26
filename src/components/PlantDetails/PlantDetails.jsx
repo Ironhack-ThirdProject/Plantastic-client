@@ -35,9 +35,25 @@ function PlantDetails() {
         })
       }
 
+      const handleDelete = (e) => {
+        e.preventDefault();
+    
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/plants/${plantId}`, { plantId }, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          console.log("Plant deleted!");
+          navigate("/plants")
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      }
+
+
   useEffect(() => {
     getPlantDetails();
-  }, [plantId]);
+  }, []);
 
   const navigate = useNavigate()
 
@@ -65,6 +81,13 @@ function PlantDetails() {
 
           <form onSubmit={handleOrder}>
           <button type="submit">Buy Now</button>
+          </form>
+          <form>
+          <Button>Edit</Button>
+          </form>
+          
+          <form onSubmit={handleDelete}>
+          <Button type="submit" variant="danger">Delete</Button>
           </form>
             </div>
             
