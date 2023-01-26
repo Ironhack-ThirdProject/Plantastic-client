@@ -21,7 +21,6 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("THIS IS THE DATA ======", response.data[0].products[0])
         setPlant(response.data[0].products[0]);
       })
       .catch((error) => console.log(error));
@@ -42,7 +41,7 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("response from the front ===", response.data);
+        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }
@@ -57,6 +56,7 @@ function OrderPage() {
       <h3>Your Order:</h3>
       <div>
         <PlantOrderedCard props={plant} />
+        
       </div>
 
       <form onSubmit={handleOrder}>

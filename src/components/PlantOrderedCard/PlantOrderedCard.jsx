@@ -5,7 +5,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { currencyFormatter } from "../../utils";
 
 // We are deconstructing props object directly in the parentheses of the function
-export function PlantOrderedCard({ props }) {
+export function PlantOrderedCard( { props } ) {
+  console.log(props)
 
   return (
     <div>
@@ -23,5 +24,5 @@ export function PlantOrderedCard({ props }) {
       </Card.Body>
       </Card>
     </div>
-  );
+  )
 }
