@@ -7,9 +7,13 @@ export function PlantList() {
   const [plants, setPlants] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const storedToken = localStorage.getItem("authToken");
+
   const getAllPlants = () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/plants`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/plants`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         if (searchQuery === "") {
           setPlants(response.data);

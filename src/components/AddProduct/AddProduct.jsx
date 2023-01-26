@@ -32,7 +32,7 @@ function AddProduct(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .post(`${process.env.REACT_APP_API_URL}/plants`, requestBody, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/plants`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {

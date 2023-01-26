@@ -19,6 +19,9 @@ function Navbar() {
           <Link to="/plants">
             <button>Plants</button>
           </Link>
+          <Link to="/order">
+            <button>My Order</button>
+          </Link>
           <button onClick={logOutUser}>Logout</button>
 
           <Link to="/profile">

@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { currencyFormatter } from "../../utils";
 
 // We are deconstructing props object directly in the parentheses of the function
-export function PlantCard(props) {
+export function PlantOrderedCard({ props }) {
 
   return (
     <div>
@@ -13,14 +13,13 @@ export function PlantCard(props) {
         <Card.Img variant="top" src={props.imageURL} />
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
-          <Card.Text>
-            {props.description}
-          </Card.Text>
         <ListGroup className="list-group-flush">
         <ListGroup.Item>Price: {currencyFormatter.format(props.price)}</ListGroup.Item>
+        <ListGroup.Item>Quantity: XXXXX</ListGroup.Item>
       </ListGroup>
+
       <Link to={`/plants/${props._id}`}><Button variant="secondary">More Details</Button></Link>
-      <Button variant="primary">Buy now</Button>
+      <Button variant="danger">Remove</Button>
       </Card.Body>
       </Card>
     </div>
