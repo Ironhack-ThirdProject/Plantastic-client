@@ -13,6 +13,7 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import { PlantList } from "./pages/PlantsList/PlantList";
 import PlantDetails from "./components/PlantDetails/PlantDetails";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import PlantsEditPage from "./components/PlantEdit/PlantEdit";
 
 
 function App() {

@@ -4,11 +4,13 @@ import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
+import PlantEdit from "../PlantEdit/PlantEdit";
 
 
 function PlantDetails() {
   const { plantId } = useParams();
   const [plant, setPlant] = useState(null);
+  const [showForm, setShowForm] = useState(false)
 
   const getPlantDetails = () => {
     axios
@@ -34,6 +36,9 @@ function PlantDetails() {
           console.log(error)
         })
       }
+
+
+
 
       const handleDelete = (e) => {
         e.preventDefault();
@@ -79,12 +84,17 @@ function PlantDetails() {
           <p>#{plant.category}</p>
           <p>#{plant.tag}</p>
 
+
           <form onSubmit={handleOrder}>
           <button type="submit">Buy Now</button>
           </form>
-          <form>
-          <Button>Edit</Button>
-          </form>
+
+
+          {showForm && <PlantEdit props={plant}/>}
+
+          <Button onClick={() => setShowForm(!showForm)}>
+        {showForm ? 'Hide Form' : 'Edit'}
+      </Button>
           
           <form onSubmit={handleDelete}>
           <Button type="submit" variant="danger">Delete</Button>
