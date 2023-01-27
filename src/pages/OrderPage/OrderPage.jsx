@@ -47,6 +47,19 @@ function OrderPage() {
       .catch((error) => console.log(error));
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault()
+
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_URL}/order`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+  }
+
   useEffect(() => {
     getOrderDetails();
   }, []);
@@ -60,7 +73,7 @@ function OrderPage() {
         {plants.map(plant => {
           return (
             <Col>
-            <PlantOrderedCard props={plant} />
+            <PlantOrderedCard props={plant} getOrderDetails={getOrderDetails}/>
             </Col>
           )
         })}
