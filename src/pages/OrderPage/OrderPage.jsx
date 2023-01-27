@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import PlantDetails from "../../components/PlantDetails/PlantDetails";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 
@@ -54,15 +55,17 @@ function OrderPage() {
   return (
     <div>
       <h3>Your Order:</h3>
-      <div>
+      <Container>
+        <Row>
         {plants.map(plant => {
           return (
+            <Col>
             <PlantOrderedCard props={plant} />
+            </Col>
           )
         })}
-        
-        
-      </div>
+        </Row>
+        </Container>
 
       <form onSubmit={handleOrder}>
         <label>First Name:</label>

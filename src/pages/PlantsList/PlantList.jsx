@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AddProduct from "../../components/AddProduct/AddProduct";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
+import { Col, Container, Row } from "react-bootstrap";
 
 export function PlantList() {
   const [plants, setPlants] = useState([]);
@@ -36,6 +37,7 @@ export function PlantList() {
 
   return (
     <div>
+
       <AddProduct refreshProjects={getAllPlants} />
 
       <form>
@@ -54,10 +56,15 @@ export function PlantList() {
           </select>
         </label>
       </form>
-
+      <Container fluid>
+      <Row>
       {plants.map((plant) => (
+        <Col>
         <PlantCard key={plant._id} {...plant} />
+        </Col>
       ))}
+      </Row>
+      </Container>
     </div>
   );
 }
