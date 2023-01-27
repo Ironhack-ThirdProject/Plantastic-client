@@ -6,7 +6,7 @@ function AddProduct(props) {
   const [description, setDescription] = useState("");
   const [newTip, setNewTip] = useState("");
   const [caringTips, setCaringTips] = useState([]);
-  const [image, setImage] = useState("");
+  const [imageURL, setImageURL] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("Indoor Plants");
@@ -18,7 +18,7 @@ function AddProduct(props) {
     const requestBody = {
       name,
       description,
-      image,
+      imageURL,
       caringTips,
       price,
       stock,
