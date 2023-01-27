@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { UploadWidget } from "../UploadWidget.js/UploadWidget";
 
 function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [newTip, setNewTip] = useState("");
   const [caringTips, setCaringTips] = useState([]);
   const [image, setImage] = useState("");
   const [price, setPrice] = useState(0);
@@ -13,7 +12,6 @@ function AddProduct(props) {
   const [category, setCategory] = useState("Indoor Plants");
   const [tag, setTag] = useState("Beginner-Friendly");
 
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +38,7 @@ function AddProduct(props) {
         // Reset the state
         setName("");
         setDescription("");
-        setCaringTips("");
+        setCaringTips([]);
         // setImage("");
         setPrice(0);
         setStock(0);
@@ -52,7 +50,23 @@ function AddProduct(props) {
       })
       .catch((error) => console.log(error));
   };
+  
+  const handleAddCaringTip = () => {
+    setCaringTips( (prevCaringTips) => {
+      return [...prevCaringTips, newTip]
+    });
 
+    setNewTip("");
+  };
+
+  const handleRemoveTip = (index) => {
+    setCaringTips( prevCaringTips => {
+      const newList = [...prevCaringTips]; //shallow copy
+      newList.splice(index, 1);
+
+      return newList;
+    });
+  };
 
   return (
     <div className="AddProduct">
@@ -73,15 +87,30 @@ function AddProduct(props) {
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-        /> 
+        />
 
         <label>Caring Tips:</label>
-        <textarea
-          type="text"
-          name="caringTips"
-          value={caringTips}
-          onChange={(e) => setCaringTips(e.target.value)}
-        />
+        <input
+            type="text"
+            name="newTip"
+            value={newTip}
+            onChange={(e) => setNewTip(e.target.value)}
+            placeholder="Enter plant caring tip"
+          />
+        <button type="button" onClick={handleAddCaringTip}>
+          Add Input Field
+        </button>
+
+        <ul>
+          {caringTips.map((tip, index) => (
+            <li key={index}>
+              {tip}
+              <button type="button" onClick={() => handleRemoveTip(index)}>
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
 
         <label>Price:</label>
         <input
@@ -100,7 +129,11 @@ function AddProduct(props) {
         />
 
         <label>Category:</label>
-        <select name="category" aria-label="category" onChange={(e) => setCategory(e.target.value)}>
+        <select
+          name="category"
+          aria-label="category"
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="Indoor Plants">Indoor Plants</option>
           <option value="Outdoor Plants">Outdoor Plants</option>
           <option value="Pet-Friendly">Pet-Friendly</option>
@@ -108,7 +141,11 @@ function AddProduct(props) {
         </select>
 
         <label>Tag:</label>
-        <select name="tag" aria-label="tag" onChange={(e) => setTag(e.target.value)}>
+        <select
+          name="tag"
+          aria-label="tag"
+          onChange={(e) => setTag(e.target.value)}
+        >
           <option value="Beginner-Friendly">Beginner-Friendly</option>
           <option value="Green Thumb">Green Thumb</option>
           <option value="Gardening Guru">Gardening Guru</option>
@@ -117,10 +154,9 @@ function AddProduct(props) {
         <button type="submit">Submit</button>
       </form>
 
-  {/* <UploadWidget/> */}
+      {/* <UploadWidget/> */}
     </div>
   );
 }
 
 export default AddProduct;
-
