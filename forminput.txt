@@ -1,0 +1,47 @@
+import { useState } from 'react';
+
+function FormComponent() {
+    const [caringTips, setCaringTips] = useState([]);
+    const [inputFields, setInputFields] = useState([{ id: 1 }]);
+
+    // Handle form submission
+    const handleSubmit = event => {
+        event.preventDefault();
+        let tips = [];
+        inputFields.forEach(inputField => {
+            tips.push(event.target[`tip${inputField.id}`].value);
+        });
+        setCaringTips([...caringTips, ...tips]);
+        setInputFields([{ id: inputFields.length + 1 }]);
+    }
+
+    // Handle add input field button click
+    const handleAddInputField = () => {
+        setInputFields([...inputFields, { id: inputFields.length + 1 }]);
+    }
+
+    // Handle tip removal
+    const handleRemoveTip = index => {
+        let newTips = [...caringTips];
+        newTips.splice(index, 1);
+        setCaringTips(newTips);
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            {inputFields.map(inputField => (
+                <input key={inputField.id} type="text" name={`tip${inputField.id}`} placeholder="Enter plant caring tip" />
+            ))}
+            <button type="submit">Add Tips</button>
+            <button type="button" onClick={handleAddInputField}>Add Input Field</button>
+            <ul>
+                {caringTips.map((tip, index) => (
+                    <li key={index}>
+                        {tip} 
+                        <button type="button" onClick={() => handleRemoveTip(index)}>X</button>
+                    </li>
+                ))}
+            </ul>
+        </form>
+    );
+}

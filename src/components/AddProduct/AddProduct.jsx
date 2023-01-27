@@ -1,18 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [newTip, setNewTip] = useState("");
   const [caringTips, setCaringTips] = useState([]);
   const [imageURL, setImageURL] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("Indoor Plants");
   const [tag, setTag] = useState("Beginner-Friendly");
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,8 +37,8 @@ function AddProduct(props) {
         // Reset the state
         setName("");
         setDescription("");
-        setCaringTips("");
-        setImageURL("");
+        setCaringTips([]);
+        // setImage("");
         setPrice(0);
         setStock(0);
         setCategory("Indoor Plants");
@@ -51,27 +49,45 @@ function AddProduct(props) {
       .catch((error) => console.log(error));
   };
 
+  const handleAddCaringTip = () => {
+    setCaringTips((prevCaringTips) => {
+      return [...prevCaringTips, newTip];
+    });
+
+    setNewTip("");
+  };
+
+  const handleRemoveTip = (index) => {
+    setCaringTips((prevCaringTips) => {
+      const newList = [...prevCaringTips]; //shallow copy
+      newList.splice(index, 1);
+
+      return newList;
+    });
+  };
+
   const uploadImage = async (file) => {
-    return await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, file)
-      .then(res => res.data)
+    return await axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/upload`, file)
+      .then((res) => res.data)
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
   const handleFileUpload = (e) => {
     const uploadData = new FormData();
-    uploadData.append("imageURL", e.target.files[0])
+    uploadData.append("imageURL", e.target.files[0]);
 
     uploadImage(uploadData)
-    .then(response => {
-      console.log("response is === ", response)
-      setImageURL(response.imageURL)
-    })
-    .catch((error) => {
-      console.log("Error while uploading the file: ", error)
-    })
-  }
+      .then((response) => {
+        console.log("response is === ", response);
+        setImageURL(response.imageURL);
+      })
+      .catch((error) => {
+        console.log("Error while uploading the file: ", error);
+      });
+  };
 
   return (
     <div className="AddProduct">
@@ -95,15 +111,35 @@ function AddProduct(props) {
         />
 
         <label>Image:</label>
-        <input type="file" onChange={(e) => {handleFileUpload(e)}} />
+        <input
+          type="file"
+          onChange={(e) => {
+            handleFileUpload(e);
+          }}
+        />
 
         <label>Caring Tips:</label>
-        <textarea
+        <input
           type="text"
-          name="caringTips"
-          value={caringTips}
-          onChange={(e) => setCaringTips(e.target.value)}
+          name="newTip"
+          value={newTip}
+          onChange={(e) => setNewTip(e.target.value)}
+          placeholder="Enter plant caring tip"
         />
+        <button type="button" onClick={handleAddCaringTip}>
+          Add Input Field
+        </button>
+
+        <ul>
+          {caringTips.map((tip, index) => (
+            <li key={index}>
+              {tip}
+              <button type="button" onClick={() => handleRemoveTip(index)}>
+                X
+              </button>
+            </li>
+          ))}
+        </ul>
 
         <label>Price:</label>
         <input
@@ -122,7 +158,11 @@ function AddProduct(props) {
         />
 
         <label>Category:</label>
-        <select name="category" aria-label="category" onChange={(e) => setCategory(e.target.value)}>
+        <select
+          name="category"
+          aria-label="category"
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="Indoor Plants">Indoor Plants</option>
           <option value="Outdoor Plants">Outdoor Plants</option>
           <option value="Pet-Friendly">Pet-Friendly</option>
@@ -130,7 +170,11 @@ function AddProduct(props) {
         </select>
 
         <label>Tag:</label>
-        <select name="tag" aria-label="tag" onChange={(e) => setTag(e.target.value)}>
+        <select
+          name="tag"
+          aria-label="tag"
+          onChange={(e) => setTag(e.target.value)}
+        >
           <option value="Beginner-Friendly">Beginner-Friendly</option>
           <option value="Green Thumb">Green Thumb</option>
           <option value="Gardening Guru">Gardening Guru</option>
@@ -139,9 +183,9 @@ function AddProduct(props) {
         <button type="submit">Submit</button>
       </form>
 
+      {/* <UploadWidget/> */}
     </div>
   );
 }
 
 export default AddProduct;
-

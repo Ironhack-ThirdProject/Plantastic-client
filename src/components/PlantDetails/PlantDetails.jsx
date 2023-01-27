@@ -9,6 +9,14 @@ import PlantEdit from "../PlantEdit/PlantEdit";
 function PlantDetails() {
   const { plantId } = useParams();
   const [plant, setPlant] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [caringTips, setCaringTips] = useState("");
+  const [imageURL, setImageURL] = useState("");
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [category, setCategory] = useState("");
+  const [tag, setTag] = useState("");
 
   const [showForm, setShowForm] = useState(false);
 
@@ -16,7 +24,7 @@ function PlantDetails() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/plants/${plantId}`)
       .then((response) => {
-        console.log("THIS IS THE PLANT ====", response.data)
+        console.log("THIS IS THE PLANT ====", response.data);
         setPlant(response.data);
       })
       .catch((error) => console.log(error));
@@ -61,7 +69,33 @@ function PlantDetails() {
       });
   };
 
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const requestBody = {
+      name,
+      description,
+      caringTips,
+      imageURL,
+      price,
+      stock,
+      category,
+      tag,
+    };
+
+    axios
+      .put(
+        `${process.env.REACT_APP_SERVER_URL}/plants/${plantId}`,
+        requestBody,
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        console.log("This is the newPLANT===", response.data);
+        setPlant(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     getPlantDetails();
@@ -83,11 +117,14 @@ function PlantDetails() {
             <p>{plant._id}</p>
             <h1>{plant.name}</h1>
             <p>{plant.description}</p>
+            <p>{plant.caringTips}</p>
+            {/*
             <ul>
               {plant.caringTips.map((tip) => {
                 return <li>{tip}</li>;
               })}
             </ul>
+            */}
             <p>{currencyFormatter.format(plant.price)}</p>
             <p>
               <b>Currently in stock: {plant.stock}</b>
