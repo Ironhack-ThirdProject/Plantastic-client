@@ -19,17 +19,21 @@ function Navbar() {
           <Link to="/plants">
             <button>Plants</button>
           </Link>
-          {!isAdmin && (
-          <Link to="/order">
-            <button>My Order</button>
-          </Link>
+          {!isAdmin ? (
+            <>
+              <Link to="/order">
+                <button>My Order</button>
+              </Link>
+              <Link to="/profile">
+                <button>Profile</button>
+              </Link>
+            </>
+          ) : (
+            <Link to="/dashboard">
+              <button>Dashboard</button>
+            </Link>
           )}
           <button onClick={logOutUser}>Logout</button>
-
-          <Link to="/profile">
-            <button>Profile</button>
-            {/* <img src="https://picsum.photos/id/402/200/300" style={{ width: 50, height: 50, borderRadius: 25}} alt="profile" /> */}
-          </Link>
 
           <span>{user && user.name}</span>
         </>

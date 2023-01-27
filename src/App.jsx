@@ -14,6 +14,7 @@ import { PlantList } from "./pages/PlantsList/PlantList";
 import PlantDetails from "./components/PlantDetails/PlantDetails";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import PlantsEditPage from "./components/PlantEdit/PlantEdit";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 
 function App() {
@@ -24,9 +25,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/plants" element={<IsPrivate><PlantList /></IsPrivate>} />
+        <Route path="/plants" element={<PlantList />} />
         <Route path="/plants/:plantId" element={<PlantDetails />} />
-        <Route path="/order" element={<OrderPage />}/>
+        <Route path="/order" element={<IsPrivate><OrderPage /></IsPrivate>}/>
+        <Route path="/dashboard" element={<IsPrivate><DashboardPage/></IsPrivate>} />
 
         <Route
           path="/profile"
