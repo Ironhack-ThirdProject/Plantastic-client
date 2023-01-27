@@ -1,13 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UploadWidget } from "../UploadWidget.js/UploadWidget";
 
 function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [caringTips, setCaringTips] = useState([]);
-  const [image, setImage] = useState("");
+  const [imageURL, setImageURL] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("Indoor Plants");
@@ -20,7 +19,7 @@ function AddProduct(props) {
     const requestBody = {
       name,
       description,
-      image,
+      imageURL,
       caringTips,
       price,
       stock,
@@ -41,7 +40,7 @@ function AddProduct(props) {
         setName("");
         setDescription("");
         setCaringTips("");
-        // setImage("");
+        setImageURL("");
         setPrice(0);
         setStock(0);
         setCategory("Indoor Plants");
@@ -52,6 +51,31 @@ function AddProduct(props) {
       })
       .catch((error) => console.log(error));
   };
+
+  const uploadImage = async (file) => {
+    return await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, file)
+      .then(res => res.data)
+      .catch((error) => {
+        console.log(error)
+      });
+  };
+
+  const handleFileUpload = (e) => {
+    const uploadData = new FormData();
+    uploadData.append("imageURL", e.target.files[0])
+
+    uploadImage(uploadData)
+    .then(response => {
+      console.log("response is === ", response)
+      setImageURL(response.imageURL)
+    })
+    .catch((error) => {
+      console.log("Error while uploading the file: ", error)
+    })
+  
+  }
+
+
 
 
   return (
@@ -73,7 +97,10 @@ function AddProduct(props) {
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-        /> 
+        />
+
+        <label>Image:</label>
+        <input type="file" onChange={(e) => {handleFileUpload(e)}} />
 
         <label>Caring Tips:</label>
         <textarea
@@ -117,7 +144,6 @@ function AddProduct(props) {
         <button type="submit">Submit</button>
       </form>
 
-  {/* <UploadWidget/> */}
     </div>
   );
 }
