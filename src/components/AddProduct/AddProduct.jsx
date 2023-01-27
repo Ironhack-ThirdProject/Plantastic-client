@@ -45,7 +45,6 @@ function AddProduct(props) {
         setStock(0);
         setCategory("Indoor Plants");
         setTag("Beginner-Friendly");
-        //navigate("/plants");
 
         props.refreshProjects();
       })
@@ -72,11 +71,7 @@ function AddProduct(props) {
     .catch((error) => {
       console.log("Error while uploading the file: ", error)
     })
-  
   }
-
-
-
 
   return (
     <div className="AddProduct">
