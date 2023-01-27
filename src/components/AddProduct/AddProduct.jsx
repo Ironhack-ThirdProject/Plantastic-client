@@ -133,7 +133,7 @@ function AddProduct(props) {
         <ul>
           {caringTips.map((tip, index) => (
             <li key={index}>
-              {tip}
+            {tip}
               <button type="button" onClick={() => handleRemoveTip(index)}>
                 X
               </button>

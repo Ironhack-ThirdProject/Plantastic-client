@@ -117,14 +117,13 @@ function PlantDetails() {
             <p>{plant._id}</p>
             <h1>{plant.name}</h1>
             <p>{plant.description}</p>
-            <p>{plant.caringTips}</p>
-            {/*
+
             <ul>
               {plant.caringTips.map((tip) => {
                 return <li>{tip}</li>;
               })}
             </ul>
-            */}
+            
             <p>{currencyFormatter.format(plant.price)}</p>
             <p>
               <b>Currently in stock: {plant.stock}</b>

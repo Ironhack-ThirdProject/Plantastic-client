@@ -8,6 +8,7 @@ function PlantEdit({ plantData, getPlantDetails }) {
   const [name, setName] = useState(plantData.name);
   const [description, setDescription] = useState(plantData.description);
   const [caringTips, setCaringTips] = useState(plantData.caringTips);
+  const [newTip, setNewTip] = useState("");
   const [imageURL, setImageURL] = useState(plantData.imageURL);
   const [price, setPrice] = useState(plantData.price);
   const [stock, setStock] = useState(plantData.stock);
@@ -16,8 +17,6 @@ function PlantEdit({ plantData, getPlantDetails }) {
 
   const { plantsId } = useParams();
 
-
-  
   const handleSubmit = (e) => {
     e.preventDefault();
     const requestBody = {
@@ -44,32 +43,50 @@ function PlantEdit({ plantData, getPlantDetails }) {
         }
       )
       .then((response) => {
-        getPlantDetails()
+        getPlantDetails();
       })
       .catch((error) => console.log(error));
   };
 
+  const handleAddCaringTip = () => {
+    setCaringTips((prevCaringTips) => {
+      return [...prevCaringTips, newTip];
+    });
+
+    setNewTip("");
+  };
+
+  const handleRemoveTip = (index) => {
+    setCaringTips((prevCaringTips) => {
+      const newList = [...prevCaringTips]; //shallow copy
+      newList.splice(index, 1);
+
+      return newList;
+    });
+  };
+
   const uploadImage = async (file) => {
-    return await axios.post(`${process.env.REACT_APP_SERVER_URL}/upload`, file)
-      .then(res => res.data)
+    return await axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/upload`, file)
+      .then((res) => res.data)
       .catch((error) => {
-        console.log(error)
+        console.log(error);
       });
   };
 
   const handleFileUpload = (e) => {
     const uploadData = new FormData();
-    uploadData.append("imageURL", e.target.files[0])
+    uploadData.append("imageURL", e.target.files[0]);
 
     uploadImage(uploadData)
-    .then(response => {
-      console.log("response is === ", response)
-      setImageURL(response.imageURL)
-    })
-    .catch((error) => {
-      console.log("Error while uploading the file: ", error)
-    })
-  }
+      .then((response) => {
+        console.log("response is === ", response);
+        setImageURL(response.imageURL);
+      })
+      .catch((error) => {
+        console.log("Error while uploading the file: ", error);
+      });
+  };
 
   return (
     <div className="AddProduct">
@@ -101,12 +118,27 @@ function PlantEdit({ plantData, getPlantDetails }) {
           />
 
           <label>Caring Tips:</label>
-          <textarea
+          <input
             type="text"
-            name="caringTips"
-            value={caringTips}
-            onChange={(e) => setCaringTips(e.target.value)}
+            name="newTip"
+            value={newTip}
+            onChange={(e) => setNewTip(e.target.value)}
+            placeholder="Enter plant caring tip"
           />
+          <button type="button" onClick={handleAddCaringTip}>
+            Add Input Field
+          </button>
+
+          <ul>
+            {caringTips.map((tip, index) => (
+              <li key={index}>
+                {tip}
+                <button type="button" onClick={() => handleRemoveTip(index)}>
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
 
           <label>Price:</label>
           <input
