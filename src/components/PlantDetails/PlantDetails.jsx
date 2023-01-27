@@ -5,6 +5,7 @@ import Button from "react-bootstrap/esm/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
+import IsAdmin from "../IsAdmin/isAdmin";
 
 function PlantDetails() {
   const { plantId } = useParams();
@@ -125,16 +126,18 @@ function PlantDetails() {
             </ul>
             
             <p>{currencyFormatter.format(plant.price)}</p>
+            <IsAdmin>
             <p>
               <b>Currently in stock: {plant.stock}</b>
             </p>
+            </IsAdmin>
             <p>#{plant.category}</p>
             <p>#{plant.tag}</p>
 
             <form onSubmit={handleOrder}>
               <button type="submit">Buy Now</button>
             </form>
-
+            <IsAdmin>
             {showForm && (
               <PlantEdit plantData={plant} getPlantDetails={getPlantDetails}/>
             )}
@@ -148,6 +151,7 @@ function PlantDetails() {
                 Delete
               </Button>
             </form>
+            </IsAdmin>
           </div>
         </div>
       )}

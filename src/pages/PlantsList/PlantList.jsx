@@ -3,6 +3,7 @@ import axios from "axios";
 import AddProduct from "../../components/AddProduct/AddProduct";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
 import { Col, Container, Row } from "react-bootstrap";
+import IsAdmin from "../../components/IsAdmin/isAdmin";
 
 export function PlantList() {
   const [plants, setPlants] = useState([]);
@@ -22,9 +23,8 @@ export function PlantList() {
           const plantsToDisplay = response.data.filter((singlePlant) => {
             return singlePlant.category === searchQuery;
           });
-          setPlants(plantsToDisplay);  
+          setPlants(plantsToDisplay);
         }
-        
       })
       .catch((error) => console.log(error));
   };
@@ -37,9 +37,9 @@ export function PlantList() {
 
   return (
     <div>
-
-      <AddProduct refreshProjects={getAllPlants} />
-
+      <IsAdmin>
+        <AddProduct refreshProjects={getAllPlants} />
+      </IsAdmin>
       <form>
         <label>
           Search by Category:
@@ -57,13 +57,13 @@ export function PlantList() {
         </label>
       </form>
       <Container fluid>
-      <Row>
-      {plants.map((plant) => (
-        <Col>
-        <PlantCard key={plant._id} {...plant} />
-        </Col>
-      ))}
-      </Row>
+        <Row>
+          {plants.map((plant) => (
+            <Col>
+              <PlantCard key={plant._id} {...plant} />
+            </Col>
+          ))}
+        </Row>
       </Container>
     </div>
   );

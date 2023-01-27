@@ -7,6 +7,7 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -26,6 +27,13 @@ function AuthProviderWrapper(props) {
         )
         .then((response) => {})
         */
+       authService
+       .verifyAdmin()
+       .then((response) => {
+        console.log("This is the response from the backend");
+        console.log("Is the User an admin? " + response.data.isAdmin);
+        setIsAdmin(response.data.isAdmin);
+       })
 
       // Or using a service
       authService
@@ -33,6 +41,7 @@ function AuthProviderWrapper(props) {
         .then((response) => {
           // If the server verifies that JWT token is valid  ✅
           const user = response.data;
+          console.log(response.data);
           // Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
@@ -78,6 +87,7 @@ function AuthProviderWrapper(props) {
         storeToken,
         authenticateUser,
         logOutUser,
+        isAdmin
       }}
     >
       {props.children}
