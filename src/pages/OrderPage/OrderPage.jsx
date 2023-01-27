@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import PlantDetails from "../../components/PlantDetails/PlantDetails";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
+import { currencyFormatter } from "../../utils";
 
 function OrderPage() {
   const [plants, setPlants] = useState([]);
@@ -15,6 +16,14 @@ function OrderPage() {
   const [billingAddress, setBillingAddress] = useState("");
 
   const storedToken = localStorage.getItem("authToken");
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    plants.forEach(plant => {
+      total += plant.price
+    })
+    setTotalPrice(total)
+  }
 
   const getOrderDetails = () => {
     axios
@@ -47,22 +56,14 @@ function OrderPage() {
       .catch((error) => console.log(error));
   }
 
-  const handleDelete = (e) => {
-    e.preventDefault()
-
-    axios
-      .delete(`${process.env.REACT_APP_SERVER_URL}/order`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
-  }
 
   useEffect(() => {
     getOrderDetails();
   }, []);
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [plants]);
 
 
   return (
@@ -79,6 +80,8 @@ function OrderPage() {
         })}
         </Row>
         </Container>
+
+<h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
 
       <form onSubmit={handleOrder}>
         <label>First Name:</label>
