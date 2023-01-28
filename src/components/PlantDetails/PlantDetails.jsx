@@ -26,7 +26,6 @@ function PlantDetails() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/plants/${plantId}`)
       .then((response) => {
-        console.log("THIS IS THE PLANT ====", response.data);
         setPlant(response.data);
       })
       .catch((error) => console.log(error));
@@ -93,7 +92,6 @@ function PlantDetails() {
         }
       )
       .then((response) => {
-        console.log("This is the newPLANT===", response.data);
         setPlant(response.data);
       })
       .catch((error) => console.log(error));

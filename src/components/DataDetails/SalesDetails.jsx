@@ -37,10 +37,7 @@ export function SalesDetails({ orders }) {
     <div>
       <h2 class="p-3 mb-2 bg-info text-white">Sales and revenue data</h2>
       <h2>Current orders: {orders.length}</h2>
-      <h2 class="text-danger">Total orders finished: status true</h2>
-      <h2 class="text-danger">
-        Order details: implement a button to hide / display
-      </h2>
+      <h2 class="text-danger">Total orders finished: </h2>
       <OrderCard orders={orders} orderTotals={orderTotals} />
       <h3>
         Average Order Value: {currencyFormatter.format(averageOrderValue)}

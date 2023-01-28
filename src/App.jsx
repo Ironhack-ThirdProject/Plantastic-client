@@ -1,5 +1,5 @@
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
@@ -15,7 +15,9 @@ import PlantDetails from "./components/PlantDetails/PlantDetails";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import PlantsEditPage from "./components/PlantEdit/PlantEdit";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
-
+import IsCustomer from "./components/IsCustomer/IsCustomer";
+import IsAdmin from "./components/IsAdmin/isAdmin";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   return (
@@ -24,12 +26,36 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-
         <Route path="/plants" element={<PlantList />} />
         <Route path="/plants/:plantId" element={<PlantDetails />} />
-        <Route path="/order" element={<IsPrivate><OrderPage /></IsPrivate>}/>
-        <Route path="/dashboard" element={<IsPrivate><DashboardPage/></IsPrivate>} />
-
+        <Route
+          path="/order"
+          element={
+            <IsPrivate>
+              <OrderPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <IsPrivate>
+              <IsAdmin>
+                <DashboardPage />
+              </IsAdmin>
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <IsPrivate>
+              <IsCustomer>
+                <Checkout />
+              </IsCustomer>
+            </IsPrivate>
+          }
+        />
         <Route
           path="/profile"
           element={

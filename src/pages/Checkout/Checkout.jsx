@@ -1,16 +1,18 @@
 import axios from "axios";
 import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
+import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
+import { EditOrder } from "../../components/EditOrder/EditOrder";
 
-function OrderPage() {
+function Checkout() {
   const [order, setOrder] = useState({});
   const [plants, setPlants] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -28,54 +30,48 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("LATEST ORDER!!!=====", response.data)
         setOrder(response.data);
+        console.log("ordeerrrr", response.data)
         setPlants(response.data.products);
+        setIsSubmitted(false);
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     getOrderDetails();
-  }, []);
+  }, [isSubmitted]);
 
+  
   useEffect(() => {
     calculateTotalPrice();
   }, [plants]);
 
   return (
     <div>
-      <h3>Your Order:</h3>
-      {plants.length === 0 || order.status ? (
-       <div>
-        <h4>No products found.</h4>
-       </div>
-      ) : ( <div>
-        <Container>
-          <Row>
-            {plants.map((plant) => {
-              return (
-                <Col>
-                  <PlantOrderedCard
-                    props={plant}
-                    getOrderDetails={getOrderDetails}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
-        </Container>
+      <h1>This is checkout</h1>
+      <Container>
+        <Row>
+          {plants.map((plant) => {
+            return (
+              <Col>
+                <PlantOrderedCard
+                  props={plant}
+                  
+                />
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
 
-        <div>
-          <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
-        </div>
+      <div>
+        <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
+      </div>
 
-        <Link to={"/checkout"}>
-          <Button variant="primary">Checkout</Button>
-        </Link>
-      </div>)}
+      <EditOrder order={order} getOrderDetails={getOrderDetails} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted}/>
     </div>
   );
 }
 
-export default OrderPage;
+export default Checkout;
