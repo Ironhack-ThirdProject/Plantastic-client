@@ -2,6 +2,7 @@ import axios from "axios";
 import Button from "react-bootstrap/esm/Button";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function EditOrder({
   order,
@@ -17,8 +18,11 @@ export function EditOrder({
 
   const storedToken = localStorage.getItem("authToken");
 
+  const navigate = useNavigate()
+
   const handleOrderDetails = (e) => {
     e.preventDefault();
+    setIsSubmitted(true)
 
     const requestBody = {
       firstName,
@@ -32,14 +36,14 @@ export function EditOrder({
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log(response.data);
-        setIsSubmitted(true)
+        console.log("checking new details?", response.data)
       })
       .catch((error) => console.log(error));
   };
 
   const handleConfirmClick = (e) => {
     e.preventDefault();
+    setIsSubmitted(true)
 
     axios
       .put(
@@ -50,7 +54,8 @@ export function EditOrder({
         }
       )
       .then((response) => {
-        console.log(response.data)
+        // TODO display a message to thank the user for the order
+        navigate("/plants")
       })
       .catch((error) => console.log(error));
   };

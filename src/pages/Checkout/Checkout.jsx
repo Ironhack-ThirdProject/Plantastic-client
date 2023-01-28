@@ -31,9 +31,9 @@ function Checkout() {
       })
       .then((response) => {
         setOrder(response.data);
-        console.log("ordeerrrr", response.data)
+        // console.log("ordeerrrr", response.data)
         setPlants(response.data.products);
-        setIsSubmitted(false);
+        setIsSubmitted(false)
       })
       .catch((error) => console.log(error));
   };
