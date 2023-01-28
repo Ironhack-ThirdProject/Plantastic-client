@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
+import IsCustomer from "../IsCustomer/IsCustomer";
 
 function PlantDetails() {
   const { plantId } = useParams();
@@ -124,33 +125,38 @@ function PlantDetails() {
                 return <li>{tip}</li>;
               })}
             </ul>
-            
+
             <p>{currencyFormatter.format(plant.price)}</p>
             <IsAdmin>
-            <p>
-              <b>Currently in stock: {plant.stock}</b>
-            </p>
+              <p>
+                <b>Currently in stock: {plant.stock}</b>
+              </p>
             </IsAdmin>
             <p>#{plant.category}</p>
             <p>#{plant.tag}</p>
+            <IsCustomer>
+              <form onSubmit={handleOrder}>
+                <button type="submit">Buy Now</button>
+              </form>
+            </IsCustomer>
 
-            <form onSubmit={handleOrder}>
-              <button type="submit">Buy Now</button>
-            </form>
             <IsAdmin>
-            {showForm && (
-              <PlantEdit plantData={plant} getPlantDetails={getPlantDetails}/>
-            )}
+              {showForm && (
+                <PlantEdit
+                  plantData={plant}
+                  getPlantDetails={getPlantDetails}
+                />
+              )}
 
-            <Button onClick={() => setShowForm(!showForm)}>
-              {showForm ? "Hide Form" : "Edit"}
-            </Button>
-
-            <form onSubmit={handleDelete}>
-              <Button type="submit" variant="danger">
-                Delete
+              <Button onClick={() => setShowForm(!showForm)}>
+                {showForm ? "Hide Form" : "Edit"}
               </Button>
-            </form>
+
+              <form onSubmit={handleDelete}>
+                <Button type="submit" variant="danger">
+                  Delete
+                </Button>
+              </form>
             </IsAdmin>
           </div>
         </div>
