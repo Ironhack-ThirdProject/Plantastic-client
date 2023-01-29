@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import IsCustomer from "../../components/IsCustomer/IsCustomer";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 
@@ -28,7 +29,7 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("LATEST ORDER!!!=====", response.data)
+        console.log("LATEST ORDER!!!=====", response.data);
         setOrder(response.data);
         setPlants(response.data.products);
       })
@@ -44,37 +45,41 @@ function OrderPage() {
   }, [plants]);
 
   return (
-    <div>
-      <h3>Your Order:</h3>
-      {plants.length === 0 || order.status ? (
-       <div>
-        <h4>No products found.</h4>
-       </div>
-      ) : ( <div>
-        <Container>
-          <Row>
-            {plants.map((plant) => {
-              return (
-                <Col>
-                  <PlantOrderedCard
-                    props={plant}
-                    getOrderDetails={getOrderDetails}
-                  />
-                </Col>
-              );
-            })}
-          </Row>
-        </Container>
+    <IsCustomer>
+      <div>
+        <h3>Your Order:</h3>
+        {plants.length === 0 || order.status ? (
+          <div>
+            <h4>No products found.</h4>
+          </div>
+        ) : (
+          <div>
+            <Container>
+              <Row>
+                {plants.map((plant) => {
+                  return (
+                    <Col>
+                      <PlantOrderedCard
+                        props={plant}
+                        getOrderDetails={getOrderDetails}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
+            </Container>
 
-        <div>
-          <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
-        </div>
+            <div>
+              <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
+            </div>
 
-        <Link to={"/checkout"}>
-          <Button variant="primary">Checkout</Button>
-        </Link>
-      </div>)}
-    </div>
+            <Link to={"/checkout"}>
+              <Button variant="primary">Checkout</Button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </IsCustomer>
   );
 }
 

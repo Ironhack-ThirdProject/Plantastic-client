@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InventoryDetails } from "../../components/DataDetails/InventoryDetails";
 import { SalesDetails } from "../../components/DataDetails/SalesDetails";
+import IsAdmin from "../../components/IsAdmin/isAdmin";
 
 function DashboardPage() {
   const [products, setProducts] = useState([]);
@@ -39,15 +40,16 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div>
-      <h1>Dashboard Page</h1>
-      <hr />
+    <IsAdmin>
+      <div>
+        <h1>Dashboard Page</h1>
+        <hr />
 
-      <SalesDetails orders={orders} />
+        <SalesDetails orders={orders} />
 
-      <InventoryDetails products={products} />
-      
-    </div>
+        <InventoryDetails products={products} />
+      </div>
+    </IsAdmin>
   );
 }
 

@@ -26,7 +26,7 @@ function AuthProviderWrapper(props) {
           { headers: { Authorization: `Bearer ${storedToken}` } }
         )
         .then((response) => {})
-        */
+        
        authService
        .verifyAdmin()
        .then((response) => {
@@ -34,7 +34,7 @@ function AuthProviderWrapper(props) {
         console.log("Is the User an admin? " + response.data.isAdmin);
         setIsAdmin(response.data.isAdmin);
        })
-
+*/
       // Or using a service
       authService
         .verify()
@@ -46,6 +46,7 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);
+          setIsAdmin(response.data.isAdmin);
         })
         .catch((error) => {
           // If the server sends an error response (invalid token) ❌
@@ -53,12 +54,14 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
+          setIsAdmin(false);
         });
     } else {
       // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      setIsAdmin(false);
     }
   };
 
@@ -87,7 +90,7 @@ function AuthProviderWrapper(props) {
         storeToken,
         authenticateUser,
         logOutUser,
-        isAdmin
+        isAdmin,
       }}
     >
       {props.children}

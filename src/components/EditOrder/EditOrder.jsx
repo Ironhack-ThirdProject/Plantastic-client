@@ -3,6 +3,7 @@ import Button from "react-bootstrap/esm/Button";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import IsCustomer from "../IsCustomer/IsCustomer";
 
 export function EditOrder({
   order,
@@ -18,11 +19,11 @@ export function EditOrder({
 
   const storedToken = localStorage.getItem("authToken");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleOrderDetails = (e) => {
     e.preventDefault();
-    setIsSubmitted(true)
+    setIsSubmitted(true);
 
     const requestBody = {
       firstName,
@@ -36,14 +37,14 @@ export function EditOrder({
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("checking new details?", response.data)
+        console.log("checking new details?", response.data);
       })
       .catch((error) => console.log(error));
   };
 
   const handleConfirmClick = (e) => {
     e.preventDefault();
-    setIsSubmitted(true)
+    setIsSubmitted(true);
 
     axios
       .put(
@@ -55,7 +56,7 @@ export function EditOrder({
       )
       .then((response) => {
         // TODO display a message to thank the user for the order
-        navigate("/plants")
+        navigate("/plants");
       })
       .catch((error) => console.log(error));
   };
@@ -65,94 +66,96 @@ export function EditOrder({
   }, [isSubmitted]);
 
   return (
-    <div>
-      {order.firstName ||
-      order.lastName ||
-      order.billingAddress ||
-      order.shippingAddress ? (
-        <div>
+    <IsCustomer>
+      <div>
+        {order.firstName ||
+        order.lastName ||
+        order.billingAddress ||
+        order.shippingAddress ? (
+          <div>
+            <div>
+              <h3>Your Details:</h3>
+              <p>
+                <b>First Name:</b> {order.firstName}
+              </p>
+              <p>
+                <b>Last Name:</b> {order.lastName}
+              </p>
+              <p>
+                <b>Billing Address:</b> {order.billingAddress}
+              </p>
+              <p>
+                <b>Shipping Address:</b> {order.shippingAddress}
+              </p>
+            </div>
+            <div>
+              <h3>Place an order:</h3>
+              <p>Order status: {order.status ? "Confirmed" : "Pending"}</p>
+            </div>
+
+            {!order.status && (
+              <div>
+                <br /> <br />
+                <Button onClick={handleConfirmClick}>Confirmation</Button>
+                <Button onClick={() => setShowForm(!showForm)}>
+                  {showForm ? "Edit Details" : "Hide Form"}
+                </Button>
+              </div>
+            )}
+          </div>
+        ) : (
           <div>
             <h3>Your Details:</h3>
-            <p>
-              <b>First Name:</b> {order.firstName}
-            </p>
-            <p>
-              <b>Last Name:</b> {order.lastName}
-            </p>
-            <p>
-              <b>Billing Address:</b> {order.billingAddress}
-            </p>
-            <p>
-              <b>Shipping Address:</b> {order.shippingAddress}
-            </p>
-          </div>
-          <div>
-            <h3>Place an order:</h3>
-            <p>Order status: {order.status ? "Confirmed" : "Pending"}</p>
-          </div>
-          
-          {!order.status && (
-            <div>
-            <br /> <br />
-            <Button onClick={handleConfirmClick}>Confirmation</Button>
+
             <Button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Edit Details" : "Hide Form"}
-          </Button>
+              {showForm ? "Edit Details" : "Hide Form"}
+            </Button>
           </div>
-          )}
-          
-        </div>
-      ) : (
-        <div>
-          <h3>Your Details:</h3>
+        )}
 
-          <Button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Edit Details" : "Hide Form"}
-          </Button>
-        </div>
-      )}
+        {showForm ||
+          (!order.status && (
+            <form onSubmit={handleOrderDetails}>
+              <label>First Name:</label>
+              <input
+                type="text"
+                name="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
 
-      {showForm || !order.status && (
-        <form onSubmit={handleOrderDetails}>
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
+              <label>Last Name:</label>
+              <input
+                type="text"
+                name="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
 
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
+              <label>Billing Address:</label>
+              <input
+                type="text"
+                name="billingAddress"
+                value={billingAddress}
+                onChange={(e) => setBillingAddress(e.target.value)}
+                required
+              />
 
-          <label>Billing Address:</label>
-          <input
-            type="text"
-            name="billingAddress"
-            value={billingAddress}
-            onChange={(e) => setBillingAddress(e.target.value)}
-            required
-          />
+              <label>Shipping Address:</label>
+              <input
+                type="text"
+                name="shippingAddress"
+                value={shippingAddress}
+                onChange={(e) => setShippingAddress(e.target.value)}
+                required
+              />
 
-          <label>Shipping Address:</label>
-          <input
-            type="text"
-            name="shippingAddress"
-            value={shippingAddress}
-            onChange={(e) => setShippingAddress(e.target.value)}
-            required
-          />
-
-          <button type="submit">Edit</button>
-        </form>
-      )}
-    </div>
+              <button type="submit">Edit</button>
+            </form>
+          ))}
+      </div>
+    </IsCustomer>
   );
 }
