@@ -44,7 +44,7 @@ function PlantDetails() {
         }
       )
       .then((response) => {
-        console.log("Plant ordered!");
+        console.log("Plant orderedefefe! : ", response.data);
       })
       .catch((error) => {
         console.log(error);

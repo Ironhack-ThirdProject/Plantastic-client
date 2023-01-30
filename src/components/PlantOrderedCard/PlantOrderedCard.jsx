@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -6,6 +6,7 @@ import { currencyFormatter } from "../../utils";
 import axios from "axios";
 
 export function PlantOrderedCard({ props, getOrderDetails }) {
+  const orderId = useParams();
   const plantId = props._id
   const storedToken = localStorage.getItem("authToken");
   const config = {headers: { Authorization: `Bearer ${storedToken}`}}
@@ -13,7 +14,7 @@ export function PlantOrderedCard({ props, getOrderDetails }) {
   const handleDelete = (e) => {
     e.preventDefault();
     axios
-      .delete(`${process.env.REACT_APP_SERVER_URL}/order?id=${plantId}`, config )
+      .delete(`${process.env.REACT_APP_SERVER_URL}/order/${orderId}?id=${plantId}`, config )
       .then((response) => {
         getOrderDetails()
       })

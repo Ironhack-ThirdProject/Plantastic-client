@@ -13,11 +13,11 @@ import IsAnon from "./components/IsAnon/IsAnon";
 import { PlantList } from "./pages/PlantsList/PlantList";
 import PlantDetails from "./components/PlantDetails/PlantDetails";
 import OrderPage from "./pages/OrderPage/OrderPage";
-import PlantsEditPage from "./components/PlantEdit/PlantEdit";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import Checkout from "./pages/Checkout/Checkout";
+import CartPage from "./pages/CartPage/CartPage";
 
 function App() {
   return (
@@ -29,10 +29,22 @@ function App() {
         <Route path="/plants" element={<PlantList />} />
         <Route path="/plants/:plantId" element={<PlantDetails />} />
         <Route
+          path="/cart"
+          element={
+            <IsPrivate>
+              <IsCustomer>
+                <CartPage />
+              </IsCustomer>
+            </IsPrivate>
+          }
+        />
+        <Route
           path="/order"
           element={
             <IsPrivate>
-              <OrderPage />
+              <IsCustomer>
+                <OrderPage />
+              </IsCustomer>
             </IsPrivate>
           }
         />
@@ -60,7 +72,9 @@ function App() {
           path="/profile"
           element={
             <IsPrivate>
-              <ProfilePage />
+              <IsCustomer>
+                <ProfilePage />
+              </IsCustomer>
             </IsPrivate>
           }
         />
