@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 import { EditOrder } from "../../components/EditOrder/EditOrder";
+import IsCustomer from "../../components/IsCustomer/IsCustomer";
 
 function Checkout() {
   const { orderId } = useParams();
@@ -49,6 +50,7 @@ function Checkout() {
   }, [plants]);
 
   return (
+    <IsCustomer>
     <div>
       <h1>This is checkout</h1>
       <Container>
@@ -72,6 +74,7 @@ function Checkout() {
 
       <EditOrder order={order} getOrderDetails={getOrderDetails} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted}/>
     </div>
+    </IsCustomer>
   );
 }
 
