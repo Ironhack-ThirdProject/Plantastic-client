@@ -10,13 +10,14 @@ import axios from "axios";
 export function PlantCard(props) {
   const plantId = props._id
   const storedToken = localStorage.getItem("authToken");
+  const quantity = 1;
   
   const handleOrder = (e) => {
     e.preventDefault();
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/order`,
-        { plantId },
+        { plantId, quantity },
         {
           headers: { Authorization: `Bearer ${storedToken}` },
         }

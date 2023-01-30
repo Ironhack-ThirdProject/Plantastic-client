@@ -29,7 +29,7 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("LATEST ORDER!!!=====", response.data);
+        console.log("LATEST ORDER!!!=====", response);
         setOrder(response.data);
         setPlants(response.data.products);
       })

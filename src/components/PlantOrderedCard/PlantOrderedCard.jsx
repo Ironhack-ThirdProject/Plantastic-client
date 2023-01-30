@@ -33,7 +33,7 @@ export function PlantOrderedCard({ props, getOrderDetails }) {
             <ListGroup.Item>
               Price: {currencyFormatter.format(props.price)}
             </ListGroup.Item>
-            <ListGroup.Item>Quantity: XXXXX</ListGroup.Item>
+            <ListGroup.Item>Quantity: x</ListGroup.Item>
           </ListGroup>
 
           <Link to={`/plants/${props._id}`}>
