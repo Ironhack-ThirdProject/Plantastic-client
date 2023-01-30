@@ -2,9 +2,11 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { AiFillShopping } from 'react-icons/ai'
+import { AiFillShopping } from "react-icons/ai";
+import { ShoppingCartContext } from "../../context/cart.context";
+import { useState } from "react";
 
-function Navbar() {
+function Navbar(props) {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
@@ -28,9 +30,9 @@ function Navbar() {
               <Link to="/cart">
                 <div>
                   <AiFillShopping />
-                  <span>0</span>
+                  <span>({props.cartItemNumber})</span>
                 </div>
-                </Link>
+              </Link>
             </>
           ) : (
             <Link to="/dashboard">

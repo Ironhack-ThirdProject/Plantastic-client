@@ -7,13 +7,14 @@ import IsCustomer from "../IsCustomer/IsCustomer";
 import axios from "axios";
 import { useState } from "react";
 import { useContext } from "react";
-import { CartContext } from "../../context/cart.context";
+import { ShoppingCartContext } from "../../context/cart.context";
 
 export function PlantCard(props) {
   const productId = props._id;
-  const [stock, setStock] = useState(props.stock);
+  const [stock, setStock] = useState(props.stock);;
   const storedToken = localStorage.getItem("authToken");
   const [quantity, setQuantity] = useState(1);
+  const [itemsInCard, setItemsInCart] = useState(0);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -27,8 +28,9 @@ export function PlantCard(props) {
       )
       .then((response) => {
         console.log("response from the API: ", response.data);
-        setQuantity(1);
-        setStock(response.data.productObject.stock);
+        setItemsInCart(quantity);;
+        setQuantity(1);;
+        setStock(response.data.productObject.stock);;
       })
       .catch((error) => {
         console.log(error);

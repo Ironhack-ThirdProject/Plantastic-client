@@ -4,6 +4,7 @@ import AddProduct from "../../components/AddProduct/AddProduct";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
 import { Col, Container, Row } from "react-bootstrap";
 import IsAdmin from "../../components/IsAdmin/isAdmin";
+import { ShoppingCartContext } from '../../context/cart.context';
 
 export function PlantList() {
   const [plants, setPlants] = useState([]);
@@ -40,6 +41,13 @@ export function PlantList() {
       <IsAdmin>
         <AddProduct refreshProjects={getAllPlants} />
       </IsAdmin>
+      <ShoppingCartContext.Consumer>
+    {({ itemCount, setItemCount }) => (
+      <div>
+        <p>Number of items in the shopping cart: {itemCount}</p>
+      </div>
+    )}
+  </ShoppingCartContext.Consumer>
       <form>
         <label>
           Search by Category:
