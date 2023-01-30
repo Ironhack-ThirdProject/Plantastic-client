@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import IsCustomer from "../../components/IsCustomer/IsCustomer";
-import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 
 function OrderPage() {
@@ -30,7 +29,6 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("LATEST ORDER!!!=====", response.data);
         setOrder(response.data);
         setPlants(response.data.products);
       })
@@ -57,26 +55,12 @@ function OrderPage() {
           <div>
             <Container>
               <Row>
-                {plants.map((plant) => {
-                  return (
-                    <Col>
-                      <PlantOrderedCard
-                        props={plant}
-                        getOrderDetails={getOrderDetails}
-                      />
-                    </Col>
-                  );
-                })}
               </Row>
             </Container>
 
             <div>
               <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
             </div>
-
-            <Link to={"/checkout"}>
-              <Button variant="primary">Checkout</Button>
-            </Link>
           </div>
         )}
       </div>

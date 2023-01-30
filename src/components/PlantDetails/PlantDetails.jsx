@@ -38,7 +38,7 @@ function PlantDetails() {
     axios
       .post(
         `${process.env.REACT_APP_SERVER_URL}/order`,
-        { plantId: plantId, quantity: 1 },
+        { plantId },
         {
           headers: { Authorization: `Bearer ${storedToken}` },
         }

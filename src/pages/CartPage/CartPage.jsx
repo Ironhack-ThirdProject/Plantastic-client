@@ -6,34 +6,40 @@ import { currencyFormatter } from "../../utils";
 
 function CartPage() {
   const [cart, setCart] = useState(null);
-  const [productId, setProductId] = useState("")
+  const [productId, setProductId] = useState("");
 
   const storedToken = localStorage.getItem("authToken");
-  const config = {headers: { Authorization: `Bearer ${storedToken}`}}
+  const config = { headers: { Authorization: `Bearer ${storedToken}` } };
 
   const handleDelete = (e) => {
     e.preventDefault();
 
     axios
-      .delete(`${process.env.REACT_APP_SERVER_URL}/cart?id=${productId}`, config )
+      .delete(
+        `${process.env.REACT_APP_SERVER_URL}/cart?id=${productId}`,
+        config
+      )
       .then((response) => {
-        console.log("this is the response: ", response)
+        getCartDetails();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  useEffect(() => {
+  function getCartDetails() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/cart`, config)
       .then((res) => {
-        console.log("this is the response", res.data);
         setCart(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  useEffect(() => {
+    getCartDetails();
   }, []);
 
   if (!cart || cart.products.length === 0) {
@@ -75,7 +81,11 @@ function CartPage() {
               </td>
               <td>
                 <form onSubmit={handleDelete}>
-                  <Button type="submit" variant="danger" onClick={() => setProductId(product.productId._id)}>
+                  <Button
+                    type="submit"
+                    variant="danger"
+                    onClick={() => setProductId(product.productId._id)}
+                  >
                     Remove
                   </Button>
                 </form>
@@ -84,9 +94,17 @@ function CartPage() {
           ))}
         </tbody>
       </table>
-      <p>
-        Total Price: <b>{currencyFormatter.format(cart.totalPrice)}</b>
-      </p>
+      <div>
+        <p>
+          Total Price: <b>{currencyFormatter.format(cart.totalPrice)}</b>
+        </p>
+      </div>
+
+      <div>
+        <Link to={"/checkout"}>
+          <Button variant="primary">Checkout</Button>
+        </Link>
+      </div>
     </div>
   );
 }
