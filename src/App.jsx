@@ -18,11 +18,18 @@ import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import Checkout from "./pages/Checkout/Checkout";
 import CartPage from "./pages/CartPage/CartPage";
+import { ShoppingCartContext } from "./context/cart.context";
+import { useContext } from "react";
 
 function App() {
+  const context = useContext(ShoppingCartContext);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar
+        cartItemNumber={context.cart.reduce((count, curItem) => {
+          return count + curItem.quantity;
+        }, 0)}
+      />
 
       <Routes>
         <Route path="/" element={<HomePage />} />

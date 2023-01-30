@@ -3,12 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-<<<<<<< HEAD
 import { Link, useParams } from "react-router-dom";
-=======
-import { Link } from "react-router-dom";
 import IsCustomer from "../../components/IsCustomer/IsCustomer";
->>>>>>> 3cb8650fe3d5041ef5f0e5716379c58c58eb9b71
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 
@@ -34,10 +30,7 @@ function OrderPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-<<<<<<< HEAD
-=======
         console.log("LATEST ORDER!!!=====", response.data);
->>>>>>> 3cb8650fe3d5041ef5f0e5716379c58c58eb9b71
         setOrder(response.data);
         setPlants(response.data.products);
       })
