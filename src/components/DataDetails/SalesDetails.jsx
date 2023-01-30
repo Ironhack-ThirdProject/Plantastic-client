@@ -42,7 +42,7 @@ export function SalesDetails({ orders }) {
       <h3>
         Average Order Value: {currencyFormatter.format(averageOrderValue)}
       </h3>
-      <h3>Average Products Ordered: {averageProductsOrdered}</h3>
+      <h3>Average Products Ordered: {averageProductsOrdered.toFixed(1)}</h3>
       <h2 class="p-3 mb-2 bg-secondary text-white">
         Total Revenue: {currencyFormatter.format(revenue)}
       </h2>

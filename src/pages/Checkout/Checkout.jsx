@@ -3,13 +3,14 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 import { EditOrder } from "../../components/EditOrder/EditOrder";
 import IsCustomer from "../../components/IsCustomer/IsCustomer";
 
 function Checkout() {
+  const { orderId } = useParams();
   const [order, setOrder] = useState({});
   const [plants, setPlants] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -27,7 +28,7 @@ function Checkout() {
 
   const getOrderDetails = () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/order`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/order/${orderId}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {

@@ -2,6 +2,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context";
+import { AiFillShopping } from 'react-icons/ai'
 
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
@@ -27,6 +28,12 @@ function Navbar() {
               <Link to="/profile">
                 <button>Profile</button>
               </Link>
+              <Link to="/cart">
+                <div>
+                  <AiFillShopping />
+                  <span>0</span>
+                </div>
+                </Link>
             </>
           ) : (
             <Link to="/dashboard">

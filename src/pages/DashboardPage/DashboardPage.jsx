@@ -14,7 +14,7 @@ function DashboardPage() {
 
   const getAllOrders = () => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/dashboard`, {
+      .get(`${process.env.REACT_APP_SERVER_URL}/order`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
