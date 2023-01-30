@@ -5,25 +5,41 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IsCustomer from "../IsCustomer/IsCustomer";
 
-export function EditOrder({
-  order,
-  getOrderDetails,
-  isSubmitted,
-  setIsSubmitted,
-}) {
-  const [firstName, setFirstName] = useState(order.firstName);
-  const [lastName, setLastName] = useState(order.lastName);
-  const [shippingAddress, setShippingAddress] = useState(order.shippingAddress);
-  const [billingAddress, setBillingAddress] = useState(order.billingAddress);
-  const [showForm, setShowForm] = useState(false);
+export function EditOrder({cart, getCartDetails}) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [billingAddress, setBillingAddress] = useState("");
+  const [showResult, setShowResult] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const [status, setStatus] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
+  const config = { headers: { Authorization: `Bearer ${storedToken}` } };
 
   const navigate = useNavigate();
 
-  const handleOrderDetails = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setShowResult(true);
     setIsSubmitted(true);
+
+  };
+
+  const handleEdit = () => {
+    setShowResult(false);
+    setIsSubmitted(false);
+  };
+
+  const handleConfirmClick = (e) => {
+    e.preventDefault();
+    setStatus(true)
+    setShowConfetti(true);
+    setTimeout(() => {
+      navigate("/profile");
+    }, 3000);
 
     const requestBody = {
       firstName,
@@ -33,129 +49,98 @@ export function EditOrder({
     };
 
     axios
-      .put(`${process.env.REACT_APP_SERVER_URL}/order`, requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
+      .post(`${process.env.REACT_APP_SERVER_URL}/order`, requestBody, config)
+      .then((res) => {
+        console.log("this is the cart for the front end: ", res.data)
       })
-      .then((response) => {
-        console.log("checking new details?", response.data);
-      })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+    // Create an order
   };
 
-  const handleConfirmClick = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
 
-    axios
-      .put(
-        `${process.env.REACT_APP_SERVER_URL}/order`,
-        { status: true },
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
-      .then((response) => {
-        // TODO display a message to thank the user for the order
-        navigate("/plants");
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    getOrderDetails();
-  }, [isSubmitted]);
+  if (!cart || cart.products.length === 0) {
+    return <h4>No products found.</h4>;
+  }
 
   return (
-    <IsCustomer>
+    <div>
+      {!isSubmitted && (
+        <form onSubmit={handleSubmit}>
+      <label>
+        First Name:
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Last Name:
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Shipping Address:
+        <input
+          type="text"
+          value={shippingAddress}
+          onChange={(e) => setShippingAddress(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <label>
+        Billing Address:
+        <input
+          type="text"
+          value={billingAddress}
+          onChange={(e) => setBillingAddress(e.target.value)}
+          required
+        />
+      </label>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
+      )}
+    
+    {showResult && (
+      <>
       <div>
-        {order.firstName ||
-        order.lastName ||
-        order.billingAddress ||
-        order.shippingAddress ? (
-          <div>
-            <div>
-              <h3>Your Details:</h3>
-              <p>
-                <b>First Name:</b> {order.firstName}
-              </p>
-              <p>
-                <b>Last Name:</b> {order.lastName}
-              </p>
-              <p>
-                <b>Billing Address:</b> {order.billingAddress}
-              </p>
-              <p>
-                <b>Shipping Address:</b> {order.shippingAddress}
-              </p>
-            </div>
-            <div>
-              <h3>Place an order:</h3>
-              <p>Order status: {order.status ? "Confirmed" : "Pending"}</p>
-            </div>
-
-            {!order.status && (
-              <div>
-                <br /> <br />
-                <Button onClick={handleConfirmClick}>Confirmation</Button>
-                <Button onClick={() => setShowForm(!showForm)}>
-                  {showForm ? "Edit Details" : "Hide Form"}
-                </Button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div>
-            <h3>Your Details:</h3>
-
-            <Button onClick={() => setShowForm(!showForm)}>
-              {showForm ? "Edit Details" : "Hide Form"}
-            </Button>
-          </div>
-        )}
-
-        {showForm ||
-          (!order.status && (
-            <form onSubmit={handleOrderDetails}>
-              <label>First Name:</label>
-              <input
-                type="text"
-                name="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-              />
-
-              <label>Last Name:</label>
-              <input
-                type="text"
-                name="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-              />
-
-              <label>Billing Address:</label>
-              <input
-                type="text"
-                name="billingAddress"
-                value={billingAddress}
-                onChange={(e) => setBillingAddress(e.target.value)}
-                required
-              />
-
-              <label>Shipping Address:</label>
-              <input
-                type="text"
-                name="shippingAddress"
-                value={shippingAddress}
-                onChange={(e) => setShippingAddress(e.target.value)}
-                required
-              />
-
-              <button type="submit">Edit</button>
-            </form>
-          ))}
+        <p>First Name: {firstName}</p>
+        <p>Last Name: {lastName}</p>
+        <p>Shipping Address: {shippingAddress}</p>
+        <p>Billing Address: {billingAddress}</p>
+        <button onClick={handleEdit}>Edit</button>
       </div>
-    </IsCustomer>
+
+      <div>
+      <h3>Place an order:</h3>
+       <p>Order status: {status ? "Confirmed" : "Pending"}</p>
+       {!status && (
+        <Button onClick={handleConfirmClick}>Confirmation</Button>
+       )}
+       
+       {showConfetti && (
+        <div>
+          <p>Thank you for your purchase!</p>
+          <div>🎉🎉🎉</div>
+          <button onClick={() => setShowConfetti(false)}>Close</button>
+        </div>
+      )}
+      </div>
+      </>
+    )}
+  </div>
   );
 }

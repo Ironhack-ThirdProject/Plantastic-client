@@ -4,50 +4,38 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { PlantOrderedCard } from "../../components/PlantOrderedCard/PlantOrderedCard";
 import { currencyFormatter } from "../../utils";
 import { EditOrder } from "../../components/EditOrder/EditOrder";
 import IsCustomer from "../../components/IsCustomer/IsCustomer";
 
 function Checkout() {
-  const { orderId } = useParams();
-  const [order, setOrder] = useState({});
-  const [plants, setPlants] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [cart, setCart] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const storedToken = localStorage.getItem("authToken");
+  const config = { headers: { Authorization: `Bearer ${storedToken}` } };
 
-  const calculateTotalPrice = () => {
-    let total = 0;
-    plants.forEach((plant) => {
-      total += plant.price;
-    });
-    setTotalPrice(total);
-  };
 
-  const getOrderDetails = () => {
+  function getCartDetails() {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/order/${orderId}`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
+      .get(`${process.env.REACT_APP_SERVER_URL}/cart`, config)
+      .then((res) => {
+        console.log("this is the cart: ", res.data)
+        setCart(res.data);
       })
-      .then((response) => {
-        setOrder(response.data);
-        // console.log("ordeerrrr", response.data)
-        setPlants(response.data.products);
-        setIsSubmitted(false)
-      })
-      .catch((error) => console.log(error));
-  };
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
-    getOrderDetails();
-  }, [isSubmitted]);
+    getCartDetails();
+  }, []);
 
-  
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [plants]);
+  if (!cart || cart.products.length === 0) {
+    return <h4>No products found.</h4>;
+  }
+
 
   return (
     <IsCustomer>
@@ -55,24 +43,15 @@ function Checkout() {
       <h1>This is checkout</h1>
       <Container>
         <Row>
-          {plants.map((plant) => {
-            return (
-              <Col>
-                <PlantOrderedCard
-                  props={plant}
-                  
-                />
-              </Col>
-            );
-          })}
+          <p>Products go here</p>
         </Row>
       </Container>
 
       <div>
-        <h2>Total price: {currencyFormatter.format(totalPrice)}</h2>
+        <h2>Total price: {currencyFormatter.format(cart.totalPrice)}</h2>
       </div>
 
-      <EditOrder order={order} getOrderDetails={getOrderDetails} isSubmitted={isSubmitted} setIsSubmitted={setIsSubmitted}/>
+      <EditOrder cart={cart} getCartDetails={getCartDetails}/>
     </div>
     </IsCustomer>
   );
