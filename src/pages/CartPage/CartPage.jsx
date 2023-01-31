@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import UpdateQuantity from "../../components/UpdateQuantity/UpdateQuantity";
 import { currencyFormatter } from "../../utils";
 
 function CartPage() {
@@ -31,12 +32,31 @@ function CartPage() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/cart`, config)
       .then((res) => {
+        console.log("here is the cart: ", res.data);
         setCart(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  function onUpdateQuantity(idOfTheProduct, newQuantity){
+    axios
+    .put(
+      `${process.env.REACT_APP_SERVER_URL}/cart`,
+      { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
+      {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      }
+    )
+    .then((response) => {
+      getCartDetails()
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  };
 
   useEffect(() => {
     getCartDetails();
@@ -55,7 +75,9 @@ function CartPage() {
             <th>Image</th>
             <th>Product Name</th>
             <th>Price</th>
+            <th>Current Stock</th>
             <th>Quantity</th>
+            <th className="text-success">UPDATE QUANTITY</th>
             <th>Total</th>
             <th>More Details</th>
             <th>Remove</th>
@@ -68,7 +90,17 @@ function CartPage() {
               <td>Image</td>
               <td>{product.productId.name}</td>
               <td>{currencyFormatter.format(product.productId.price)}</td>
+              {product.productId.stock ? (<td>{product.productId.stock}</td>) : (<td><h5>Out of stock.</h5></td>)}
+              
               <td>{product.quantity}</td>
+              <td>
+                  <UpdateQuantity
+                  productId={product.productId}
+                  quantity={product.quantity}
+                  onUpdateQuantity={onUpdateQuantity}
+                />
+                
+              </td>
               <td>
                 {currencyFormatter.format(
                   product.productId.price * product.quantity

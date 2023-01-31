@@ -23,11 +23,10 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<PlantList />} />
-        <Route path="/plants/:plantId" element={<PlantDetails />} />
+        <Route path="/plants/:productId" element={<PlantDetails />} />
         <Route
           path="/cart"
           element={
