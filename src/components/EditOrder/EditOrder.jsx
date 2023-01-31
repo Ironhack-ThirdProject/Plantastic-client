@@ -191,7 +191,7 @@ export function EditOrder({ cart, getCartDetails }) {
             <p>Order status: {status ? "Confirmed" : "Pending"}</p>
 
             <form onSubmit={handlePayment}>
-              <button style={{color: "blue", backgroundColor: "yellow"}}type="submit">Checkout</button>
+              <Button variant="warning" type="submit">Checkout</Button>
             </form>
 
             {/* {!status && (
