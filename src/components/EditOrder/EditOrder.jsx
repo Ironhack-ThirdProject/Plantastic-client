@@ -32,10 +32,10 @@ export function EditOrder({ cart, getCartDetails }) {
   };
 
   const source = {
-    position: 'absolute',
-    right: '50%',
-    left: '50%',
-    bottom: 500
+    position: "absolute",
+    right: "50%",
+    left: "50%",
+    bottom: 500,
   };
 
   const handleSubmit = (e) => {
@@ -47,6 +47,23 @@ export function EditOrder({ cart, getCartDetails }) {
   const handleEdit = () => {
     setShowResult(false);
     setIsSubmitted(false);
+  };
+
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+
+    const requestBody = {
+      firstName
+    }
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/send-email`, requestBody, config)
+      .then((res) => {
+        console.log("Email response: ", res);
+      })
+      .catch((err) => {
+        console.log("Error sending email: ", err);
+      });
   };
 
   const handleConfirmClick = (e) => {
@@ -136,6 +153,10 @@ export function EditOrder({ cart, getCartDetails }) {
             <button onClick={handleEdit}>Edit</button>
           </div>
 
+          <form onSubmit={handleSendEmail}>
+        <button type="submit">Click me!</button>
+      </form>
+
           <div>
             <h3>Place an order:</h3>
             <p>Order status: {status ? "Confirmed" : "Pending"}</p>
@@ -147,7 +168,7 @@ export function EditOrder({ cart, getCartDetails }) {
               <div>
                 <p>Thank you for your purchase! 🎉🎉🎉</p>
                 <div style={source}>
-                <ConfettiExplosion {...explosion}/>
+                  <ConfettiExplosion {...explosion} />
                 </div>
                 <button onClick={() => setShowConfetti(false)}>Close</button>
               </div>
