@@ -53,11 +53,15 @@ export function EditOrder({ cart, getCartDetails }) {
     e.preventDefault();
 
     const requestBody = {
-      firstName
-    }
+      firstName,
+    };
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/send-email`, requestBody, config)
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/send-email`,
+        requestBody,
+        config
+      )
       .then((res) => {
         console.log("Email response: ", res);
       })
@@ -91,6 +95,25 @@ export function EditOrder({ cart, getCartDetails }) {
       });
   };
 
+  const handlePayment = (e) => {
+    e.preventDefault();
+
+    const requestBody = { cart }
+
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/create-checkout-session`,
+        requestBody,
+        config
+      )
+      .then((res) => {
+        window.location = res.data.newUrl
+      })
+      .catch((err) => {
+        console.log("Error sending payment: ", err);
+      });
+  }
+
   if (!cart || cart.products.length === 0) {
     return <h4>No products found.</h4>;
   }
@@ -98,54 +121,58 @@ export function EditOrder({ cart, getCartDetails }) {
   return (
     <div>
       {!isSubmitted && (
-        <form onSubmit={handleSubmit}>
-          <label>
-            First Name:
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Last Name:
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Shipping Address:
-            <input
-              type="text"
-              value={shippingAddress}
-              onChange={(e) => setShippingAddress(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            Billing Address:
-            <input
-              type="text"
-              value={billingAddress}
-              onChange={(e) => setBillingAddress(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
+        <div>
+          <h3>Your Details:</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              First Name:
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Last Name:
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Shipping Address:
+              <input
+                type="text"
+                value={shippingAddress}
+                onChange={(e) => setShippingAddress(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Billing Address:
+              <input
+                type="text"
+                value={billingAddress}
+                onChange={(e) => setBillingAddress(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       )}
 
       {showResult && (
         <>
           <div>
+            <h3>Your Details:</h3>
             <p>First Name: {firstName}</p>
             <p>Last Name: {lastName}</p>
             <p>Shipping Address: {shippingAddress}</p>
@@ -154,15 +181,22 @@ export function EditOrder({ cart, getCartDetails }) {
           </div>
 
           <form onSubmit={handleSendEmail}>
-        <button type="submit">Click me!</button>
-      </form>
+            <Button variant="success" type="submit">
+              Click me!
+            </Button>
+          </form>
 
           <div>
             <h3>Place an order:</h3>
             <p>Order status: {status ? "Confirmed" : "Pending"}</p>
-            {!status && (
+
+            <form onSubmit={handlePayment}>
+              <button style={{color: "blue", backgroundColor: "yellow"}}type="submit">Checkout</button>
+            </form>
+
+            {/* {!status && (
               <Button onClick={handleConfirmClick}>Confirmation</Button>
-            )}
+            )} */}
 
             {showConfetti && (
               <div>
