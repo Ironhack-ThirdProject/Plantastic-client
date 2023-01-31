@@ -7,6 +7,7 @@ import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
+import AddReview from "../AddReview/AddReview";
 
 function PlantDetails() {
   const { productId } = useParams();
@@ -180,6 +181,7 @@ function PlantDetails() {
                 </Button>
               </form>
             </IsAdmin>
+            <AddReview props={productId}/>
           </div>
         </div>
       )}
