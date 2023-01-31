@@ -45,3 +45,7 @@ function FormComponent() {
         </form>
     );
 }
+
+Cactus	€12	1	€12		
+Image	Roses	€50	3	€150		
+Image	Monstera	€20	1	€20		
