@@ -59,7 +59,7 @@ function ProfilePage() {
       ) : (
         <div>You have not ordered anything yet</div>
       )}
-      {reviews ? (
+      {!reviews ? (
         <div>
           {reviews.map((reviewData) => (
             <ReviewHistory

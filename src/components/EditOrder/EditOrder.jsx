@@ -96,7 +96,13 @@ export function EditOrder({ cart, getCartDetails }) {
   const handlePayment = (e) => {
     e.preventDefault();
 
-    const requestBody = { cart }
+    const requestBody = {
+      cart,
+      firstName,
+      lastName,
+      shippingAddress,
+      billingAddress,
+    };
 
     axios
       .post(
