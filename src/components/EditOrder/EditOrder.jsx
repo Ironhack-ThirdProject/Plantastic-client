@@ -102,7 +102,7 @@ export function EditOrder({ cart, getCartDetails }) {
 
     axios
       .post(
-        `${process.env.REACT_APP_SERVER_URL}/create-checkout-session`,
+        `${process.env.REACT_APP_SERVER_URL}/checkout`,
         requestBody,
         config
       )
