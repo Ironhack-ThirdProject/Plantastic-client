@@ -6,7 +6,7 @@ function AddProduct(props) {
   const [description, setDescription] = useState("");
   const [newTip, setNewTip] = useState("");
   const [caringTips, setCaringTips] = useState([]);
-  const [imageURL, setImageURL] = useState("");
+  const [imageURL, setImageURL] = useState("https://cdn-icons-png.flaticon.com/512/628/628283.png");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("Indoor Plants");
@@ -81,7 +81,8 @@ function AddProduct(props) {
 
     uploadImage(uploadData)
       .then((response) => {
-        console.log("response is === ", response);
+        console.log("This is the image url");
+        console.log("response is === ", response.imageURL);
         setImageURL(response.imageURL);
       })
       .catch((error) => {
