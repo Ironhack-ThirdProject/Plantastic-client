@@ -17,7 +17,7 @@ function ProfilePage() {
     if (user) {
       //fetch reviews
       axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/reviews/${user._id}`, {
+        .get(`${process.env.REACT_APP_SERVER_URL}/reviews/user/${user._id}`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {

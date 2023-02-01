@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import IsCreator from "../IsCreator/IsCreator";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const [rating, setRating] = useState(eachReview.rating);
@@ -67,7 +68,9 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
             <p>Rating: {eachReview.rating}</p>
             <p>Text: {eachReview.text}</p>
           </div>
+          <IsCreator review={eachReview}>
           <button onClick={handleEdit}>Edit</button>
+          </IsCreator>
         </>
       )}
       {!isSubmitted && (
@@ -93,10 +96,11 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
             <br />
             <button type="submit">Submit</button>
           </form>
-
+          <IsCreator review={eachReview}>
           <Button onClick={() => {handleDelete()}} variant="danger">
             Delete
           </Button>
+          </IsCreator>
         </>
       )}
     </>

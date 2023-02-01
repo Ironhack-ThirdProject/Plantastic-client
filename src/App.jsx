@@ -12,7 +12,6 @@ import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import { PlantList } from "./pages/PlantsList/PlantList";
 import PlantDetails from "./components/PlantDetails/PlantDetails";
-import OrderPage from "./pages/OrderPage/OrderPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
@@ -33,16 +32,6 @@ function App() {
             <IsPrivate>
               <IsCustomer>
                 <CartPage />
-              </IsCustomer>
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="/order"
-          element={
-            <IsPrivate>
-              <IsCustomer>
-                <OrderPage />
               </IsCustomer>
             </IsPrivate>
           }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
@@ -38,8 +38,9 @@ function PlantDetails() {
 
   const storedToken = localStorage.getItem("authToken");
 
+  const getReviews = () => {
   axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/reviews/${productId}`, {
+    .get(`${process.env.REACT_APP_SERVER_URL}/reviews/product/${productId}`, {
       headers: { Authorization: `Bearer ${storedToken}` },
     })
     .then((response) => {
@@ -49,6 +50,7 @@ function PlantDetails() {
       console.log(reviews);
     })
     .catch((error) => console.log(error));
+  }
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -92,6 +94,7 @@ function PlantDetails() {
       )
       .then((response) => {
         setPlant(response.data);
+        getReviews();
       })
       .catch((error) => console.log(error));
   };
@@ -120,6 +123,11 @@ function PlantDetails() {
     getPlantDetails();
   }, []);
 
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+
   const navigate = useNavigate();
 
   return (
@@ -132,7 +140,7 @@ function PlantDetails() {
             </Button>
           </div>
           <div key={plant._id}>
-            <img src={plant.imageURL} />
+            <img src={plant.imageURL} alt="product"/>
             <h1>{plant.name}</h1>
             <p>{plant.description}</p>
 
@@ -193,12 +201,12 @@ function PlantDetails() {
                 </Button>
               </form>
             </IsAdmin>
-            <AddReview props={productId} />
+            <AddReview props={productId}/>
           </div>
           {reviews ? (
             <div>
               {reviews.map((eachReview) => (
-                <ReviewHistory eachReview={eachReview}></ReviewHistory>
+                <ReviewHistory eachReview={eachReview} callbackToGetReviews={getReviews}></ReviewHistory>
               ))}
             </div>
           ) : (

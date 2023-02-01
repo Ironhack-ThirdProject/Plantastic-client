@@ -5,8 +5,7 @@ function AddReview({ props }) {
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
 
     const requestBody = {
       props,
@@ -26,7 +25,7 @@ function AddReview({ props }) {
         // Reset the state
         setRating(5);
         setText("");
-        //props.refreshProjects();
+        //callbackToGetReviews();
       })
       .catch((error) => console.log(error));
   };

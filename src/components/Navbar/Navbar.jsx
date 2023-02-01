@@ -22,9 +22,6 @@ function Navbar() {
           </Link>
           {!isAdmin ? (
             <>
-              <Link to="/order">
-                <button>My Order</button>
-              </Link>
               <Link to="/profile">
                 <button>Profile</button>
               </Link>
