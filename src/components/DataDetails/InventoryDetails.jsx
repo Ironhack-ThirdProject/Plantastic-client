@@ -37,9 +37,6 @@ export function InventoryDetails({ products }) {
           </li>
         ))}
       </ul>
-      <h3 class="text-danger">Top selling products: </h3>
-      <h3 class="text-danger">Best performing categories: </h3>
-      <h3 class="text-danger">Product reviews: </h3>
     </div>
   );
 }
