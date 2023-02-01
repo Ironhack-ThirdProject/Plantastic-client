@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import IsCreator from "../IsCreator/IsCreator";
+import IsCustomer from "../IsCustomer/IsCustomer";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const [rating, setRating] = useState(eachReview.rating);
@@ -42,23 +43,19 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
     setIsSubmitted(false);
   };
 
-    const handleDelete = () => {
-
-      const storedToken = localStorage.getItem("authToken");
-      axios
-        .delete(
-          `${process.env.REACT_APP_SERVER_URL}/reviews/${reviewId}`,
-          {
-            headers: { Authorization: `Bearer ${storedToken}` },
-          }
-        )
-        .then(() => {
-          callbackToGetReviews();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+  const handleDelete = () => {
+    const storedToken = localStorage.getItem("authToken");
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_URL}/reviews/${reviewId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        callbackToGetReviews();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -68,9 +65,11 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
             <p>Rating: {eachReview.rating}</p>
             <p>Text: {eachReview.text}</p>
           </div>
-          <IsCreator review={eachReview}>
-          <button onClick={handleEdit}>Edit</button>
-          </IsCreator>
+          <IsCustomer>
+            <IsCreator review={eachReview}>
+              <button onClick={handleEdit}>Edit</button>
+            </IsCreator>
+          </IsCustomer>
         </>
       )}
       {!isSubmitted && (
@@ -96,11 +95,18 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
             <br />
             <button type="submit">Submit</button>
           </form>
-          <IsCreator review={eachReview}>
-          <Button onClick={() => {handleDelete()}} variant="danger">
-            Delete
-          </Button>
-          </IsCreator>
+          <IsCustomer>
+            <IsCreator review={eachReview}>
+              <Button
+                onClick={() => {
+                  handleDelete();
+                }}
+                variant="danger"
+              >
+                Delete
+              </Button>
+            </IsCreator>
+          </IsCustomer>
         </>
       )}
     </>

@@ -39,18 +39,18 @@ function PlantDetails() {
   const storedToken = localStorage.getItem("authToken");
 
   const getReviews = () => {
-  axios
-    .get(`${process.env.REACT_APP_SERVER_URL}/reviews/product/${productId}`, {
-      headers: { Authorization: `Bearer ${storedToken}` },
-    })
-    .then((response) => {
-      console.log("--- This is the response from /reviews/userId");
-      console.log(response.data);
-      setReviews(response.data);
-      console.log(reviews);
-    })
-    .catch((error) => console.log(error));
-  }
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/reviews/product/${productId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        console.log("--- This is the response from /reviews/userId");
+        console.log(response.data);
+        setReviews(response.data);
+        console.log(reviews);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -126,7 +126,6 @@ function PlantDetails() {
     getReviews();
   }, []);
 
-
   const navigate = useNavigate();
 
   return (
@@ -139,7 +138,7 @@ function PlantDetails() {
             </Button>
           </div>
           <div key={plant._id}>
-            <img src={plant.imageURL} alt="product"/>
+            <img src={plant.imageURL} alt="product" />
             <h1>{plant.name}</h1>
             <p>{plant.description}</p>
 
@@ -200,12 +199,17 @@ function PlantDetails() {
                 </Button>
               </form>
             </IsAdmin>
-            <AddReview props={productId}/>
+            <IsCustomer>
+              <AddReview props={productId} />
+            </IsCustomer>
           </div>
           {reviews ? (
             <div>
               {reviews.map((eachReview) => (
-                <ReviewHistory eachReview={eachReview} callbackToGetReviews={getReviews}></ReviewHistory>
+                <ReviewHistory
+                  eachReview={eachReview}
+                  callbackToGetReviews={getReviews}
+                ></ReviewHistory>
               ))}
             </div>
           ) : (
