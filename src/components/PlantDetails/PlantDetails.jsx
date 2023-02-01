@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
+import AddReview from "../AddReview/AddReview";
+import ReviewHistory from "../ReviewHistory/ReviewHistory";
 
 function PlantDetails() {
   const { productId } = useParams();
@@ -20,6 +22,7 @@ function PlantDetails() {
   const [category, setCategory] = useState("");
   const [tag, setTag] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -28,12 +31,26 @@ function PlantDetails() {
       .get(`${process.env.REACT_APP_SERVER_URL}/plants/${productId}`)
       .then((response) => {
         setPlant(response.data);
-        setStock(response.data.stock)
+        setStock(response.data.stock);
       })
       .catch((error) => console.log(error));
   };
 
   const storedToken = localStorage.getItem("authToken");
+
+  const getReviews = () => {
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/reviews/product/${productId}`, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    })
+    .then((response) => {
+      console.log("--- This is the response from /reviews/userId");
+      console.log(response.data);
+      setReviews(response.data);
+      console.log(reviews);
+    })
+    .catch((error) => console.log(error));
+  }
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -77,6 +94,7 @@ function PlantDetails() {
       )
       .then((response) => {
         setPlant(response.data);
+        getReviews();
       })
       .catch((error) => console.log(error));
   };
@@ -105,6 +123,11 @@ function PlantDetails() {
     getPlantDetails();
   }, []);
 
+  useEffect(() => {
+    getReviews();
+  }, []);
+
+
   const navigate = useNavigate();
 
   return (
@@ -117,7 +140,7 @@ function PlantDetails() {
             </Button>
           </div>
           <div key={plant._id}>
-            <img src={plant.imageURL} />
+            <img src={plant.imageURL} alt="product"/>
             <h1>{plant.name}</h1>
             <p>{plant.description}</p>
 
@@ -131,13 +154,12 @@ function PlantDetails() {
 
             <p>Price: {currencyFormatter.format(plant.price)}</p>
 
-
-              {stock ? (
-                <>
-                  <p>
-                    <b>Currently in stock: {stock}</b>
-                  </p>
-                  <IsCustomer>
+            {stock ? (
+              <>
+                <p>
+                  <b>Currently in stock: {stock}</b>
+                </p>
+                <IsCustomer>
                   <form onSubmit={handleAddToCart}>
                     <label>Quantity:</label>
                     <input
@@ -153,14 +175,13 @@ function PlantDetails() {
                       Add to cart
                     </Button>
                   </form>
-                  </IsCustomer>
-                </>
-              ) : (
-                <div>
-                  <h4 class="text-danger">Out of stock.</h4>
-                </div>
-              )}
-            
+                </IsCustomer>
+              </>
+            ) : (
+              <div>
+                <h4 class="text-danger">Out of stock.</h4>
+              </div>
+            )}
 
             <IsAdmin>
               {showForm && (
@@ -180,7 +201,17 @@ function PlantDetails() {
                 </Button>
               </form>
             </IsAdmin>
+            <AddReview props={productId}/>
           </div>
+          {reviews ? (
+            <div>
+              {reviews.map((eachReview) => (
+                <ReviewHistory eachReview={eachReview} callbackToGetReviews={getReviews}></ReviewHistory>
+              ))}
+            </div>
+          ) : (
+            <div>This plant does not have any reviews yet</div>
+          )}
         </div>
       )}
     </div>

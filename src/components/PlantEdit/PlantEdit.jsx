@@ -1,7 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 function PlantEdit({ plantData, getPlantDetails }) {
   console.log(plantData);
@@ -14,8 +12,6 @@ function PlantEdit({ plantData, getPlantDetails }) {
   const [stock, setStock] = useState(plantData.stock);
   const [category, setCategory] = useState(plantData.category);
   const [tag, setTag] = useState(plantData.tag);
-
-  const { plantsId } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,7 +85,7 @@ function PlantEdit({ plantData, getPlantDetails }) {
   };
 
   return (
-    <div className="AddProduct">
+    <div className="EditProduct">
       <div>
         <h3>Edit product</h3>
         <form onSubmit={handleSubmit}>
