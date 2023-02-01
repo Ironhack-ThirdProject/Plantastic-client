@@ -1,8 +1,8 @@
 import { currencyFormatter } from "../../utils";
 import { useState } from "react";
 
-function OrderHistory({eachOrder}) {
-    console.log(eachOrder);
+function OrderHistory({ eachOrder }) {
+  console.log(eachOrder);
   const [showProductsInOrder, setShowProductsInOrder] = useState(false);
   const handleAllProductsInOrderClick = () => {
     setShowProductsInOrder(!showProductsInOrder);
@@ -15,14 +15,12 @@ function OrderHistory({eachOrder}) {
         {showProductsInOrder ? "Hide" : "Show All Purchased Plants"}
       </button>
       {showProductsInOrder && (
-        <div>
+        <div key={eachOrder._id}>
           {eachOrder.products.map((oneProduct) => (
-            <div>
-              <p key={oneProduct.productId._id}>
-                Name: {oneProduct.productId.name} Price:{" "}
-                {currencyFormatter.format(oneProduct.productId.price)} X{" "}
-                {oneProduct.quantity}
-              </p>
+            <div key={oneProduct.productId._id}>
+              Name: {oneProduct.productId.name} Price:{" "}
+              {currencyFormatter.format(oneProduct.productId.price)} X{" "}
+              {oneProduct.quantity}
             </div>
           ))}
         </div>

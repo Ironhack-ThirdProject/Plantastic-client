@@ -8,6 +8,7 @@ import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
+import ReviewHistory from "../ReviewHistory/ReviewHistory";
 
 function PlantDetails() {
   const { productId } = useParams();
@@ -21,6 +22,7 @@ function PlantDetails() {
   const [category, setCategory] = useState("");
   const [tag, setTag] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -29,12 +31,24 @@ function PlantDetails() {
       .get(`${process.env.REACT_APP_SERVER_URL}/plants/${productId}`)
       .then((response) => {
         setPlant(response.data);
-        setStock(response.data.stock)
+        setStock(response.data.stock);
       })
       .catch((error) => console.log(error));
   };
 
   const storedToken = localStorage.getItem("authToken");
+
+  axios
+    .get(`${process.env.REACT_APP_SERVER_URL}/reviews/${productId}`, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    })
+    .then((response) => {
+      console.log("--- This is the response from /reviews/userId");
+      console.log(response.data);
+      setReviews(response.data);
+      console.log(reviews);
+    })
+    .catch((error) => console.log(error));
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -132,13 +146,12 @@ function PlantDetails() {
 
             <p>Price: {currencyFormatter.format(plant.price)}</p>
 
-
-              {stock ? (
-                <>
-                  <p>
-                    <b>Currently in stock: {stock}</b>
-                  </p>
-                  <IsCustomer>
+            {stock ? (
+              <>
+                <p>
+                  <b>Currently in stock: {stock}</b>
+                </p>
+                <IsCustomer>
                   <form onSubmit={handleAddToCart}>
                     <label>Quantity:</label>
                     <input
@@ -154,14 +167,13 @@ function PlantDetails() {
                       Add to cart
                     </Button>
                   </form>
-                  </IsCustomer>
-                </>
-              ) : (
-                <div>
-                  <h4 class="text-danger">Out of stock.</h4>
-                </div>
-              )}
-            
+                </IsCustomer>
+              </>
+            ) : (
+              <div>
+                <h4 class="text-danger">Out of stock.</h4>
+              </div>
+            )}
 
             <IsAdmin>
               {showForm && (
@@ -181,8 +193,17 @@ function PlantDetails() {
                 </Button>
               </form>
             </IsAdmin>
-            <AddReview props={productId}/>
+            <AddReview props={productId} />
           </div>
+          {reviews ? (
+            <div>
+              {reviews.map((eachReview) => (
+                <ReviewHistory eachReview={eachReview}></ReviewHistory>
+              ))}
+            </div>
+          ) : (
+            <div>This plant does not have any reviews yet</div>
+          )}
         </div>
       )}
     </div>

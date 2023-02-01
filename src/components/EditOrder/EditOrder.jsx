@@ -1,9 +1,7 @@
 import axios from "axios";
 import Button from "react-bootstrap/esm/Button";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import IsCustomer from "../IsCustomer/IsCustomer";
 import ConfettiExplosion from "react-confetti-explosion";
 
 export function EditOrder({ cart, getCartDetails }) {

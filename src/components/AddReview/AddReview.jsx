@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function AddReview({props}) {
+function AddReview({ props }) {
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("");
 
@@ -11,7 +11,7 @@ function AddReview({props}) {
     const requestBody = {
       props,
       rating,
-      text
+      text,
     };
 
     // Get the token from the localStorage
@@ -55,6 +55,7 @@ function AddReview({props}) {
         />
 
         <button type="submit">Submit</button>
+        
       </form>
     </div>
   );
