@@ -57,7 +57,6 @@ function PlantDetails() {
     axios
       .delete(
         `${process.env.REACT_APP_SERVER_URL}/plants/${productId}`,
-        { productId },
         {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
