@@ -1,0 +1,23 @@
+@media (min-width: 1025px) {
+  .h-custom-2 {
+    height: 50%;
+  }
+}
+.form-div {
+  width: 100%;
+  height: 40%;
+}
+.login-button {
+  background-color: #435B38;
+  color: #d6fbd6;
+  margin-bottom: 6vh;
+}
+.login-button:hover {
+    color: #435B38;
+    background-color: #d6fbd6;
+  }
+.login-title {
+    font-size: 2.5rem;
+    color:#435B38;
+    margin-bottom: 6vh;
+}

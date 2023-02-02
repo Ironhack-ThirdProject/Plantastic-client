@@ -41,7 +41,7 @@ function Navbar() {
             aria-label="Toggle navigation"
             onClick={() => setShowNavRight(!showNavRight)}
           >
-            <MDBIcon icon="bars" fas />
+            <MDBIcon icon="bars" fas className="icon-color"/>
           </MDBNavbarToggler>
           <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
             <MDBNavbarBrand href="/">
@@ -60,7 +60,7 @@ function Navbar() {
                   All Plants
                 </MDBNavbarLink>
               </MDBNavbarItem>
-              {isLoggedIn && (
+              {isLoggedIn && !isAdmin && (
                 <>
                   <MDBNavbarItem>
                     <MDBNavbarLink
@@ -107,17 +107,19 @@ function Navbar() {
               )}
             </MDBNavbarNav>
           </MDBCollapse>
-          <MDBNavbarLink href="/cart">
-            <MDBBadge pill color="#D6FBD6">
-              {cartCount}
-            </MDBBadge>
-            <MDBIcon
-              size="lg"
-              fas
-              icon="shopping-cart"
-              className="icon-color"
-            ></MDBIcon>
-          </MDBNavbarLink>
+          {isLoggedIn && !isAdmin && (
+              <MDBNavbarLink href="/cart">
+                <MDBBadge pill color="#D6FBD6">
+                  {cartCount}
+                </MDBBadge>
+                <MDBIcon
+                  size="lg"
+                  fas
+                  icon="shopping-cart"
+                  className="icon-color"
+                ></MDBIcon>
+              </MDBNavbarLink>
+          )}
         </MDBContainer>
       </MDBNavbar>
     </CartCountProviderWrapper>

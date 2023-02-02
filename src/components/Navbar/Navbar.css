@@ -16,6 +16,10 @@
     background-color: #D6FBD6;
     color: #469924;
 }
+.link:hover {
+    color: #435B38;
+    background-color: #d6fbd6;
+}
 .icon-color {
     color: #D6FBD6;
 }
@@ -24,7 +28,6 @@
     width: 2vw;
 }
 .link {
-    text-decoration-color: #D6FBD6;
     color: #D6FBD6;
 }
 .cart {

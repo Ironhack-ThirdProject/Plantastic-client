@@ -1,8 +1,20 @@
 import "./LoginPage.css";
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
+import { Button } from "react-bootstrap";
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBInput,
+} from "mdb-react-ui-kit";
+import logo from "../../logo.png";
+import name from "../../image-name.png";
+import loginImage from "../../login-img.jpg";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -45,28 +57,75 @@ function LoginPage() {
   };
 
   return (
-    <div className="LoginPage">
-      <h1>Login</h1>
+    <>
+      <MDBContainer fluid>
+        <MDBRow>
+          <MDBCol sm="6">
+            <div className="d-flex flex-row ps-5 pt-5">
+              <MDBIcon style={{ color: "#709085" }} />
+            </div>
 
-      <form onSubmit={handleLoginSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
+            <div className="d-flex flex-column align-items-center h-custom-2 w-75 pt-4">
+              <h3 className="login-title" style={{ letterSpacing: "1px" }}>
+                Log in
+              </h3>
+              <form onSubmit={handleLoginSubmit}>
+                <div class="form-div">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                    size="lg"
+                    name="email"
+                    value={email}
+                    onChange={handleEmail}
+                  ></input>
+                </div>
+                <div class="form-div">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    placeholder="Password"
+                    value={password}
+                    size="lg"
+                    onChange={handlePassword}
+                  ></input>
+                </div>
+              <Button
+                type="submit"
+                className="login-button"
+                color="success"
+                size="lg"
+              >
+                Login
+              </Button>
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <p className="ms-5">
+                Don't have an account?{" "}
+                <a href="/signup">
+                  Register here
+                </a>
+              </p>
+              </form>
+            </div>
+          </MDBCol>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <button type="submit">Login</button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
-    </div>
+          <MDBCol sm="6" className="d-none d-sm-block px-0">
+            <img
+              src={loginImage}
+              alt="login"
+              className="w-100"
+              style={{ objectFit: "cover", objectPosition: "left" }}
+            />
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </>
   );
 }
 

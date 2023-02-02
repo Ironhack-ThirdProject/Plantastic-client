@@ -1,7 +1,10 @@
 import "./SignupPage.css";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
+import { Button } from "react-bootstrap";
+import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdb-react-ui-kit";
+import signupImage from "../../signup.jpg";
 
 function SignupPage() {
   const [email, setEmail] = useState("");
@@ -46,32 +49,83 @@ function SignupPage() {
   };
 
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
+    <>
+      <MDBContainer fluid>
+        <MDBRow>
+          <MDBCol sm="6" className="d-none d-sm-block px-0">
+            <img
+              src={signupImage}
+              alt="signup"
+              className="w-100"
+              style={{ objectFit: "cover", objectPosition: "left" }}
+            />
+          </MDBCol>
+          <MDBCol sm="6">
+            <div className="d-flex flex-row ps-5 pt-5">
+              <MDBIcon style={{ color: "#709085" }} />
+            </div>
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
-
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
-
-        <button type="submit">Sign Up</button>
-      </form>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
-    </div>
+            <div className="d-flex flex-column align-items-center h-custom-2 w-100 pt-4">
+              <h3 className="signIn-title" style={{ letterSpacing: "1px" }}>
+                Sign Up
+              </h3>
+              <form onSubmit={handleSignupSubmit}>
+                <div className="sign-form-div">
+                  <label for="exampleInputName1">Name:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputName1"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter name"
+                    size="lg"
+                    name="name"
+                    value={name}
+                    onChange={handleName}
+                  />
+                </div>
+                <div className="sign-form-div">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                    size="lg"
+                    name="email"
+                    value={email}
+                    onChange={handleEmail}
+                  ></input>
+                </div>
+                <div className="sign-form-div">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    placeholder="Password"
+                    value={password}
+                    size="lg"
+                    onChange={handlePassword}
+                  ></input>
+                </div>
+                <Button type="submit" className="signIn-button" size="lg">
+                  Sign Up
+                </Button>
+                {errorMessage && (
+                  <p className="error-message">{errorMessage}</p>
+                )}
+                <p>
+                  Already have an account? <br />
+                  <a href="/login">Log In here</a>
+                </p>
+              </form>
+            </div>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </>
   );
 }
 
