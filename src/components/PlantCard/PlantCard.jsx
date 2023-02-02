@@ -11,6 +11,7 @@ import { CartCountContext } from "../../context/cart.context";
 export function PlantCard(props) {
   const productId = props._id;
   const [stock, setStock] = useState(props.stock);
+  const [stock, setStock] = useState(props.stock);
   const storedToken = localStorage.getItem("authToken");
   const [quantity, setQuantity] = useState(1);
   const [itemsInCard, setItemsInCart] = useState(0);
@@ -45,10 +46,13 @@ export function PlantCard(props) {
         setQuantity(1);
       })
 
+
       .catch((error) => {
         console.log(error);
       });
   };
+
+  console.log("This is the cartcount in the plantcard " + cartCount);
 
   console.log("This is the cartcount in the plantcard " + cartCount);
 

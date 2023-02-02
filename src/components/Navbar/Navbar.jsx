@@ -8,10 +8,11 @@ import {
 } from "../../context/cart.context";
 import { AiFillShopping } from "react-icons/ai";
 
-function Navbar() {
+function Navbar(props) {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
+  const { cartCount } = useContext(CartCountContext);
   const { cartCount } = useContext(CartCountContext);
 
   return (
@@ -45,6 +46,9 @@ function Navbar() {
             )}
             <button onClick={logOutUser}>Logout</button>
 
+            <span>{user && user.name}</span>
+          </>
+        )}
             <span>{user && user.name}</span>
           </>
         )}

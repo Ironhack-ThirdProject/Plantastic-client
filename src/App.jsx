@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useContext } from "react";
+import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+    <Navbar />
 
       <Navbar/>
       <Routes>
