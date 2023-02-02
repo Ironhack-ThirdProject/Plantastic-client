@@ -14,24 +14,6 @@ export function PlantCard(props) {
   const storedToken = localStorage.getItem("authToken");
   const [quantity, setQuantity] = useState(1);
   const [itemsInCard, setItemsInCart] = useState(0);
-
-  const handleOrder = (e) => {
-    e.preventDefault();
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/order`,
-        { productId },
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
-      .then((response) => {
-        console.log("Plant ordered!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
   const { cartCount, setCartCount } = useContext(CartCountContext);
 
   const handleNewCartCount = (quantity) => {
@@ -77,8 +59,6 @@ export function PlantCard(props) {
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-          <Card.Text>Current in stock: {stock}</Card.Text>
-              Price: {currencyFormatter.format(props.price)}
           <Card.Text>Price: {currencyFormatter.format(props.price)}</Card.Text>
 
           {stock ? (
@@ -87,9 +67,6 @@ export function PlantCard(props) {
                 <b>Currently in stock: {stock}</b>
               </p>
               <IsCustomer>
-                <form onSubmit={handleOrder}>
-                  <button type="submit">Buy Now</button>
-                </form>
                 <form onSubmit={handleAddToCart}>
                   <label>Quantity:</label>
                   <input
@@ -116,37 +93,6 @@ export function PlantCard(props) {
           <Link to={`/plants/${props._id}`}>
             <Button variant="secondary">More Details</Button>
           </Link>
-          <IsCustomer>
-            <form onSubmit={handleOrder}>
-              <button type="submit">Buy Now</button>
-            </form>
-
-            <form onSubmit={handleAddToCart}>
-              <label>Quantity:</label>
-              <input
-                type="number"
-                id="quantity"
-                min={1}
-                max={props.stock}
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-                {({ itemCount, setItemCount }) => (
-                  <Button
-                    variant="success"
-                    type="submit"
-                    onClick={() => setItemCount(quantity)}
-                  >
-                    Add to cart
-                  </Button>
-                )}
-              {/**
-              <Button variant="success" type="submit">
-                Add to cart
-              </Button>
-            */}
-            </form>
-          </IsCustomer>
         </Card.Body>
       </Card>
     </div>
