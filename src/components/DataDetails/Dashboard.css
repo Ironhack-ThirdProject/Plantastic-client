@@ -1,0 +1,37 @@
+.table-head-div{
+    font-size: 18px;
+}
+
+.table-body-div{
+    font-size: 16px;
+}
+
+.card-header1{
+    background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));
+}
+
+.card-header2{
+    background: linear-gradient(106.7deg, rgb(245, 167, 191) -6.2%, rgb(201, 218, 238) 46.4%, rgb(164, 240, 229) 86.4%);
+}
+
+.card-title1{
+    color: white;
+    font-size: 24px;
+}
+
+.card-title2{
+    color: #333;
+    font-size: 24px;
+}
+
+.card-body1{
+    background-color: rgba(240, 255, 240, 0.685);
+}
+
+.card-body2{
+    background-color: rgba(240, 255, 240, 0.685);
+}
+
+.main-div{
+    padding: 1vw;
+}
