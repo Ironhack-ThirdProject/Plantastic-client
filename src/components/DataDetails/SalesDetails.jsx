@@ -36,12 +36,13 @@ export function SalesDetails({ orders }) {
   }, [orders]);
 
   return (
-    <div className="main-div">
+    <div className="main-div mb-8">
       <MDBCard className='mb-3'>
         <MDBCardHeader className="card-header1">
         <MDBCardTitle className="card-title1">Sales and revenue data</MDBCardTitle>
         </MDBCardHeader>
         <MDBCardBody>
+          
         <MDBTable>
           <MDBTableHead className="table-head-div">
           <tr className="table-dark">

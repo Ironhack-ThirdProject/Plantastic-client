@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+
 
 export function CategoryDetails({ products }) {
   const [plantsByCategory, setPlantsByCategory] = useState({});
@@ -40,41 +42,60 @@ export function CategoryDetails({ products }) {
       });
     return total;
   };
+  
+
 
   useEffect(() => {
     getPlantsByCategory();
   }, [products]);
 
   return (
-    <div>
-      <h1>Total stock of products per category</h1>
-      <div>
-        <div>
-          {Object.keys(plantsByCategory).map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryClick(category)}
-            >
-              {selectedCategory === category && showPlants ? "Hide " : "Show "}
-              {category}
-            </button>
-          ))}
-        </div>
+    <div className="mt-5">
+      <h3>Total stock of products per category</h3>
+      <MDBTabs pills fill className='mb-3'>
+      {Object.keys(plantsByCategory).map((category) => (
+        <MDBTabsItem>
+          <MDBTabsLink key={category}
+              onClick={() => handleCategoryClick(category)}>
+            {category}
+          </MDBTabsLink>
+        </MDBTabsItem>
+          ))} 
+      </MDBTabs>
         {showPlants && (
+          <>
           <div>
             {selectedCategory
-              ? ( <>{plantsByCategory[selectedCategory].map((plant) => (
-                  <p key={plant.id}>
-                    {plant.name} - Stock: {plant.stock}
-                  </p>
+              ? ( <>
+              <MDBTable>
+          <MDBTableHead className="table-head-div">
+          <tr className="table-dark">
+          <th scope='col'>Name</th>
+          <th scope='col'>Stock</th>
+        </tr>
+          </MDBTableHead>
+          <MDBTableBody className="table-body-div">
+          {plantsByCategory[selectedCategory].map((plant) => (
+            <tr className="table-light" key={plant._id}>
+              <td>{plant.name}</td>
+              <td>{plant.stock}</td>
+            </tr>
                 ))}
-                <h4>Total stock of {selectedCategory} plants is {totalStock(selectedCategory)}</h4>
-                <h4>Unique products per category: {plantsByCategory[selectedCategory].length}</h4>
+            <tr className="table-secondary">
+              <th scope="row">Total stock of {selectedCategory}</th>
+              <td>{totalStock(selectedCategory)}</td>
+            </tr>
+            <tr className="table-secondary">
+              <th scope="row">Unique products</th>
+              <td>{plantsByCategory[selectedCategory].length}</td>
+            </tr>
+          </MDBTableBody>
+        </MDBTable>
                 </>)
               : <></> }
           </div>
+          </>
         )}
-      </div>
     </div>
   );
 }
