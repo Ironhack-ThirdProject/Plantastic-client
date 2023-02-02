@@ -47,51 +47,6 @@ export function EditOrder({ cart, getCartDetails }) {
     setIsSubmitted(false);
   };
 
-  const handleSendEmail = (e) => {
-    e.preventDefault();
-
-    const requestBody = {
-      firstName,
-    };
-
-    axios
-      .post(
-        `${process.env.REACT_APP_SERVER_URL}/send-email`,
-        requestBody,
-        config
-      )
-      .then((res) => {
-        console.log("Email response: ", res);
-      })
-      .catch((err) => {
-        console.log("Error sending email: ", err);
-      });
-  };
-
-  const handleConfirmClick = (e) => {
-    e.preventDefault();
-    setStatus(true);
-    setShowConfetti(true);
-    setTimeout(() => {
-      navigate("/profile");
-    }, 5000);
-
-    const requestBody = {
-      firstName,
-      lastName,
-      shippingAddress,
-      billingAddress,
-    };
-
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/order`, requestBody, config)
-      .then((res) => {
-        console.log("this is the cart for the front end: ", res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const handlePayment = (e) => {
     e.preventDefault();
@@ -184,12 +139,6 @@ export function EditOrder({ cart, getCartDetails }) {
             <button onClick={handleEdit}>Edit</button>
           </div>
 
-          <form onSubmit={handleSendEmail}>
-            <Button variant="success" type="submit">
-              Click me!
-            </Button>
-          </form>
-
           <div>
             <h3>Place an order:</h3>
             <p>Order status: {status ? "Confirmed" : "Pending"}</p>
@@ -202,7 +151,7 @@ export function EditOrder({ cart, getCartDetails }) {
               <Button onClick={handleConfirmClick}>Confirmation</Button>
             )} */}
 
-            {showConfetti && (
+            {/* {showConfetti && (
               <div>
                 <p>Thank you for your purchase! 🎉🎉🎉</p>
                 <div style={source}>
@@ -210,7 +159,7 @@ export function EditOrder({ cart, getCartDetails }) {
                 </div>
                 <button onClick={() => setShowConfetti(false)}>Close</button>
               </div>
-            )}
+            )} */}
           </div>
         </>
       )}
