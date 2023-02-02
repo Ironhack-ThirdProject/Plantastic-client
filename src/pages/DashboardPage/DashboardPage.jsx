@@ -41,9 +41,10 @@ function DashboardPage() {
 
   return (
     <IsAdmin>
-      <div>
-        <h1>Dashboard Page</h1>
-        <hr />
+      <div className="bg-light">
+      <div className='p-5 text-center'>
+        <h1 className='mb-3'>Dashboard</h1>
+        </div>
 
         <SalesDetails orders={orders} />
 

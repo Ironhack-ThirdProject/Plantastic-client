@@ -16,6 +16,8 @@ import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import CartPage from "./pages/CartPage/CartPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
+import Footer from "./components/Footer/Footer";
+
 
 function App() {
 
@@ -93,6 +95,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </div>
   );
 }
