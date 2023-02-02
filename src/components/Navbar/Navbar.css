@@ -1,0 +1,21 @@
+.name-container {
+    margin-left: -10vw;
+}
+
+.name {
+    width: 40vw;
+}
+.logo {
+    width: 20vw;
+    margin-right: 0vw;
+}
+.custom-color-bg {
+    background-color: #469924;
+}
+.navbar-button {
+    background-color: #D6FBD6;
+    color: #469924;
+}
+.icon-color {
+    color: #D6FBD6;
+}
