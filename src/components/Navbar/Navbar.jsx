@@ -13,15 +13,13 @@ function Navbar(props) {
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
   const { cartCount } = useContext(CartCountContext);
-  const { cartCount } = useContext(CartCountContext);
 
   return (
-    <CartCountProviderWrapper props={cartCount}>
       <nav>
         <Link to="/">
           <button>Home</button>
         </Link>
-          
+      <CartCountProviderWrapper props={cartCount}>
         {isLoggedIn && (
           <>
             <Link to="/plants">
@@ -49,9 +47,6 @@ function Navbar(props) {
             <span>{user && user.name}</span>
           </>
         )}
-            <span>{user && user.name}</span>
-          </>
-        )}
 
         {!isLoggedIn && (
           <>
@@ -65,8 +60,8 @@ function Navbar(props) {
             </Link>
           </>
         )}
+        </CartCountProviderWrapper>
       </nav>
-    </CartCountProviderWrapper>
   );
 }
 

@@ -33,15 +33,6 @@ function PlantDetails() {
     //setCartCount(NaN || 0);
     setCartCount(cartCount + parseInt(quantity));
   };
-  const { cartCount, setCartCount } = useContext(CartCountContext);
-
-  const handleNewCartCount = (quantity) => {
-    console.log("THis is the current cart count");
-    console.log(typeof cartCount);
-    console.log(cartCount);
-    //setCartCount(NaN || 0);
-    setCartCount(cartCount + parseInt(quantity));
-  };
 
   const getPlantDetails = () => {
     axios

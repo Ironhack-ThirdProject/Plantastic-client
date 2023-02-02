@@ -6,24 +6,16 @@ import UpdateQuantity from "../../components/UpdateQuantity/UpdateQuantity";
 import { currencyFormatter } from "../../utils";
 import { useContext } from "react";
 import { CartCountContext } from "../../context/cart.context";
-import { useContext } from "react";
-import { CartCountContext } from "../../context/cart.context";
 
 function CartPage() {
   const [cart, setCart] = useState(null);
   const [productId, setProductId] = useState("");
   const { cartCount, setCartCount } = useContext(CartCountContext);
   const [totalQuantity, setTotalQuantity] = useState(cartCount);
-  const { cartCount, setCartCount } = useContext(CartCountContext);
-  const [totalQuantity, setTotalQuantity] = useState(cartCount);
 
   const storedToken = localStorage.getItem("authToken");
   const config = { headers: { Authorization: `Bearer ${storedToken}` } };
 
-  const handleNewCartCount = () => {
-    setCartCount(totalQuantity);
-  };
-
   useEffect(() => {
     handleNewCartCount();
   }, [totalQuantity])
@@ -32,9 +24,6 @@ function CartPage() {
     setCartCount(totalQuantity);
   };
 
-  useEffect(() => {
-    handleNewCartCount();
-  }, [totalQuantity])
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -45,8 +34,6 @@ function CartPage() {
         config
       )
       .then((response) => {
-        const sumToBeRemoved = response.data.quantity;
-        setTotalQuantity(prevCount => prevCount -= sumToBeRemoved);
         const sumToBeRemoved = response.data.quantity;
         setTotalQuantity(prevCount => prevCount -= sumToBeRemoved);
         getCartDetails();

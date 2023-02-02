@@ -1,7 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useContext } from "react";
-import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
@@ -21,13 +20,11 @@ import { CartCountProviderWrapper } from "./context/cart.context";
 import { CartCountContext } from "./context/cart.context";
 
 function App() {
-  const context = useContext(CartCountContext);
+  const { cartCount } = useContext(CartCountContext);
 
   return (
     <div className="App">
-    <Navbar />
-
-      <Navbar/>
+      <Navbar props={cartCount}/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<PlantList />} />
