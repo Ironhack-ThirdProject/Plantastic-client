@@ -68,7 +68,7 @@ export function PlantList() {
         <Row>
           {plants.map((plant) => (
             <Col>
-              <PlantCard key={plant._id} {...plant} />
+              <PlantCard key={plant._id} {...plant}/>
             </Col>
           ))}
         </Row>

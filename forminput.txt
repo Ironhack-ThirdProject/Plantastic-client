@@ -44,8 +44,23 @@ function FormComponent() {
             </ul>
         </form>
     );
+<<<<<<< Updated upstream
+}
+=======
 }
 
 Cactus	€12	1	€12		
 Image	Roses	€50	3	€150		
 Image	Monstera	€20	1	€20		
+
+[
+    {
+        id: 42,
+        qtty: 1
+    },
+        {
+        id: 43,
+        qtty: 5
+    }
+]
+>>>>>>> Stashed changes

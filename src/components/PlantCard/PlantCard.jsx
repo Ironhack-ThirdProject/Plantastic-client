@@ -1,20 +1,47 @@
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 import { currencyFormatter } from "../../utils";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import axios from "axios";
 import { useState } from "react";
 import { useContext } from "react";
-import { ShoppingCartContext } from "../../context/cart.context";
+import { CartCountContext } from "../../context/cart.context";
 
 export function PlantCard(props) {
   const productId = props._id;
-  const [stock, setStock] = useState(props.stock);;
+  const [stock, setStock] = useState(props.stock);
   const storedToken = localStorage.getItem("authToken");
   const [quantity, setQuantity] = useState(1);
-  const [itemsInCard, setItemsInCart] = useState(0);
+  //const [itemsInCard, setItemsInCart] = useState(0);
+
+  const { cartCount, setCartCount } = useContext(CartCountContext);
+
+  const handleNewCartCount = (quantity) => {
+    console.log("THis is the current cart count");
+    console.log(typeof cartCount);
+    console.log(cartCount);
+    //setCartCount(NaN || 0);
+    setCartCount(cartCount + parseInt(quantity));
+  };
+
+  const handleOrder = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/order`,
+        { productId },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        console.log("Plant ordered!");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -28,14 +55,19 @@ export function PlantCard(props) {
       )
       .then((response) => {
         console.log("response from the API: ", response.data);
-        setItemsInCart(quantity);;
-        setQuantity(1);;
-        setStock(response.data.productObject.stock);;
+        setStock(response.data.productObject.stock);
+        handleNewCartCount(quantity);
       })
+      .then((response) => {
+        setQuantity(1);
+      })
+
       .catch((error) => {
         console.log(error);
       });
   };
+
+  console.log("This is the cartcount in the plantcard " + cartCount);
 
   return (
     <div>
@@ -45,14 +77,18 @@ export function PlantCard(props) {
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
 
-          <Card.Text>Price: {currencyFormatter.format(props.price)}</Card.Text>
+          <Card.Text>Current in stock: {stock}</Card.Text>
           
-            {stock ? (
-              <>
-                <p>
-                  <b>Currently in stock: {stock}</b>
-                </p>
-                <IsCustomer>
+              Price: {currencyFormatter.format(props.price)}
+          {stock ? (
+            <>
+              <p>
+                <b>Currently in stock: {stock}</b>
+              </p>
+              <IsCustomer>
+                <form onSubmit={handleOrder}>
+                  <button type="submit">Buy Now</button>
+                </form>
                 <form onSubmit={handleAddToCart}>
                   <label>Quantity:</label>
                   <input
@@ -68,16 +104,13 @@ export function PlantCard(props) {
                     Add to cart
                   </Button>
                 </form>
-                </IsCustomer>
-              </>
-            ) : (
-              <div>
-                <h4 class="text-danger">Out of stock.</h4>
-              </div>
-            )}
-          <Link to={`/plants/${props._id}`}>
-            <Button variant="secondary">More Details</Button>
-          </Link>
+              </IsCustomer>
+            </>
+          ) : (
+            <div>
+              <h4 class="text-danger">Out of stock.</h4>
+            </div>
+          )}
         </Card.Body>
       </Card>
     </div>
