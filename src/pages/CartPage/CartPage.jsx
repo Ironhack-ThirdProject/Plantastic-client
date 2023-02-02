@@ -119,7 +119,22 @@ export default function CartPage() {
 
   if (!cart || cart.products.length === 0) {
     return (
-    <h1>No products found.</h1>
+      <section className="gradient-custom no-items">
+        <MDBContainer className="py-5 h-100">
+          <MDBRow className="justify-content-center my-4">
+            <MDBCol md="8">
+              <MDBCard className="mb-4 cards">
+                <MDBCardHeader className="py-3">
+                  <MDBTypography tag="h5" className="mb-0">
+                    Cart - 0 items
+                  </MDBTypography>
+                </MDBCardHeader>
+                <MDBCardBody></MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </section>
     );
   }
 
@@ -277,7 +292,7 @@ export default function CartPage() {
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
-                    <hr className="text-secondary"/>
+                    <hr className="text-secondary" />
                     <MDBRow>
                       <MDBCol sm="3">
                         <MDBCardText>Shipping Address</MDBCardText>
@@ -299,13 +314,12 @@ export default function CartPage() {
                         </MDBCardText>
                       </MDBCol>
                     </MDBRow>
-                    <hr className="text-light"/>
+                    <hr className="text-light" />
                     <Button variant="success" onClick={handleEdit}>
                       Edit
                     </Button>
                   </>
                 )}
-
               </MDBCardBody>
             </MDBCard>
 
@@ -358,11 +372,13 @@ export default function CartPage() {
                   </MDBListGroupItem>
                 </MDBListGroup>
 
-                <form onSubmit={handlePayment}>
-                  <MDBBtn className="btn btn-info" block size="lg">
-                    Checkout
-                  </MDBBtn>
-                </form>
+                {isSubmitted && (
+                  <form onSubmit={handlePayment}>
+                    <MDBBtn className="btn btn-info" block size="lg">
+                      Checkout
+                    </MDBBtn>
+                  </form>
+                )}
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
@@ -371,149 +387,3 @@ export default function CartPage() {
     </section>
   );
 }
-
-// import axios from "axios";
-// import React, { useEffect, useState } from "react";
-// import { Button, Image } from "react-bootstrap";
-// import { Link } from "react-router-dom";
-// import UpdateQuantity from "../../components/UpdateQuantity/UpdateQuantity";
-// import { currencyFormatter } from "../../utils";
-
-// function CartPage() {
-//   const [cart, setCart] = useState(null);
-//   const [productId, setProductId] = useState("");
-
-//   const storedToken = localStorage.getItem("authToken");
-//   const config = { headers: { Authorization: `Bearer ${storedToken}` } };
-
-//   const handleDelete = (e) => {
-//     e.preventDefault();
-
-//     axios
-//       .delete(
-//         `${process.env.REACT_APP_SERVER_URL}/cart?id=${productId}`,
-//         config
-//       )
-//       .then((response) => {
-//         getCartDetails();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-
-//   function getCartDetails() {
-//     axios
-//       .get(`${process.env.REACT_APP_SERVER_URL}/cart`, config)
-//       .then((res) => {
-//         console.log("here is the cart: ", res.data);
-//         setCart(res.data);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }
-
-//   function onUpdateQuantity(idOfTheProduct, newQuantity){
-//     axios
-//     .put(
-//       `${process.env.REACT_APP_SERVER_URL}/cart`,
-//       { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
-//       {
-//         headers: { Authorization: `Bearer ${storedToken}` },
-//       }
-//     )
-//     .then((response) => {
-//       getCartDetails()
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-
-//   };
-
-//   useEffect(() => {
-//     getCartDetails();
-//   }, []);
-
-//   if (!cart || cart.products.length === 0) {
-//     return <h4>No products found.</h4>;
-//   }
-
-//   return (
-
-//     <div>
-//       <h1>Cart</h1>
-//       <table>
-//         <thead>
-//           <tr>
-//             <th>Image</th>
-//             <th>Product Name</th>
-//             <th>Price</th>
-//             <th>Current Stock</th>
-//             <th>Quantity</th>
-//             <th className="text-success">UPDATE QUANTITY</th>
-//             <th>Total</th>
-//             <th>More Details</th>
-//             <th>Remove</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {cart.products.map((product, index) => (
-//             <tr key={index}>
-//               {/* <td><Image style={{ width: "50px;", height: "50px;"}} src={product.productId.imageURL}/></td> */}
-//               <td>Image</td>
-//               <td>{product.productId.name}</td>
-//               <td>{currencyFormatter.format(product.productId.price)}</td>
-//               {product.productId.stock ? (<td>{product.productId.stock}</td>) : (<td><h5>Out of stock.</h5></td>)}
-
-//               <td>{product.quantity}</td>
-//               <td>
-//                   <UpdateQuantity
-//                   productId={product.productId}
-//                   quantity={product.quantity}
-//                   onUpdateQuantity={onUpdateQuantity}
-//                 />
-
-//               </td>
-//               <td>
-//                 {currencyFormatter.format(
-//                   product.productId.price * product.quantity
-//                 )}
-//               </td>
-//               <td>
-//                 <Link to={`/plants/${product.productId._id}`}>
-//                   <Button variant="secondary">More Details</Button>
-//                 </Link>
-//               </td>
-//               <td>
-//                 <form onSubmit={handleDelete}>
-//                   <Button
-//                     type="submit"
-//                     variant="danger"
-//                     onClick={() => setProductId(product.productId._id)}
-//                   >
-//                     Remove
-//                   </Button>
-//                 </form>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//       <div>
-//         <p>
-//           Total Price: <b>{currencyFormatter.format(cart.totalPrice)}</b>
-//         </p>
-//       </div>
-
-//       <div>
-//         <Link to={"/checkout"}>
-//           <Button variant="primary">Checkout</Button>
-//         </Link>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default CartPage;

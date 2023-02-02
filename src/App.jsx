@@ -16,7 +16,6 @@ import PlantDetails from "./components/PlantDetails/PlantDetails";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
-import Checkout from "./pages/Checkout/Checkout";
 import CartPage from "./pages/CartPage/CartPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
 
@@ -45,16 +44,6 @@ function App() {
               <IsAdmin>
                 <DashboardPage />
               </IsAdmin>
-            </IsPrivate>
-          }
-        />
-        <Route
-          path="/checkout"
-          element={
-            <IsPrivate>
-              <IsCustomer>
-                <Checkout />
-              </IsCustomer>
             </IsPrivate>
           }
         />
