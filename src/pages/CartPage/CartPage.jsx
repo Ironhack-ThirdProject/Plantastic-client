@@ -81,7 +81,6 @@ function CartPage() {
       });
   }
 
->>>>>>> Stashed changes
   useEffect(() => {
     getCartDetails();
   }, []);
@@ -127,7 +126,6 @@ function CartPage() {
                 />
               </td>
               <td>
-
                 {currencyFormatter.format(
                   product.productId.price * product.quantity
                 )}

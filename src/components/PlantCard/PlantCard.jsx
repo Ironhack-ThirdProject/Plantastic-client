@@ -13,17 +13,7 @@ export function PlantCard(props) {
   const [stock, setStock] = useState(props.stock);
   const storedToken = localStorage.getItem("authToken");
   const [quantity, setQuantity] = useState(1);
-  //const [itemsInCard, setItemsInCart] = useState(0);
-
-  const { cartCount, setCartCount } = useContext(CartCountContext);
-
-  const handleNewCartCount = (quantity) => {
-    console.log("THis is the current cart count");
-    console.log(typeof cartCount);
-    console.log(cartCount);
-    //setCartCount(NaN || 0);
-    setCartCount(cartCount + parseInt(quantity));
-  };
+  const [itemsInCard, setItemsInCart] = useState(0);
 
   const handleOrder = (e) => {
     e.preventDefault();
@@ -41,6 +31,15 @@ export function PlantCard(props) {
       .catch((error) => {
         console.log(error);
       });
+    }
+  const { cartCount, setCartCount } = useContext(CartCountContext);
+
+  const handleNewCartCount = (quantity) => {
+    console.log("THis is the current cart count");
+    console.log(typeof cartCount);
+    console.log(cartCount);
+    //setCartCount(NaN || 0);
+    setCartCount(cartCount + parseInt(quantity));
   };
 
   const handleAddToCart = (e) => {
@@ -55,6 +54,8 @@ export function PlantCard(props) {
       )
       .then((response) => {
         console.log("response from the API: ", response.data);
+        setItemsInCart(quantity);
+        setQuantity(1);
         setStock(response.data.productObject.stock);
         handleNewCartCount(quantity);
       })
@@ -76,10 +77,10 @@ export function PlantCard(props) {
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-
           <Card.Text>Current in stock: {stock}</Card.Text>
-          
               Price: {currencyFormatter.format(props.price)}
+          <Card.Text>Price: {currencyFormatter.format(props.price)}</Card.Text>
+
           {stock ? (
             <>
               <p>
@@ -111,6 +112,41 @@ export function PlantCard(props) {
               <h4 class="text-danger">Out of stock.</h4>
             </div>
           )}
+
+          <Link to={`/plants/${props._id}`}>
+            <Button variant="secondary">More Details</Button>
+          </Link>
+          <IsCustomer>
+            <form onSubmit={handleOrder}>
+              <button type="submit">Buy Now</button>
+            </form>
+
+            <form onSubmit={handleAddToCart}>
+              <label>Quantity:</label>
+              <input
+                type="number"
+                id="quantity"
+                min={1}
+                max={props.stock}
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+                {({ itemCount, setItemCount }) => (
+                  <Button
+                    variant="success"
+                    type="submit"
+                    onClick={() => setItemCount(quantity)}
+                  >
+                    Add to cart
+                  </Button>
+                )}
+              {/**
+              <Button variant="success" type="submit">
+                Add to cart
+              </Button>
+            */}
+            </form>
+          </IsCustomer>
         </Card.Body>
       </Card>
     </div>

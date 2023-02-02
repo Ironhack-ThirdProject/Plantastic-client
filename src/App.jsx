@@ -16,31 +16,16 @@ import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import Checkout from "./pages/Checkout/Checkout";
 import CartPage from "./pages/CartPage/CartPage";
-<<<<<<< Updated upstream
-import { ShoppingCartContext } from "./context/cart.context";
-import { useContext } from "react";
-
-function App() {
-  const context = useContext(ShoppingCartContext);
-=======
 import { CartCountProviderWrapper } from "./context/cart.context";
 import { CartCountContext } from "./context/cart.context";
 
 function App() {
+  const context = useContext(CartCountContext);
 
->>>>>>> Stashed changes
   return (
     <div className="App">
-<<<<<<< HEAD
-      <Navbar />
-=======
-      <Navbar
-        cartItemNumber={context.cart.reduce((count, curItem) => {
-          return count + curItem.quantity;
-        }, 0)}
-      />
 
->>>>>>> start implementing cartcontext
+      <Navbar/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/plants" element={<PlantList />} />

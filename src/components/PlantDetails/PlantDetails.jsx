@@ -1,6 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
@@ -9,7 +8,6 @@ import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
-import { useContext } from "react";
 import { CartCountContext } from "../../context/cart.context";
 
 function PlantDetails() {
