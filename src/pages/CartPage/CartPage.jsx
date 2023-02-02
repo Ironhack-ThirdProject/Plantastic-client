@@ -5,6 +5,8 @@ import { Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import UpdateQuantity from "../../components/UpdateQuantity/UpdateQuantity";
 import { currencyFormatter } from "../../utils";
+import { useContext } from "react";
+import { CartCountContext } from "../../context/cart.context";
 
 import {
   MDBBtn,
@@ -32,9 +34,19 @@ export default function CartPage() {
   const [billingAddress, setBillingAddress] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { cartCount, setCartCount } = useContext(CartCountContext);
+  const [totalQuantity, setTotalQuantity] = useState(cartCount);
 
   const storedToken = localStorage.getItem("authToken");
   const config = { headers: { Authorization: `Bearer ${storedToken}` } };
+
+  const handleNewCartCount = () => {
+    setCartCount(totalQuantity);
+  };
+
+  useEffect(() => {
+    handleNewCartCount();
+  }, [totalQuantity])
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -45,6 +57,8 @@ export default function CartPage() {
         config
       )
       .then((response) => {
+        const sumToBeRemoved = response.data.quantity;
+        setTotalQuantity(prevCount => prevCount -= sumToBeRemoved);
         getCartDetails();
       })
       .catch((error) => {
@@ -66,20 +80,30 @@ export default function CartPage() {
 
   function onUpdateQuantity(idOfTheProduct, newQuantity) {
     axios
-      .put(
-        `${process.env.REACT_APP_SERVER_URL}/cart`,
-        { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
-      .then((response) => {
-        getCartDetails();
-      })
-      .catch((error) => {
-        console.log(error);
+    .put(
+      `${process.env.REACT_APP_SERVER_URL}/cart`,
+      { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
+      {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      }
+    )
+    .then((response) => {
+      let quantityArr = [];
+      response.data.updatedCart.products.forEach((product) => {
+        console.log(product);
+        quantityArr.push(product.quantity);
       });
-  }
+      let sum = quantityArr.reduce((a, b) => a + b, 0);
+      console.log(sum);
+      setTotalQuantity(sum);
+    })
+    .then(() => {
+      getCartDetails();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -162,6 +186,7 @@ export default function CartPage() {
                           <img
                             src={product.productId.imageURL}
                             className="w-100"
+                            alt="product"
                           />
                           <Link to={`/plants/${product.productId._id}`}>
                             <div
@@ -204,6 +229,7 @@ export default function CartPage() {
                             productId={product.productId}
                             quantity={product.quantity}
                             onUpdateQuantity={onUpdateQuantity}
+                            handleNewCartCount={handleNewCartCount}
                           />
                         </div>
 

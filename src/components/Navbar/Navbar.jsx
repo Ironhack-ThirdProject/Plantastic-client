@@ -1,61 +1,127 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
+import React, { useState } from "react";
 import { AuthContext } from "../../context/auth.context";
-import { AiFillShopping } from 'react-icons/ai'
+import {
+  CartCountContext,
+  CartCountProviderWrapper,
+} from "../../context/cart.context";
+import { Button } from "react-bootstrap";
+import logo from "../../logo.png";
+import name from "../../image-name.png";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import {
+  MDBContainer,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarToggler,
+  MDBNavbarNav,
+  MDBNavbarItem,
+  MDBNavbarLink,
+  MDBCollapse,
+  MDBIcon,
+  MDBBadge,
+} from "mdb-react-ui-kit";
 
 function Navbar() {
   // Subscribe to the AuthContext to gain access to
   // the values from AuthContext.Provider's `value` prop
-  const { isLoggedIn, user, logOutUser, isAdmin } = useContext(AuthContext);
+  const { isLoggedIn, logOutUser, isAdmin } = useContext(AuthContext);
+  const { cartCount } = useContext(CartCountContext);
+  const [showNav, setShowNav] = useState(false);
+  const [showNavRight, setShowNavRight] = useState(false);
 
   return (
-    <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-
-      {isLoggedIn && (
-        <>
-          <Link to="/plants">
-            <button>Plants</button>
-          </Link>
-          {!isAdmin ? (
-            <>
-              <Link to="/profile">
-                <button>Profile</button>
-              </Link>
-              <Link to="/cart">
-                <div>
-                  <AiFillShopping />
-                  <span>0</span>
-                </div>
-                </Link>
-            </>
-          ) : (
-            <Link to="/dashboard">
-              <button>Dashboard</button>
-            </Link>
-          )}
-          <button onClick={logOutUser}>Logout</button>
-
-          <span>{user && user.name}</span>
-        </>
-      )}
-
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
-          </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
-          </Link>
-        </>
-      )}
-    </nav>
+    <CartCountProviderWrapper props={cartCount}>
+      <MDBNavbar expand="lg" className="custom-color-bg">
+        <MDBContainer fluid>
+          <MDBNavbarToggler
+            type="button"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            onClick={() => setShowNavRight(!showNavRight)}
+          >
+            <MDBIcon icon="bars" fas />
+          </MDBNavbarToggler>
+          <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
+            <MDBNavbarBrand href="/">
+              <img className="logo" src={logo} alt="logo"></img>
+              <img className="name" src={name} alt="name"></img>
+            </MDBNavbarBrand>
+          </MDBNavbarNav>
+          <MDBCollapse navbar show={showNavRight}>
+            <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
+              <MDBNavbarItem>
+                <MDBNavbarLink
+                  aria-current="page"
+                  href="/plants"
+                  className="link"
+                >
+                  All Plants
+                </MDBNavbarLink>
+              </MDBNavbarItem>
+              {isLoggedIn && (
+                <>
+                  <MDBNavbarItem>
+                    <MDBNavbarLink
+                      aria-current="page"
+                      href="/profile"
+                      className="link"
+                    >
+                      Profile
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                </>
+              )}
+              {isLoggedIn && isAdmin && (
+                <>
+                  <MDBNavbarItem>
+                    <MDBNavbarLink href="/" className="link">
+                      Dashboard
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                </>
+              )}
+              {isLoggedIn && (
+                <MDBNavbarItem>
+                  <MDBNavbarLink>
+                    <Button className="navbar-button" onClick={logOutUser}>
+                      Logout
+                    </Button>
+                  </MDBNavbarLink>
+                </MDBNavbarItem>
+              )}
+              {!isLoggedIn && (
+                <>
+                  <MDBNavbarItem>
+                    <MDBNavbarLink href="/login" className="link">
+                      Login
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                  <MDBNavbarItem>
+                    <MDBNavbarLink href="/signup" className="link">
+                      Signup
+                    </MDBNavbarLink>
+                  </MDBNavbarItem>
+                </>
+              )}
+            </MDBNavbarNav>
+          </MDBCollapse>
+          <MDBNavbarLink href="/cart">
+            <MDBBadge pill color="#D6FBD6">
+              {cartCount}
+            </MDBBadge>
+            <MDBIcon
+              size="lg"
+              fas
+              icon="shopping-cart"
+              className="icon-color"
+            ></MDBIcon>
+          </MDBNavbarLink>
+        </MDBContainer>
+      </MDBNavbar>
+    </CartCountProviderWrapper>
   );
 }
 

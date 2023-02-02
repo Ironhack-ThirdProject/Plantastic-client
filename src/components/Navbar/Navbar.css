@@ -1,0 +1,33 @@
+.name-container {
+    margin-left: -10vw;
+}
+.name {
+    width: 10vw;
+    margin-left: 2vw;
+}
+.logo {
+    width: 5vw;
+    margin-left: 2vw;
+}
+.custom-color-bg {
+    background-color: #435b38;
+}
+.navbar-button {
+    background-color: #D6FBD6;
+    color: #469924;
+}
+.icon-color {
+    color: #D6FBD6;
+}
+.badge-color {
+    background: #D6FBD6;
+    width: 2vw;
+}
+.link {
+    text-decoration-color: #D6FBD6;
+    color: #D6FBD6;
+}
+.cart {
+    width: 10vw;
+    height: 10vh;
+}
