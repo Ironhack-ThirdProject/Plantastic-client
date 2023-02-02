@@ -16,12 +16,8 @@ import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import CartPage from "./pages/CartPage/CartPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
-//import { useContext } from "react";
-//import { CartCountProviderWrapper } from "./context/cart.context";
-//import { CartCountContext } from "./context/cart.context";
 
 function App() {
-  //const { cartCount } = useContext(CartCountContext);
 
   return (
     <div className="App">

@@ -29,7 +29,6 @@ function Navbar() {
   // the values from AuthContext.Provider's `value` prop
   const { isLoggedIn, logOutUser, isAdmin } = useContext(AuthContext);
   const { cartCount } = useContext(CartCountContext);
-  const [showNav, setShowNav] = useState(false);
   const [showNavRight, setShowNavRight] = useState(false);
 
   return (
