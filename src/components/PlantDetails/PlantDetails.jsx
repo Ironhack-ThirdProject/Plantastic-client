@@ -7,6 +7,13 @@ import { currencyFormatter } from "../../utils";
 import PlantEdit from "../PlantEdit/PlantEdit";
 import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
+<<<<<<< Updated upstream
+=======
+import AddReview from "../AddReview/AddReview";
+import ReviewHistory from "../ReviewHistory/ReviewHistory";
+import { useContext } from "react";
+import { CartCountContext } from "../../context/cart.context";
+>>>>>>> Stashed changes
 
 function PlantDetails() {
   const { plantId } = useParams();
@@ -19,8 +26,22 @@ function PlantDetails() {
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("");
   const [tag, setTag] = useState("");
+<<<<<<< Updated upstream
 
+=======
+  const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState([]);
+>>>>>>> Stashed changes
   const [showForm, setShowForm] = useState(false);
+  const { cartCount, setCartCount } = useContext(CartCountContext);
+
+  const handleNewCartCount = (quantity) => {
+    console.log("THis is the current cart count");
+    console.log(typeof cartCount);
+    console.log(cartCount);
+    //setCartCount(NaN || 0);
+    setCartCount(cartCount + parseInt(quantity));
+  };
 
   const getPlantDetails = () => {
     axios
@@ -54,6 +75,7 @@ function PlantDetails() {
   const handleDelete = (e) => {
     e.preventDefault();
     axios
+<<<<<<< Updated upstream
       .delete(
         `${process.env.REACT_APP_SERVER_URL}/plants/${plantId}`,
         { plantId },
@@ -61,6 +83,11 @@ function PlantDetails() {
           headers: { Authorization: `Bearer ${storedToken}` },
         }
       )
+=======
+      .delete(`${process.env.REACT_APP_SERVER_URL}/plants/${productId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+>>>>>>> Stashed changes
       .then((response) => {
         console.log("Plant deleted!");
         navigate("/plants");
@@ -97,6 +124,32 @@ function PlantDetails() {
       .catch((error) => console.log(error));
   };
 
+<<<<<<< Updated upstream
+=======
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/cart`,
+        { productId, quantity: parseInt(quantity) },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        console.log("response from the API: ", response.data);
+        handleNewCartCount(quantity);
+        setStock(response.data.productObject.stock);
+      })
+      .then(() => {
+        setQuantity(1);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+>>>>>>> Stashed changes
   useEffect(() => {
     getPlantDetails();
   }, []);

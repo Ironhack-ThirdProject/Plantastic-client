@@ -1,36 +1,28 @@
-/*
-import React, { createContext, useState } from "react";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export const CartContext = createContext({
-});
+const CartCountContext = React.createContext();
 
-export const CartProvider = ({ children }) => {
+function CartCountProviderWrapper(props) {
+  const savedState = localStorage.getItem('cart-context');
+  const parsedState = parseInt(savedState);
+  const [cartCount, setCartCount] = useState(parsedState);
+
+  useEffect(() => {
+    localStorage.setItem('cart-context', cartCount.toString());
+  }, [cartCount]);
 
   return (
-    <div>{children}</div>
-    // <CartContext.Provider value={{ cart, addProduct }}>
-    //   {children}
-    // </CartContext.Provider>
+    <CartCountContext.Provider
+      value={{
+        cartCount,
+        setCartCount
+      }}
+    >
+      {props.children}
+    </CartCountContext.Provider>
   );
-};
+}
 
-
-export default CartProvider;
-*/
-import React, { createContext, useState } from "react";
-
-const ShoppingCartContext = createContext();
-
-const ShoppingCartProvider = ({ children }) => {
-  const [itemCount, setItemCount] = useState(0);
-  const value = { itemCount, setItemCount };
-
-  console.log("This is the itemcount " + itemCount);
-  return (
-    <ShoppingCartContext.Provider value={value}>
-      {children}
-    </ShoppingCartContext.Provider>
-  );
-};
-
-export { ShoppingCartContext, ShoppingCartProvider };
+export { CartCountProviderWrapper, CartCountContext };

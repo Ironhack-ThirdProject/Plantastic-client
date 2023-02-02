@@ -3,13 +3,25 @@ import React, { useEffect, useState } from "react";
 import { Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { currencyFormatter } from "../../utils";
+import { useContext } from "react";
+import { CartCountContext } from "../../context/cart.context";
 
 function CartPage() {
   const [cart, setCart] = useState(null);
   const [productId, setProductId] = useState("");
+  const { cartCount, setCartCount } = useContext(CartCountContext);
+  const [totalQuantity, setTotalQuantity] = useState(cartCount);
 
   const storedToken = localStorage.getItem("authToken");
   const config = { headers: { Authorization: `Bearer ${storedToken}` } };
+
+  const handleNewCartCount = () => {
+    setCartCount(totalQuantity);
+  };
+
+  useEffect(() => {
+    handleNewCartCount();
+  }, [totalQuantity])
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -20,6 +32,8 @@ function CartPage() {
         config
       )
       .then((response) => {
+        const sumToBeRemoved = response.data.quantity;
+        setTotalQuantity(prevCount => prevCount -= sumToBeRemoved);
         getCartDetails();
       })
       .catch((error) => {
@@ -38,6 +52,36 @@ function CartPage() {
       });
   }
 
+<<<<<<< Updated upstream
+=======
+  function onUpdateQuantity(idOfTheProduct, newQuantity) {
+    axios
+      .put(
+        `${process.env.REACT_APP_SERVER_URL}/cart`,
+        { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        let quantityArr = [];
+        response.data.updatedCart.products.forEach((product) => {
+          console.log(product);
+          quantityArr.push(product.quantity);
+        });
+        let sum = quantityArr.reduce((a, b) => a + b, 0);
+        console.log(sum);
+        setTotalQuantity(sum);
+      })
+      .then(() => {
+        getCartDetails();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+>>>>>>> Stashed changes
   useEffect(() => {
     getCartDetails();
   }, []);
@@ -68,8 +112,29 @@ function CartPage() {
               <td>Image</td>
               <td>{product.productId.name}</td>
               <td>{currencyFormatter.format(product.productId.price)}</td>
+<<<<<<< Updated upstream
               <td>{product.quantity}</td>
               <td>
+=======
+              {product.productId.stock ? (
+                <td>{product.productId.stock}</td>
+              ) : (
+                <td>
+                  <h5>Out of stock.</h5>
+                </td>
+              )}
+
+              <td>{product.quantity}</td>
+              <td>
+                <UpdateQuantity
+                  productId={product.productId}
+                  quantity={product.quantity}
+                  onUpdateQuantity={onUpdateQuantity}
+                  handleNewCartCount={handleNewCartCount}
+                />
+              </td>
+              <td>
+>>>>>>> Stashed changes
                 {currencyFormatter.format(
                   product.productId.price * product.quantity
                 )}
