@@ -146,7 +146,7 @@ export default function CartPage() {
             <MDBCard className="mb-4 cards">
               <MDBCardHeader className="py-3">
                 <MDBTypography tag="h5" className="mb-0">
-                  Cart - {cart.products.length} items
+                  Cart - {cart.products.length} {cart.products.length === 1 ? (<>item</>) : (<>items</>)}
                 </MDBTypography>
               </MDBCardHeader>
               <MDBCardBody>
