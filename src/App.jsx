@@ -17,6 +17,7 @@ import IsCustomer from "./components/IsCustomer/IsCustomer";
 import IsAdmin from "./components/IsAdmin/isAdmin";
 import Checkout from "./pages/Checkout/Checkout";
 import CartPage from "./pages/CartPage/CartPage";
+import PaymentPage from "./pages/PaymentPage/PaymentPage";
 
 function App() {
   return (
@@ -66,7 +67,26 @@ function App() {
             </IsPrivate>
           }
         />
-
+        <Route
+          path="/payment/success"
+          element={
+            <IsPrivate>
+              <IsCustomer>
+                <PaymentPage />
+              </IsCustomer>
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/payment/cancel"
+          element={
+            <IsPrivate>
+              <IsCustomer>
+                <PaymentPage />
+              </IsCustomer>
+            </IsPrivate>
+          }
+        />
         <Route
           path="/signup"
           element={
