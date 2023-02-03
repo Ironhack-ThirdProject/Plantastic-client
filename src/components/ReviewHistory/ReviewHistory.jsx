@@ -78,7 +78,7 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
         </MDBTypography>
         <IsCustomer>
             <IsCreator review={eachReview}>
-              <Button className="btn btn-info" onClick={handleEdit}>Edit</Button>
+              <Button className="reviewHistory-button" onClick={handleEdit}>Edit</Button>
             </IsCreator>
           </IsCustomer>
       </MDBCardBody>

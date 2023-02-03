@@ -64,27 +64,6 @@ function ProfilePage() {
 
   return (
     <>
-      {orders ? (
-        <div>
-          {orders.map((orderData) => (
-            <OrderHistory eachOrder={orderData}></OrderHistory>
-          ))}
-        </div>
-      ) : (
-        <div>You have not ordered anything yet</div>
-      )}
-      {reviews ? (
-        <div>
-          {reviews.map((reviewData) => (
-            <ReviewHistory
-              eachReview={reviewData}
-              callbackToGetReviews={getReviews}
-            ></ReviewHistory>
-          ))}
-        </div>
-      ) : (
-        <div>You have not reviewed anything yet</div>
-      )}
       <section style={{ backgroundColor: "#eee" }}>
         <MDBContainer className="py-5">
           <MDBRow></MDBRow>

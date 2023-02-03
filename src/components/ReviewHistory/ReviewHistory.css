@@ -3,3 +3,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.reviewHistory-button {
+    background-color: #435b38;
+    color: #d6fbd6;
+  }
+  .reviewHistory-button:hover {
+    color: #435b38;
+    background-color: #d6fbd6;
+  }
