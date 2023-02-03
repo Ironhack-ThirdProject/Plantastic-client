@@ -1,12 +1,25 @@
 import { useState } from "react";
 import axios from "axios";
+import {
+  MDBBtn,
+  MDBCol,
+  MDBContainer,
+  MDBInput,
+  MDBInputGroup,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRow,
+  MDBTextArea,
+} from "mdb-react-ui-kit";
 
 function AddProduct(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [newTip, setNewTip] = useState("");
   const [caringTips, setCaringTips] = useState([]);
-  const [imageURL, setImageURL] = useState("https://cdn-icons-png.flaticon.com/512/628/628283.png");
+  const [imageURL, setImageURL] = useState(
+    "https://cdn-icons-png.flaticon.com/512/628/628283.png"
+  );
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [category, setCategory] = useState("Indoor Plants");
@@ -91,75 +104,93 @@ function AddProduct(props) {
   };
 
   return (
-    <div className="AddProduct">
-      <h3>Add Project</h3>
+    <section className="bg-light">
+    <MDBContainer className="p-4">
+      <h3>Add a Plant</h3>
 
       <form onSubmit={handleSubmit} enctype="multipart/form-data">
-        <label>Name:</label>
-        <input
+        <MDBInput
+          wrapperClass="mb-4"
+          label="Name"
           type="text"
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        <label>Description:</label>
-        <textarea
+        <MDBTextArea
+          wrapperClass="mb-4"
+          rows={4}
+          label="Description"
           type="text"
           name="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <label>Image:</label>
-        <input
+        <MDBInput
+          wrapperClass="mb-4"
           type="file"
           onChange={(e) => {
             handleFileUpload(e);
           }}
         />
 
-        <label>Caring Tips:</label>
-        <input
-          type="text"
-          name="newTip"
-          value={newTip}
-          onChange={(e) => setNewTip(e.target.value)}
-          placeholder="Enter plant caring tip"
-        />
-        <button type="button" onClick={handleAddCaringTip}>
-          Add Input Field
-        </button>
+<MDBInputGroup className='mb-4'>
+            <input
+            className='form-control'
+              label="Caring Tips"
+              type="text"
+              name="newTip"
+              value={newTip}
+              onChange={(e) => setNewTip(e.target.value)}
+              placeholder="Caring Tip"
+            />
 
-        <ul>
+            <MDBBtn type="button" color="success" onClick={handleAddCaringTip}>
+              Add Input Field
+            </MDBBtn>
+            </MDBInputGroup>
+
+
+        <MDBListGroup className="mb-4">
           {caringTips.map((tip, index) => (
-            <li key={index}>
-            {tip}
-              <button type="button" onClick={() => handleRemoveTip(index)}>
+            <MDBListGroupItem key={index}>
+              <p>{tip}</p>
+              <MDBBtn type="button" color="danger" onClick={() => handleRemoveTip(index)}>
                 X
-              </button>
-            </li>
+              </MDBBtn>
+            </MDBListGroupItem>
           ))}
-        </ul>
+        </MDBListGroup>
 
-        <label>Price:</label>
-        <input
+        
+        <MDBInput
+        label="Price"
+        wrapperClass="mb-4"
+        min={1}
           type="number"
           name="price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
 
-        <label>Stock:</label>
-        <input
+        <MDBInput
+                label="Stock"
+                wrapperClass="mb-4"
+                min={1}
           type="number"
           name="stock"
           value={stock}
           onChange={(e) => setStock(e.target.value)}
         />
 
-        <label>Category:</label>
+
+        <MDBRow>
+          <MDBCol>
+          <label>Category:</label>
         <select
+        className="mb-4"
           name="category"
           aria-label="category"
           onChange={(e) => setCategory(e.target.value)}
@@ -169,9 +200,12 @@ function AddProduct(props) {
           <option value="Pet-Friendly">Pet-Friendly</option>
           <option value="Tropical">Tropical</option>
         </select>
-
+        </MDBCol>
+        
+        <MDBCol>
         <label>Tag:</label>
         <select
+          className="mb-4"
           name="tag"
           aria-label="tag"
           onChange={(e) => setTag(e.target.value)}
@@ -180,12 +214,13 @@ function AddProduct(props) {
           <option value="Green Thumb">Green Thumb</option>
           <option value="Gardening Guru">Gardening Guru</option>
         </select>
-
-        <button type="submit">Submit</button>
+        </MDBCol>
+        </MDBRow>
+        <MDBBtn color="info" type="submit">Submit</MDBBtn>
       </form>
 
-      {/* <UploadWidget/> */}
-    </div>
+    </MDBContainer>
+    </section>
   );
 }
 

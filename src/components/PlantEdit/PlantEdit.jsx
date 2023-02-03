@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { MDBBtn, MDBCol, MDBInput, MDBInputGroup, MDBListGroup, MDBListGroupItem, MDBRow, MDBTextArea } from "mdb-react-ui-kit";
 
 function PlantEdit({ plantData, getPlantDetails }) {
   console.log(plantData);
@@ -85,75 +86,89 @@ function PlantEdit({ plantData, getPlantDetails }) {
   };
 
   return (
-    <div className="EditProduct">
-      <div>
+    <div>
+      <div className="bg-light p-4">
         <h3>Edit product</h3>
         <form onSubmit={handleSubmit}>
-          <label>Name:</label>
-          <input
+          
+          <MDBInput
+          label="Name"
+          wrapperClass="mb-4"
             type="text"
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
 
-          <label>Description:</label>
-          <textarea
+          <MDBTextArea
+                    label="Description"
+                    wrapperClass="mb-4"
+                    rows={4}
             type="text"
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
 
-          <label>Image:</label>
-          <input
+          <MDBInput
+          wrapperClass="mb-4"
             type="file"
             onChange={(e) => {
               handleFileUpload(e);
             }}
           />
 
-          <label>Caring Tips:</label>
+          <MDBInputGroup className='mb-4'>
           <input
+                      className='form-control'
+                      label="Caring Tips"
             type="text"
             name="newTip"
             value={newTip}
             onChange={(e) => setNewTip(e.target.value)}
-            placeholder="Enter plant caring tip"
+            placeholder="Caring Tip"
           />
-          <button type="button" onClick={handleAddCaringTip}>
+          <MDBBtn type="button" color="success" onClick={handleAddCaringTip}>
             Add Input Field
-          </button>
+          </MDBBtn>
+          </MDBInputGroup>
 
-          <ul>
+          <MDBListGroup className="mb-4">
             {caringTips.map((tip, index) => (
-              <li key={index}>
+              <MDBListGroupItem key={index}>
                 {tip}
-                <button type="button" onClick={() => handleRemoveTip(index)}>
+                <MDBBtn color="danger" type="button" onClick={() => handleRemoveTip(index)}>
                   X
-                </button>
-              </li>
+                </MDBBtn>
+              </MDBListGroupItem>
             ))}
-          </ul>
+          </MDBListGroup>
 
-          <label>Price:</label>
-          <input
+          <MDBInput
+        label="Price"
+        wrapperClass="mb-4"
+        min={1}
             type="number"
             name="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
 
-          <label>Stock:</label>
-          <input
+<MDBInput
+                label="Stock"
+                wrapperClass="mb-4"
+                min={1}
             type="number"
             name="stock"
             value={stock}
             onChange={(e) => setStock(e.target.value)}
           />
+          <MDBRow>
+            <MDBCol>
 
           <label>Category:</label>
           <select
+                  className="mb-4"
             name="category"
             aria-label="category"
             onChange={(e) => setCategory(e.target.value)}
@@ -165,9 +180,11 @@ function PlantEdit({ plantData, getPlantDetails }) {
             <option value="Pet-Friendly">Pet-Friendly</option>
             <option value="Tropical">Tropical</option>
           </select>
-
+          </MDBCol>
+          <MDBCol>
           <label>Tag:</label>
           <select
+                  className="mb-4"
             name="tag"
             aria-label="tag"
             onChange={(e) => setTag(e.target.value)}
@@ -178,8 +195,10 @@ function PlantEdit({ plantData, getPlantDetails }) {
             <option value="Green Thumb">Green Thumb</option>
             <option value="Gardening Guru">Gardening Guru</option>
           </select>
+          </MDBCol>
+          </MDBRow>
 
-          <button type="submit">Submit</button>
+          <MDBBtn color="info" type="submit">Submit</MDBBtn>
         </form>
       </div>
     </div>

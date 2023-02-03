@@ -10,6 +10,7 @@ import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
+import IsPrivate from "../IsPrivate/IsPrivate";
 import {
   MDBBtn,
   MDBCard,
@@ -185,8 +186,8 @@ function PlantDetails() {
           <MDBCard className="mb-4 cards">
             <MDBCardBody>
               <MDBRow className="justify-content-left my-4">
-                <MDBCol>
-                  <MDBCardImage src={plant.imageURL} className="w-80 border-light" alt="product" />
+                <MDBCol sm="6">
+                  <MDBCardImage src={plant.imageURL} className="img-fluid" alt="product" />
                 </MDBCol>
                 <MDBCol>
                   <h3><strong>{plant.name}</strong></h3>
@@ -226,12 +227,15 @@ function PlantDetails() {
                           />
                             </MDBCol>
                             <MDBCol className="p-0"  sm="3">
+                              
                             <Button variant="success" type="submit">
                             Add to cart
                           </Button>
+                          
                             </MDBCol>
                           </MDBRow>
                         </form>
+                        
                       </IsCustomer>
                     </>
                   ) : (
@@ -248,7 +252,7 @@ function PlantDetails() {
                       />
                     )}
 
-                    <Button onClick={() => setShowForm(!showForm)}>
+                    <Button className="mb-4" onClick={() => setShowForm(!showForm)}>
                       {showForm ? "Hide Form" : "Edit"}
                     </Button>
 
