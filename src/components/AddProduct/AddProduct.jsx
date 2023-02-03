@@ -110,15 +110,18 @@ function AddProduct(props) {
 
       <form onSubmit={handleSubmit} enctype="multipart/form-data">
         <MDBInput
+        required
           wrapperClass="mb-4"
           label="Name"
           type="text"
           name="name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value)
+          }
         />
 
         <MDBTextArea
+        required
           wrapperClass="mb-4"
           rows={4}
           label="Description"
@@ -129,6 +132,7 @@ function AddProduct(props) {
         />
 
         <MDBInput
+        required
           wrapperClass="mb-4"
           type="file"
           onChange={(e) => {
@@ -166,6 +170,7 @@ function AddProduct(props) {
 
         
         <MDBInput
+        required
         label="Price"
         wrapperClass="mb-4"
         min={1}
@@ -176,6 +181,7 @@ function AddProduct(props) {
         />
 
         <MDBInput
+        required
                 label="Stock"
                 wrapperClass="mb-4"
                 min={1}
@@ -190,6 +196,7 @@ function AddProduct(props) {
           <MDBCol>
           <label>Category:</label>
         <select
+        required
         className="mb-4"
           name="category"
           aria-label="category"
@@ -205,6 +212,7 @@ function AddProduct(props) {
         <MDBCol>
         <label>Tag:</label>
         <select
+        required
           className="mb-4"
           name="tag"
           aria-label="tag"

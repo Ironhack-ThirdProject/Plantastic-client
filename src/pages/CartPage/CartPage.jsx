@@ -78,6 +78,7 @@ export default function CartPage() {
       });
   }
 
+
   function onUpdateQuantity(idOfTheProduct, newQuantity) {
     axios
       .put(

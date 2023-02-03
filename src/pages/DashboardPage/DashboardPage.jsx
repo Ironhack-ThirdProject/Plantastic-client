@@ -1,4 +1,5 @@
 import axios from "axios";
+import { MDBContainer } from "mdb-react-ui-kit";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -41,8 +42,8 @@ function DashboardPage() {
 
   return (
     <IsAdmin>
-      <div className="bg-light">
-      <div className='p-5 text-center'>
+      <div className="p-4 bg-light">
+      <div className='p-2 text-center'>
         <h1 className='mb-3'>Dashboard</h1>
         </div>
 

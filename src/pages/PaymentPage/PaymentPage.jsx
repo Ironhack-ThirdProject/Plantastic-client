@@ -4,6 +4,7 @@ import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { MDBContainer } from "mdb-react-ui-kit";
 
 function PaymentPage() {
   const path = window.location.pathname;
@@ -33,8 +34,8 @@ function PaymentPage() {
   };
 
   return (
-    <div className="styled-div">
-      <div className="text-div">
+    <section className="styled-div d-flex justify-content-center p-5">
+    <MDBContainer className="text-div my-auto">
         {path === "/payment/success" ? (
           <>
             <ConfettiExplosion {...explosion} />
@@ -62,8 +63,8 @@ function PaymentPage() {
             </Link>
           </>
         )}
-      </div>
-    </div>
+    </MDBContainer>
+    </section>
   );
 }
 

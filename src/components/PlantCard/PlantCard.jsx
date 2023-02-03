@@ -15,6 +15,7 @@ import {
   MDBCardImage,
   MDBCol,
   MDBInput,
+  MDBInputGroup,
   MDBRipple,
   MDBRow,
 } from "mdb-react-ui-kit";
@@ -100,10 +101,32 @@ export function PlantCard(props) {
               </div>
               <>
                 <IsCustomer>
-                  <form onSubmit={handleAddToCart}>
-                    <MDBRow>
-                      <MDBCol sm="5">
-                        <MDBInput
+                  {isLoggedIn ? (
+                    <>
+                      <form onSubmit={handleAddToCart}>
+                        <MDBInputGroup>
+                          <input
+                            className="form-control"
+                            label="Quantity"
+                            type="number"
+                            id="quantity"
+                            min={1}
+                            max={props.stock}
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                          />
+
+                          <MDBBtn className="m-0" color="success" type="submit">
+                            Add to cart
+                          </MDBBtn>
+                        </MDBInputGroup>
+                      </form>
+                    </>
+                  ) : (
+                    <>
+                      <MDBInputGroup>
+                        <input
+                          className="form-control"
                           label="Quantity"
                           type="number"
                           id="quantity"
@@ -112,30 +135,15 @@ export function PlantCard(props) {
                           value={quantity}
                           onChange={(e) => setQuantity(e.target.value)}
                         />
-                      </MDBCol>
 
-                      <MDBCol className="p-0 m-0" sm="7">
-                        {isLoggedIn ? (
-                          <MDBBtn
-                            className="m-0 addtocart-button"
-                            color="success"
-                            type="submit"
-                          >
+                        <MDBBtn className="m-0" color="success" type="submit">
+                          <Link className="link-color" to="/login">
                             Add to cart
-                          </MDBBtn>
-                        ) : (
-                          <MDBBtn
-                            className="m-0 addtocart-button"
-                            color="success"
-                          >
-                            <Link className="link-color" to="/login">
-                              Add to cart
-                            </Link>
-                          </MDBBtn>
-                        )}
-                      </MDBCol>
-                    </MDBRow>
-                  </form>
+                          </Link>
+                        </MDBBtn>
+                      </MDBInputGroup>
+                    </>
+                  )}
                 </IsCustomer>
               </>
             </>
