@@ -5,7 +5,7 @@ import axios from "axios";
 import IsCreator from "../IsCreator/IsCreator";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import { AiFillStar } from 'react-icons/ai'
-import { MDBBtnGroup, MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBContainer, MDBIcon, MDBRow, MDBTypography } from "mdb-react-ui-kit";
+import { MDBCard, MDBCardBody, MDBCardHeader, MDBIcon, MDBTypography } from "mdb-react-ui-kit";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const [rating, setRating] = useState(eachReview.rating);
@@ -23,11 +23,11 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const requestBody = {
       rating,
       text,
     };
+    console.log(requestBody);
     const storedToken = localStorage.getItem("authToken");
     axios
       .put(
@@ -84,7 +84,6 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
       </MDBCardBody>
     </MDBCard>
         
-
         </>
       )}
       {!isSubmitted && (
