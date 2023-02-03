@@ -2,7 +2,7 @@ import "./HomePage.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddProduct from "../../components/AddProduct/AddProduct";
-import { Col, Container, Row } from "react-bootstrap";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
 import IsAdmin from "../../components/IsAdmin/isAdmin";
 import {
   MDBCard,
@@ -18,6 +18,7 @@ import {
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
+import plantsImage from "../../images/plants-on-cupboard.jpeg";
 
 export function HomePage() {
   const [plants, setPlants] = useState([]);
@@ -55,35 +56,35 @@ export function HomePage() {
 
   return (
     <>
-      <MDBCarousel showControls showIndicators>
-      <MDBCarouselItem
-        className='w-100 d-block'
-        itemId={1}
-        src='https://mdbootstrap.com/img/new/slides/041.jpg'
-        alt='...'
-      >
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </MDBCarouselItem>
-      <MDBCarouselItem
-        className='w-100 d-block'
-        itemId={2}
-        src='https://mdbootstrap.com/img/new/slides/042.jpg'
-        alt='...'
-      >
+    {/* 'https://img.freepik.com/free-photo/composition-pots-with-plants-wooden-background_23-2148509859.jpg?w=1380&t=st=1675389739~exp=1675390339~hmac=672238efed8f4d873edee88882e80d94112899707bb663e9bf06c97046ec2b73' */}
+      <Carousel>
+      <Carousel.Item>
+        <div className="carousel-img">
+        <img className="d-block w-100 carousel-img" src="https://img.freepik.com/free-photo/composition-pots-with-plants-wooden-background_23-2148509859.jpg?w=1380&t=st=1675389739~exp=1675390339~hmac=672238efed8f4d873edee88882e80d94112899707bb663e9bf06c97046ec2b73" alt="" />
+        <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
+        </div>
+        <Carousel.Caption>
+        <h3 className="caption-title">New Arrivals</h3>
+        <p className="caption-text">Add a touch of the desert to your home with our stunning cacti collection.</p>
+        </Carousel.Caption>
+        </Carousel.Item>
+      <Carousel.Item>
+        <img className="d-block w-100" src="https://images.unsplash.com/photo-1521334884684-d80222895322?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
+        <Carousel.Caption>
         <h5>Second slide label</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </MDBCarouselItem>
-      <MDBCarouselItem
+        </Carousel.Caption>
+        </Carousel.Item>
+      <Carousel.Item
         className='w-100 d-block'
         itemId={3}
-        src='https://mdbootstrap.com/img/new/slides/043.jpg'
+        src={plantsImage}
         alt='...'
       >
         <h5>Third slide label</h5>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </MDBCarouselItem>
-    </MDBCarousel>
+      </Carousel.Item>
+    </Carousel>
 
       <div className="p-4">
         <IsAdmin>
@@ -91,12 +92,13 @@ export function HomePage() {
         </IsAdmin>
 
         <MDBContainer className="my-5">
-          <form>
-            <label>
+          <form className="searchForm">
+            <label className="searchLabel">
               Search by Category:
               <select
                 name="category"
                 aria-label="category"
+                className="selectSearch"
                 onChange={(e) => setSearchQuery(e.target.value)}
               >
                 <option value="">All Plants</option>
