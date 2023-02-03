@@ -1,3 +1,4 @@
+import "./PlantCard.css";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -8,7 +9,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { CartCountContext } from "../../context/cart.context";
 import {
-    MDBBtn,
+  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
@@ -17,6 +18,7 @@ import {
   MDBRipple,
   MDBRow,
 } from "mdb-react-ui-kit";
+import { AuthContext } from "../../context/auth.context";
 
 export function PlantCard(props) {
   const productId = props._id;
@@ -25,6 +27,7 @@ export function PlantCard(props) {
   const [quantity, setQuantity] = useState(1);
   const [itemsInCard, setItemsInCart] = useState(0);
   const { cartCount, setCartCount } = useContext(CartCountContext);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleNewCartCount = (quantity) => {
     console.log("THis is the current cart count");
@@ -98,24 +101,39 @@ export function PlantCard(props) {
               <>
                 <IsCustomer>
                   <form onSubmit={handleAddToCart}>
-                  <MDBRow>
-                  <MDBCol sm="5">
-                    <MDBInput
-                    label="Quantity"
-                      type="number"
-                      id="quantity"
-                      min={1}
-                      max={props.stock}
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                    </MDBCol>
+                    <MDBRow>
+                      <MDBCol sm="5">
+                        <MDBInput
+                          label="Quantity"
+                          type="number"
+                          id="quantity"
+                          min={1}
+                          max={props.stock}
+                          value={quantity}
+                          onChange={(e) => setQuantity(e.target.value)}
+                        />
+                      </MDBCol>
 
-<MDBCol className="p-0 m-0"  sm="7">
-                    <MDBBtn className="m-0" color="success" type="submit">
-                      Add to cart
-                    </MDBBtn>
-                    </MDBCol>
+                      <MDBCol className="p-0 m-0" sm="7">
+                        {isLoggedIn ? (
+                          <MDBBtn
+                            className="m-0 addtocart-button"
+                            color="success"
+                            type="submit"
+                          >
+                            Add to cart
+                          </MDBBtn>
+                        ) : (
+                          <MDBBtn
+                            className="m-0 addtocart-button"
+                            color="success"
+                          >
+                            <Link className="link-color" to="/login">
+                              Add to cart
+                            </Link>
+                          </MDBBtn>
+                        )}
+                      </MDBCol>
                     </MDBRow>
                   </form>
                 </IsCustomer>

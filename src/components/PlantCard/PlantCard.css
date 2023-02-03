@@ -1,0 +1,13 @@
+.link-color {
+    color: #d6fbd6;
+  }
+
+.addtocart-button {
+    background-color: #435B38;
+    color: #d6fbd6;
+    margin-bottom: 6vh;
+  }
+  .addtocart-button:hover {
+      color: #435B38;
+      background-color: #d6fbd6;
+    }
