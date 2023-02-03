@@ -92,11 +92,11 @@ export function PlantCard(props) {
             </h5>
           </div>
 
-          {props.stock ? (
+          {stock ? (
             <>
               <div class="d-flex justify-content-between mb-4">
                 <p class="text-muted mb-0">
-                  Available: <span class="fw-bold">{props.stock}</span>
+                  Available: <span class="fw-bold">{stock}</span>
                 </p>
               </div>
               <>
