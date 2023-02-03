@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
 import plantsImage from "../../images/plants-on-cupboard.jpeg";
+import plantsImage2 from "../../images/plants-in-a-pot_720.jpg";
 
 export function HomePage() {
   const [plants, setPlants] = useState([]);
