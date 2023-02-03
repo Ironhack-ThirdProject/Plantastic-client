@@ -186,7 +186,7 @@ function PlantDetails() {
             <MDBCardBody>
               <MDBRow className="justify-content-left my-4">
                 <MDBCol>
-                  <img src={plant.imageURL} className="w-80 h-80" alt="product" />
+                  <MDBCardImage src={plant.imageURL} className="w-80 border-light" alt="product" />
                 </MDBCol>
                 <MDBCol>
                   <h3><strong>{plant.name}</strong></h3>
