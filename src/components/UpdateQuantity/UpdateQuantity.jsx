@@ -1,4 +1,4 @@
-import { MDBBtn, MDBInput, MDBCol, MDBRow } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBInput, MDBCol, MDBRow, MDBInputGroup } from 'mdb-react-ui-kit';
 import React from 'react'
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
@@ -17,19 +17,19 @@ function UpdateQuantity({ productId, quantity, onUpdateQuantity }) {
     <>
     <form className='d-flex' onSubmit={handleSubmit}>
     <MDBRow>
-      <MDBCol sm="7">
-      <MDBInput
+      
+        <MDBInputGroup>
+      <input
+      label="Quantity"
+      className='form-control'
         type="number"
         value={newQuantity}
         onChange={(e) => setNewQuantity(e.target.value)}
         min="1"
         max={productId.stock + quantity}
-        label="Quantity"
       />
-      </MDBCol >
-      <MDBCol sm="1">
       <MDBBtn className='btn btn-success' type="submit">Update</MDBBtn>
-      </MDBCol>
+      </MDBInputGroup>
       </MDBRow>
     </form>
     </>

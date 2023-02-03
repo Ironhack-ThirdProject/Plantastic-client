@@ -78,6 +78,7 @@ export default function CartPage() {
       });
   }
 
+
   function onUpdateQuantity(idOfTheProduct, newQuantity) {
     axios
     .put(
@@ -183,11 +184,13 @@ export default function CartPage() {
                           rippleColor="light"
                           className="bg-image rounded hover-overlay"
                         >
-                          <img
+                          {product.productId.imageURL && (
+                            <img
                             src={product.productId.imageURL}
                             className="w-100"
                             alt="product"
                           />
+                          )}
                           <Link to={`/plants/${product.productId._id}`}>
                             <div
                               className="mask"

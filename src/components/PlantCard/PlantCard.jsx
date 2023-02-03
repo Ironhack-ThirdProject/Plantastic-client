@@ -14,6 +14,7 @@ import {
   MDBCardImage,
   MDBCol,
   MDBInput,
+  MDBInputGroup,
   MDBRipple,
   MDBRow,
 } from "mdb-react-ui-kit";
@@ -98,9 +99,9 @@ export function PlantCard(props) {
               <>
                 <IsCustomer>
                   <form onSubmit={handleAddToCart}>
-                  <MDBRow>
-                  <MDBCol sm="5">
-                    <MDBInput
+                    <MDBInputGroup>
+                    <input
+                    className='form-control'
                     label="Quantity"
                       type="number"
                       id="quantity"
@@ -109,14 +110,11 @@ export function PlantCard(props) {
                       value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                     />
-                    </MDBCol>
 
-<MDBCol className="p-0 m-0"  sm="7">
                     <MDBBtn className="m-0" color="success" type="submit">
                       Add to cart
                     </MDBBtn>
-                    </MDBCol>
-                    </MDBRow>
+                    </MDBInputGroup>
                   </form>
                 </IsCustomer>
               </>
