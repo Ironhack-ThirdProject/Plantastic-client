@@ -65,8 +65,8 @@ export function HomePage() {
         <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
         </div>
         <Carousel.Caption>
-        <h3 className="caption-title">New Arrivals</h3>
-        <p className="caption-text">Add a touch of the desert to your home with our stunning cacti collection.</p>
+        <h3>New Arrivals</h3>
+        <p>Add a touch of the desert to your home with our stunning cacti collection.</p>
         </Carousel.Caption>
         </Carousel.Item>
       <Carousel.Item>
@@ -75,8 +75,8 @@ export function HomePage() {
         <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
         </div>
         <Carousel.Caption>
-        <h5>Second slide label</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h5>Nature's Beauty in Your Home</h5>
+        <p>Bring the outdoors in and transform your space with our selection of lush plants.</p>
         </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -85,8 +85,8 @@ export function HomePage() {
         <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
         </div>
         <Carousel.Caption>
-        <h3 className="caption-title">New Arrivals</h3>
-        <p className="caption-text">Nature at your fingertips: Shop now for the perfect plant to match your style.</p>
+        <h3>Green Your Home with Our Plant Collection</h3>
+        <p>Nature at your fingertips: Shop now for the perfect plant to match your style.</p>
         </Carousel.Caption>
         </Carousel.Item>
     </Carousel>

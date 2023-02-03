@@ -252,7 +252,7 @@ function PlantDetails() {
                       {showForm ? "Hide Form" : "Edit"}
                     </Button>
 
-                    <form onSubmit={handleDelete}>
+                    <form className="mt-4" onSubmit={handleDelete}>
                       <Button type="submit" variant="danger">
                         Delete
                       </Button>
