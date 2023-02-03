@@ -10,6 +10,16 @@ function CartCountProviderWrapper(props) {
   const [cartCount, setCartCount] = useState(parsedState);
 
   useEffect(() => {
+    if (isNaN(cartCount)) {
+      setCartCount(0);
+    }
+    localStorage.setItem('cart-context', cartCount.toString());
+  }, []);
+
+  useEffect(() => {
+    if (isNaN(cartCount)) {
+      setCartCount(0);
+    }
     localStorage.setItem('cart-context', cartCount.toString());
   }, [cartCount]);
 
