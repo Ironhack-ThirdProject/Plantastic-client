@@ -19,6 +19,7 @@ import {
 import { Link } from "react-router-dom";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
 import plantsImage from "../../images/plants-on-cupboard.jpeg";
+import plantsImage2 from "../../images/plants-in-a-pot_720.jpg"
 
 export function HomePage() {
   const [plants, setPlants] = useState([]);
@@ -69,21 +70,25 @@ export function HomePage() {
         </Carousel.Caption>
         </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src="https://images.unsplash.com/photo-1521334884684-d80222895322?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"/>
+      <div className="carousel-img">
+        <img className="d-block w-100" src={plantsImage2}/>
+        <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
+        </div>
         <Carousel.Caption>
         <h5>Second slide label</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
         </Carousel.Item>
-      <Carousel.Item
-        className='w-100 d-block'
-        itemId={3}
-        src={plantsImage}
-        alt='...'
-      >
-        <h5>Third slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </Carousel.Item>
+        <Carousel.Item>
+        <div className="carousel-img">
+        <img className="d-block w-100 carousel-img" src={plantsImage} alt="" />
+        <div className='mask' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}></div>
+        </div>
+        <Carousel.Caption>
+        <h3 className="caption-title">New Arrivals</h3>
+        <p className="caption-text">Nature at your fingertips: Shop now for the perfect plant to match your style.</p>
+        </Carousel.Caption>
+        </Carousel.Item>
     </Carousel>
 
       <div className="p-4">
