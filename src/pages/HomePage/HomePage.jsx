@@ -45,8 +45,7 @@ export function HomePage() {
       .catch((error) => console.log(error));
   };
 
-  // We set this effect will run only once, after the initial render
-  // by setting the empty dependency array - []
+
   useEffect(() => {
     getAllPlants();
   }, [searchQuery]);
@@ -57,7 +56,7 @@ export function HomePage() {
 
   return (
     <>
-      {/* 'https://img.freepik.com/free-photo/composition-pots-with-plants-wooden-background_23-2148509859.jpg?w=1380&t=st=1675389739~exp=1675390339~hmac=672238efed8f4d873edee88882e80d94112899707bb663e9bf06c97046ec2b73' */}
+     
       <Carousel>
         <Carousel.Item>
           <div className="carousel-img">
@@ -88,7 +87,7 @@ export function HomePage() {
             ></div>
           </div>
           <Carousel.Caption>
-            <h5>Nature's Beauty in Your Home</h5>
+            <h3>Nature's Beauty in Your Home</h3>
             <p>
               Bring the outdoors in and transform your space with our selection
               of lush plants.

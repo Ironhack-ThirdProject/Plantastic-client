@@ -33,12 +33,15 @@ function PaymentPage() {
     colors: ["#d5e1df", "#e3eaa7", "#b5e7a0", "#86af49"],
   };
 
+
   return (
     <section className="styled-div d-flex justify-content-center p-5">
     <MDBContainer className="text-div my-auto">
         {path === "/payment/success" ? (
           <>
-            <ConfettiExplosion {...explosion} />
+          <div className="confettis">
+          <ConfettiExplosion {...explosion} />
+            </div>
             <h1 className="title-success">Thank you for your purchase!</h1>
             <p className="paragraph1">
               We're thrilled to have you as a part of our growing community of
