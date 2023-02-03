@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { Button } from "react-bootstrap";
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdb-react-ui-kit";
-import signupImage from "../../signup.jpg";
+import signupImage from "../../images/signup.jpg";
 
 function SignupPage() {
   const [email, setEmail] = useState("");

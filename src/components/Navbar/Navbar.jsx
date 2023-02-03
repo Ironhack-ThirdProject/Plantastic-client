@@ -8,8 +8,8 @@ import {
   CartCountProviderWrapper,
 } from "../../context/cart.context";
 import { Button } from "react-bootstrap";
-import logo from "../../logo.png";
-import name from "../../image-name.png";
+import logo from "../../images/logo.png";
+import name from "../../images/image-name.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import {
   MDBContainer,

@@ -5,16 +5,12 @@ import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
 import { Button } from "react-bootstrap";
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBIcon,
-  MDBInput,
 } from "mdb-react-ui-kit";
-import logo from "../../logo.png";
-import name from "../../image-name.png";
-import loginImage from "../../login-img.jpg";
+import loginImage from "../../images/login-img.jpg";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
