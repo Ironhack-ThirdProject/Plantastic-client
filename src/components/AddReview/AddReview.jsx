@@ -1,5 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
+import { MDBBtn, MDBCheckbox, MDBInput, MDBTextArea } from "mdb-react-ui-kit";
+import { AiFillStar } from 'react-icons/ai'
+
 
 function AddReview({ props }) {
   const [rating, setRating] = useState(5);
@@ -32,11 +35,13 @@ function AddReview({ props }) {
 
   return (
     <div className="AddReview">
-      <h3>Add Project</h3>
+      <hr />
+      <h3>Add a review</h3>
 
       <form onSubmit={handleSubmit} enctype="multipart/form-data">
-        <label>Rating: (1-5)</label>
-        <input
+        <label className="mt-2">Rating (1-5 <AiFillStar/>):</label>
+        <MDBInput
+        label="Rating"
           type="number"
           name="rating"
           value={rating}
@@ -45,15 +50,19 @@ function AddReview({ props }) {
           onChange={(e) => setRating(e.target.value)}
         />
 
-        <label>Please explain your review here:</label>
-        <textarea
+        <label className="mt-2">Please enter your review here:</label>
+        <MDBTextArea 
+          wrapperClass='mb-4' 
+          id='textAreaExample'
+          rows={4} 
+          label='Message'
           type="text"
           name="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
 
-        <button type="submit">Submit</button>
+        <MDBBtn color="warning" type="submit">Submit</MDBBtn>
         
       </form>
     </div>

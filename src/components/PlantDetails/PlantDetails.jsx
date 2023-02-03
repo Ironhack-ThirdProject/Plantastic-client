@@ -1,3 +1,4 @@
+import "./PlantDetails.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -9,6 +10,25 @@ import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCardHeader,
+  MDBCardImage,
+  MDBCardText,
+  MDBBadge,
+  MDBCol,
+  MDBContainer,
+  MDBInput,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRipple,
+  MDBRow,
+  MDBTypography,
+  MDBIcon,
+} from "mdb-react-ui-kit";
+import { AiFillStar } from "react-icons/ai";
 
 function PlantDetails() {
   const { productId } = useParams();
@@ -25,6 +45,16 @@ function PlantDetails() {
   const [reviews, setReviews] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
+
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+  const averageRating = totalRating / reviews.length;
+  const roundedAverage = Math.round(averageRating);
+
+  const stars = [];
+  for (let i = 0; i < roundedAverage; i++) {
+    stars.push(<MDBIcon className="icon-gradient" fas icon="star"/>);
+  }
+
 
   const getPlantDetails = () => {
     axios
@@ -47,7 +77,7 @@ function PlantDetails() {
         console.log("--- This is the response from /reviews/userId");
         console.log(response.data);
         setReviews(response.data);
-        console.log(reviews);
+        
       })
       .catch((error) => console.log(error));
   };
@@ -55,12 +85,9 @@ function PlantDetails() {
   const handleDelete = (e) => {
     e.preventDefault();
     axios
-      .delete(
-        `${process.env.REACT_APP_SERVER_URL}/plants/${productId}`,
-        {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        }
-      )
+      .delete(`${process.env.REACT_APP_SERVER_URL}/plants/${productId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         console.log("Plant deleted!");
         navigate("/plants");
@@ -126,98 +153,142 @@ function PlantDetails() {
     getReviews();
   }, []);
 
+
   const navigate = useNavigate();
+
+  if (!plant) {
+    return (
+      <section className="gradient-custom no-items">
+        <MDBContainer className="py-5 h-100">
+          <MDBRow className="justify-content-center my-4">
+            <MDBCol md="8">
+              <MDBCard className="mb-4 cards">
+                <MDBCardHeader className="py-3">
+                  <MDBTypography tag="h5" className="mb-0">
+                    Oops, this plant doesn't exist.
+                  </MDBTypography>
+                </MDBCardHeader>
+                <MDBCardBody></MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+      </section>
+    );
+  }
 
   return (
     <div>
-      {plant && (
-        <div>
-          <div>
-            <Button variant="warning" onClick={() => navigate("/plants")}>
-              Go back
-            </Button>
-          </div>
-          <div key={plant._id}>
-            <img src={plant.imageURL} alt="product" />
-            <h1>{plant.name}</h1>
-            <p>{plant.description}</p>
+      <section className="h-100 marble-background">
+        <MDBContainer className="py-5 h-100">
+          <MDBRow>
+          <MDBCard className="mb-4 cards">
+            <MDBCardBody>
+              <MDBRow className="justify-content-left my-4">
+                <MDBCol>
+                  <img src={plant.imageURL} className="w-80 h-80" alt="product" />
+                </MDBCol>
+                <MDBCol>
+                  <h3><strong>{plant.name}</strong></h3>
+                  <p>{plant.description}</p>
+                  {stars ? (<p>{stars}</p>) : (<p>No reviews yet.</p>)}
+                  <hr />
+                  <MDBTypography note noteColor="light">
+                    {plant.caringTips.map((tip) => {
+                      return <p>{tip}</p>;
+                    })}
+                  </MDBTypography>
+                  <MDBBadge color="warning" light>
+                    #{plant.category}
+                  </MDBBadge>
+                  <MDBBadge className="mx-2" color="info" light>
+                    #{plant.tag}
+                  </MDBBadge>
+                  
+                 
 
-            <ul>
-              {plant.caringTips.map((tip) => {
-                return <li>{tip}</li>;
-              })}
-            </ul>
-            <p>#{plant.category}</p>
-            <p>#{plant.tag}</p>
+                  {stock ? (
+                    <>
+                    <p className="mt-4">Currently in stock: {stock}</p>
+                    <p>Price: {currencyFormatter.format(plant.price)}</p>
+                      <IsCustomer>
+                        <form onSubmit={handleAddToCart}>
+                          <MDBRow>
+                            <MDBCol sm="6">
+                            <MDBInput
+                            type="number"
+                            id="quantity"
+                            min={1}
+                            max={plant.stock}
+                            value={quantity}
+                            label="Quantity"
+                            onChange={(e) => setQuantity(e.target.value)}
+                          />
+                            </MDBCol>
+                            <MDBCol className="p-0"  sm="3">
+                            <Button variant="success" type="submit">
+                            Add to cart
+                          </Button>
+                            </MDBCol>
+                          </MDBRow>
+                        </form>
+                      </IsCustomer>
+                    </>
+                  ) : (
+                    <div>
+                      <p className="mt-4 text-danger">Out of stock.</p>
+                    </div>
+                  )}
 
-            <p>Price: {currencyFormatter.format(plant.price)}</p>
+                  <IsAdmin>
+                    {showForm && (
+                      <PlantEdit
+                        plantData={plant}
+                        getPlantDetails={getPlantDetails}
+                      />
+                    )}
 
-            {stock ? (
-              <>
-                <p>
-                  <b>Currently in stock: {stock}</b>
-                </p>
-                <IsCustomer>
-                  <form onSubmit={handleAddToCart}>
-                    <label>Quantity:</label>
-                    <input
-                      type="number"
-                      id="quantity"
-                      min={1}
-                      max={plant.stock}
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-
-                    <Button variant="success" type="submit">
-                      Add to cart
+                    <Button onClick={() => setShowForm(!showForm)}>
+                      {showForm ? "Hide Form" : "Edit"}
                     </Button>
-                  </form>
-                </IsCustomer>
-              </>
-            ) : (
+
+                    <form onSubmit={handleDelete}>
+                      <Button type="submit" variant="danger">
+                        Delete
+                      </Button>
+                    </form>
+                  </IsAdmin>
+                  <IsCustomer>
+
+                <AddReview props={productId} />
+
+              </IsCustomer>
+                </MDBCol>
+              </MDBRow>
+            </MDBCardBody>
+          </MDBCard>
+          </MDBRow>
+       <MDBRow>
+
+       <MDBCard className="mb-4 cards">
+            {reviews ? (
               <div>
-                <h4 class="text-danger">Out of stock.</h4>
+                {reviews.map((eachReview) => (
+
+                  <ReviewHistory
+                    eachReview={eachReview}
+                    callbackToGetReviews={getReviews}
+                  ></ReviewHistory>
+                ))}
               </div>
+            ) : (
+              <div>This plant does not have any reviews yet</div>
             )}
-
-            <IsAdmin>
-              {showForm && (
-                <PlantEdit
-                  plantData={plant}
-                  getPlantDetails={getPlantDetails}
-                />
-              )}
-
-              <Button onClick={() => setShowForm(!showForm)}>
-                {showForm ? "Hide Form" : "Edit"}
-              </Button>
-
-              <form onSubmit={handleDelete}>
-                <Button type="submit" variant="danger">
-                  Delete
-                </Button>
-              </form>
-            </IsAdmin>
-            <IsCustomer>
-              <AddReview props={productId} />
-            </IsCustomer>
-          </div>
-          {reviews ? (
-            <div>
-              {reviews.map((eachReview) => (
-                <ReviewHistory
-                  eachReview={eachReview}
-                  callbackToGetReviews={getReviews}
-                ></ReviewHistory>
-              ))}
-            </div>
-          ) : (
-            <div>This plant does not have any reviews yet</div>
-          )}
-        </div>
-      )}
-    </div>
+          </MDBCard>
+          </MDBRow>
+          </MDBContainer>
+      </section>
+      </div>
   );
 }
 

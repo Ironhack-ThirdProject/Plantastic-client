@@ -1,0 +1,5 @@
+.icon-gradient{
+    background: radial-gradient(circle at 10% 20%, rgb(253, 255, 110) 0%, rgb(255, 208, 105) 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

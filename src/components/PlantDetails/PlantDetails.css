@@ -1,0 +1,17 @@
+.marble-background {
+    /* fallback for old browsers */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(https://img.freepik.com/free-photo/marble-product-backdrop-with-plant-shadow_53876-126935.jpg?w=1380&t=st=1675375499~exp=1675376099~hmac=2cee79f9980d3ab16728bdfc2ce809e07bce6ef718605d2f4c49ec811f9eb63d);
+}
+
+.no-items{
+    height: 100vh;
+}
+
+.icon-gradient{
+    background: radial-gradient(circle at 10% 20%, rgb(253, 255, 110) 0%, rgb(255, 208, 105) 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

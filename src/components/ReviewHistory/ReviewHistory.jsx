@@ -1,14 +1,23 @@
+import './ReviewHistory.css'
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import IsCreator from "../IsCreator/IsCreator";
 import IsCustomer from "../IsCustomer/IsCustomer";
+import { AiFillStar } from 'react-icons/ai'
+import { MDBBtnGroup, MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBContainer, MDBIcon, MDBRow, MDBTypography } from "mdb-react-ui-kit";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const [rating, setRating] = useState(eachReview.rating);
   const [text, setText] = useState(eachReview.text);
   const [showResult, setShowResult] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(true);
+
+  const stars = [];
+
+  for (let i = 0; i < eachReview.rating; i++) {
+    stars.push(<> <MDBIcon className="icon-gradient" fas icon="star"/> </>);
+  } 
 
   const reviewId = eachReview._id;
 
@@ -61,15 +70,21 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
     <>
       {showResult && (
         <>
-          <div key={eachReview._id}>
-            <p>Rating: {eachReview.rating}</p>
-            <p>Text: {eachReview.text}</p>
-          </div>
-          <IsCustomer>
+        <MDBCard className="mt-4 mb-6">
+      <MDBCardHeader>{stars}</MDBCardHeader>
+      <MDBCardBody>
+        <MDBTypography blockquote>
+          <p>{eachReview.text}</p>
+        </MDBTypography>
+        <IsCustomer>
             <IsCreator review={eachReview}>
-              <button onClick={handleEdit}>Edit</button>
+              <Button className="btn btn-info" onClick={handleEdit}>Edit</Button>
             </IsCreator>
           </IsCustomer>
+      </MDBCardBody>
+    </MDBCard>
+        
+
         </>
       )}
       {!isSubmitted && (
