@@ -59,6 +59,7 @@ function AddReview({ props }) {
           type="text"
           name="text"
           value={text}
+          required
           onChange={(e) => setText(e.target.value)}
         />
 
