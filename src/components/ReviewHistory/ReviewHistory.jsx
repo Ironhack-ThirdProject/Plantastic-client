@@ -4,12 +4,15 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import IsCreator from "../IsCreator/IsCreator";
 import IsCustomer from "../IsCustomer/IsCustomer";
+import { AiFillStar } from "react-icons/ai";
 import {
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
   MDBIcon,
   MDBTypography,
+  MDBInput,
+  MDBTextArea,
 } from "mdb-react-ui-kit";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
@@ -101,6 +104,50 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
       )}
       {!isSubmitted && (
         <>
+          <form onSubmit={handleSubmit} enctype="multipart/form-data">
+            <label className="mt-2">
+              Rating (1-5 <AiFillStar />
+              ):
+            </label>
+            <MDBInput
+              label="Rating"
+              type="number"
+              name="rating"
+              value={rating}
+              min="1"
+              max="5"
+              onChange={(e) => setRating(e.target.value)}
+            />
+
+            <label className="mt-2">Please explain your review here:</label>
+            <MDBTextArea
+              wrapperClass="mb-4"
+              id="textAreaExample"
+              rows={4}
+              label="Message"
+              type="text"
+              name="text"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <Button type="submit" className="reviewHistory-button">
+              Submit
+            </Button>
+          </form>
+          <IsCustomer>
+            <IsCreator review={eachReview}>
+              <Button
+                className="delete-button"
+                onClick={() => {
+                  handleDelete(eachReview._id);
+                }}
+                variant="danger"
+              >
+                Delete
+              </Button>
+            </IsCreator>
+          </IsCustomer>
+          {/*
           <form onSubmit={handleSubmit}>
             <label>Rating: (1-5)</label>
             <input
@@ -120,7 +167,7 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
               onChange={(e) => setText(e.target.value)}
             />
             <br />
-            <button type="submit">Submit</button>
+            <Button type="submit" className="reviewHistory-button">Submit</Button>
           </form>
           <IsCustomer>
             <IsCreator review={eachReview}>
@@ -134,6 +181,7 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
               </Button>
             </IsCreator>
           </IsCustomer>
+           */}
         </>
       )}
     </>
