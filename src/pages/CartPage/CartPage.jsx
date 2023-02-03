@@ -369,6 +369,7 @@ export default function CartPage() {
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
+          
           <MDBCol md="4">
             <MDBCard className="mb-4">
               <MDBCardHeader>

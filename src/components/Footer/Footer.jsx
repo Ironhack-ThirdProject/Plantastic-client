@@ -35,7 +35,6 @@ function Footer() {
           <MDBRow className='mt-3'>
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>
-                <MDBIcon icon="gem" className="me-3" />
                 Plantastic
               </h6>
             </MDBCol>
@@ -67,15 +66,13 @@ function Footer() {
             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Contact Us</h6>
               <p>
-                <MDBIcon icon="home" />
                 At Plantastic, we are always here to help! If you have any questions or concerns, please don't hesitate to reach out to us.
               </p>
               <p>
-                <MDBIcon icon="envelope"/>
                 support@plantastic.com
               </p>
               <p>
-                <MDBIcon icon="phone"/> (555) 555-5555
+                (555) 555-5555
               </p>
             </MDBCol>
           </MDBRow>

@@ -54,7 +54,7 @@ function Navbar() {
               <MDBNavbarItem>
                 <MDBNavbarLink
                   aria-current="page"
-                  href="/plants"
+                  href="/"
                   className="link"
                 >
                   All Plants
@@ -76,7 +76,7 @@ function Navbar() {
               {isLoggedIn && isAdmin && (
                 <>
                   <MDBNavbarItem>
-                    <MDBNavbarLink href="/" className="link">
+                    <MDBNavbarLink href="/dashboard" className="link">
                       Dashboard
                     </MDBNavbarLink>
                   </MDBNavbarItem>
