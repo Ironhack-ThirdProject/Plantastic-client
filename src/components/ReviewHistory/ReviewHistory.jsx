@@ -1,11 +1,16 @@
-import './ReviewHistory.css'
+import "./ReviewHistory.css";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import IsCreator from "../IsCreator/IsCreator";
 import IsCustomer from "../IsCustomer/IsCustomer";
-import { AiFillStar } from 'react-icons/ai'
-import { MDBBtnGroup, MDBCard, MDBCardBody, MDBCardHeader, MDBCol, MDBContainer, MDBIcon, MDBRow, MDBTypography } from "mdb-react-ui-kit";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardHeader,
+  MDBIcon,
+  MDBTypography,
+} from "mdb-react-ui-kit";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const [rating, setRating] = useState(eachReview.rating);
@@ -16,18 +21,23 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
   const stars = [];
 
   for (let i = 0; i < eachReview.rating; i++) {
-    stars.push(<> <MDBIcon className="icon-gradient" fas icon="star"/> </>);
-  } 
+    stars.push(
+      <>
+        {" "}
+        <MDBIcon className="icon-gradient" fas icon="star" />{" "}
+      </>
+    );
+  }
 
   const reviewId = eachReview._id;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const requestBody = {
       rating,
       text,
     };
+    console.log(requestBody);
     const storedToken = localStorage.getItem("authToken");
     axios
       .put(
@@ -52,7 +62,7 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
     setIsSubmitted(false);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (reviewId) => {
     const storedToken = localStorage.getItem("authToken");
     axios
       .delete(`${process.env.REACT_APP_SERVER_URL}/reviews/${reviewId}`, {
@@ -60,6 +70,8 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
       })
       .then(() => {
         callbackToGetReviews();
+        setShowResult(true);
+        setIsSubmitted(true);
       })
       .catch((error) => {
         console.log(error);
@@ -70,21 +82,21 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
     <>
       {showResult && (
         <>
-        <MDBCard className="mt-4 mb-6">
-      <MDBCardHeader>{stars}</MDBCardHeader>
-      <MDBCardBody>
-        <MDBTypography blockquote>
-          <p>{eachReview.text}</p>
-        </MDBTypography>
-        <IsCustomer>
-            <IsCreator review={eachReview}>
-              <Button className="reviewHistory-button" onClick={handleEdit}>Edit</Button>
-            </IsCreator>
-          </IsCustomer>
-      </MDBCardBody>
-    </MDBCard>
-        
-
+          <MDBCard className="mt-4 mb-6">
+            <MDBCardHeader>{stars}</MDBCardHeader>
+            <MDBCardBody>
+              <MDBTypography blockquote>
+                <p>{eachReview.text}</p>
+              </MDBTypography>
+              <IsCustomer>
+                <IsCreator review={eachReview}>
+                  <Button className="reviewHistory-button" onClick={handleEdit}>
+                    Edit
+                  </Button>
+                </IsCreator>
+              </IsCustomer>
+            </MDBCardBody>
+          </MDBCard>
         </>
       )}
       {!isSubmitted && (
@@ -114,7 +126,7 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
             <IsCreator review={eachReview}>
               <Button
                 onClick={() => {
-                  handleDelete();
+                  handleDelete(eachReview._id);
                 }}
                 variant="danger"
               >

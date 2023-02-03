@@ -46,7 +46,7 @@ export default function CartPage() {
 
   useEffect(() => {
     handleNewCartCount();
-  }, [totalQuantity])
+  }, [totalQuantity]);
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export default function CartPage() {
       )
       .then((response) => {
         const sumToBeRemoved = response.data.quantity;
-        setTotalQuantity(prevCount => prevCount -= sumToBeRemoved);
+        setTotalQuantity((prevCount) => (prevCount -= sumToBeRemoved));
         getCartDetails();
       })
       .catch((error) => {
@@ -81,30 +81,30 @@ export default function CartPage() {
 
   function onUpdateQuantity(idOfTheProduct, newQuantity) {
     axios
-    .put(
-      `${process.env.REACT_APP_SERVER_URL}/cart`,
-      { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
-      {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      }
-    )
-    .then((response) => {
-      let quantityArr = [];
-      response.data.updatedCart.products.forEach((product) => {
-        console.log(product);
-        quantityArr.push(product.quantity);
+      .put(
+        `${process.env.REACT_APP_SERVER_URL}/cart`,
+        { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        let quantityArr = [];
+        response.data.updatedCart.products.forEach((product) => {
+          console.log(product);
+          quantityArr.push(product.quantity);
+        });
+        let sum = quantityArr.reduce((a, b) => a + b, 0);
+        console.log(sum);
+        setTotalQuantity(sum);
+      })
+      .then(() => {
+        getCartDetails();
+      })
+      .catch((error) => {
+        console.log(error);
       });
-      let sum = quantityArr.reduce((a, b) => a + b, 0);
-      console.log(sum);
-      setTotalQuantity(sum);
-    })
-    .then(() => {
-      getCartDetails();
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -171,78 +171,83 @@ export default function CartPage() {
             <MDBCard className="mb-4 cards">
               <MDBCardHeader className="py-3">
                 <MDBTypography tag="h5" className="mb-0">
-                  Cart - {cart.products.length} {cart.products.length === 1 ? (<>item</>) : (<>items</>)}
+                  Cart - {cart.products.length}{" "}
+                  {cart.products.length === 1 ? <>item</> : <>items</>}
                 </MDBTypography>
               </MDBCardHeader>
               <MDBCardBody>
                 {cart.products.map((product, index) => (
                   <div key={index}>
-                    <MDBRow>
-                      <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
-                        <MDBRipple
-                          rippleTag="div"
-                          rippleColor="light"
-                          className="bg-image rounded hover-overlay"
-                        >
-                          {product.productId.imageURL && (
-                            <img
-                            src={product.productId.imageURL}
-                            className="w-100"
-                            alt="product"
-                          />
-                          )}
-                          <Link to={`/plants/${product.productId._id}`}>
-                            <div
-                              className="mask"
-                              style={{
-                                backgroundColor: "rgba(251, 251, 251, 0.2)",
-                              }}
-                            ></div>
-                          </Link>
-                        </MDBRipple>
-                      </MDBCol>
-
-                      <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
-                        <p>
-                          <strong>{product.productId.name}</strong>
-                        </p>
-                        {product.productId.stock ? (
-                          <p>Current stock: {product.productId.stock}</p>
-                        ) : (
-                          <p className="text-danger">Out of stock.</p>
-                        )}
-                        <p>Quantity: {product.quantity}</p>
-
-                        <form onSubmit={handleDelete}>
-                          <Button
-                            type="submit"
-                            variant="danger"
-                            onClick={() => setProductId(product.productId._id)}
+                    {product.productId && (
+                      <MDBRow>
+                        <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
+                          <MDBRipple
+                            rippleTag="div"
+                            rippleColor="light"
+                            className="bg-image rounded hover-overlay"
                           >
-                            Remove
-                          </Button>
-                        </form>
-                      </MDBCol>
-                      <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-                        <div
-                          className="d-flex mb-4"
-                          style={{ maxWidth: "300px" }}
-                        >
-                          <UpdateQuantity
-                            productId={product.productId}
-                            quantity={product.quantity}
-                            onUpdateQuantity={onUpdateQuantity}
-                            handleNewCartCount={handleNewCartCount}
-                          />
-                        </div>
+                            <img
+                              src={product.productId.imageURL}
+                              className="w-100"
+                              alt="product"
+                            />
+                            <Link to={`/plants/${product.productId._id}`}>
+                              <div
+                                className="mask"
+                                style={{
+                                  backgroundColor: "rgba(251, 251, 251, 0.2)",
+                                }}
+                              ></div>
+                            </Link>
+                          </MDBRipple>
+                        </MDBCol>
 
-                        <p className="text-start text-md-center">
-                          <strong>
-                            {currencyFormatter.format(product.productId.price)}
-                          </strong>
-                        </p>
-                      </MDBCol>
-                    </MDBRow>
+                        <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
+                          <p>
+                            <strong>{product.productId.name}</strong>
+                          </p>
+                          {product.productId.stock ? (
+                            <p>Current stock: {product.productId.stock}</p>
+                          ) : (
+                            <p className="text-danger">Out of stock.</p>
+                          )}
+                          <p>Quantity: {product.quantity}</p>
+
+                          <form onSubmit={handleDelete}>
+                            <Button
+                              type="submit"
+                              variant="danger"
+                              onClick={() =>
+                                setProductId(product.productId._id)
+                              }
+                            >
+                              Remove
+                            </Button>
+                          </form>
+                        </MDBCol>
+                        <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
+                          <div
+                            className="d-flex mb-4"
+                            style={{ maxWidth: "300px" }}
+                          >
+                            <UpdateQuantity
+                              productId={product.productId}
+                              quantity={product.quantity}
+                              onUpdateQuantity={onUpdateQuantity}
+                              handleNewCartCount={handleNewCartCount}
+                            />
+                          </div>
+
+                          <p className="text-start text-md-center">
+                            <strong>
+                              {currencyFormatter.format(
+                                product.productId.price
+                              )}
+                            </strong>
+                          </p>
+                        </MDBCol>
+                      </MDBRow>
+                    )}
                     <hr className="my-4" />
                   </div>
                 ))}
@@ -372,7 +377,7 @@ export default function CartPage() {
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          
+
           <MDBCol md="4">
             <MDBCard className="mb-4">
               <MDBCardHeader>

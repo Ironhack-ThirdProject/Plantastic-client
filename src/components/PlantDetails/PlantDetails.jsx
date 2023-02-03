@@ -1,6 +1,6 @@
 import "./PlantDetails.css";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
 import IsPrivate from "../IsPrivate/IsPrivate";
+import { Link } from 'react-router-dom';
 import {
   MDBBtn,
   MDBCard,
@@ -30,6 +31,7 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { AiFillStar } from "react-icons/ai";
+import { AuthContext } from "../../context/auth.context";
 
 function PlantDetails() {
   const { productId } = useParams();
@@ -44,6 +46,7 @@ function PlantDetails() {
   const [tag, setTag] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [reviews, setReviews] = useState([]);
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [showForm, setShowForm] = useState(false);
 
@@ -53,9 +56,8 @@ function PlantDetails() {
 
   const stars = [];
   for (let i = 0; i < roundedAverage; i++) {
-    stars.push(<MDBIcon className="icon-gradient" fas icon="star"/>);
+    stars.push(<MDBIcon className="icon-gradient" fas icon="star" />);
   }
-
 
   const getPlantDetails = () => {
     axios
@@ -78,7 +80,6 @@ function PlantDetails() {
         console.log("--- This is the response from /reviews/userId");
         console.log(response.data);
         setReviews(response.data);
-        
       })
       .catch((error) => console.log(error));
   };
@@ -154,7 +155,6 @@ function PlantDetails() {
     getReviews();
   }, []);
 
-
   const navigate = useNavigate();
 
   if (!plant) {
@@ -183,116 +183,125 @@ function PlantDetails() {
       <section className="h-100 marble-background">
         <MDBContainer className="py-5 h-100">
           <MDBRow>
-          <MDBCard className="mb-4 cards">
-            <MDBCardBody>
-              <MDBRow className="justify-content-left my-4">
-                <MDBCol sm="6">
-                  <MDBCardImage src={plant.imageURL} className="img-fluid" alt="product" />
-                </MDBCol>
-                <MDBCol>
-                  <h3><strong>{plant.name}</strong></h3>
-                  <p>{plant.description}</p>
-                  {stars ? (<p>{stars}</p>) : (<p>No reviews yet.</p>)}
-                  <hr />
-                  <MDBTypography note noteColor="light">
-                    {plant.caringTips.map((tip) => {
-                      return <p>{tip}</p>;
-                    })}
-                  </MDBTypography>
-                  <MDBBadge color="warning" light>
-                    #{plant.category}
-                  </MDBBadge>
-                  <MDBBadge className="mx-2" color="info" light>
-                    #{plant.tag}
-                  </MDBBadge>
-                  
-                 
+            <MDBCard className="mb-4 cards">
+              <MDBCardBody>
+                <MDBRow className="justify-content-left my-4">
+                  <MDBCol sm="6">
+                    <MDBCardImage
+                      src={plant.imageURL}
+                      className="img-fluid"
+                      alt="product"
+                    />
+                  </MDBCol>
+                  <MDBCol>
+                    <h3>
+                      <strong>{plant.name}</strong>
+                    </h3>
+                    <p>{plant.description}</p>
+                    {stars ? <p>{stars}</p> : <p>No reviews yet.</p>}
+                    <hr />
+                    <MDBTypography note noteColor="light">
+                      {plant.caringTips.map((tip) => {
+                        return <p>{tip}</p>;
+                      })}
+                    </MDBTypography>
+                    <MDBBadge color="warning" light>
+                      #{plant.category}
+                    </MDBBadge>
+                    <MDBBadge className="mx-2" color="info" light>
+                      #{plant.tag}
+                    </MDBBadge>
 
-                  {stock ? (
-                    <>
-                    <p className="mt-4">Currently in stock: {stock}</p>
-                    <p>Price: {currencyFormatter.format(plant.price)}</p>
-                      <IsCustomer>
-                        <form onSubmit={handleAddToCart}>
-                          <MDBRow>
-                            <MDBCol sm="6">
-                            <MDBInput
-                            type="number"
-                            id="quantity"
-                            min={1}
-                            max={plant.stock}
-                            value={quantity}
-                            label="Quantity"
-                            onChange={(e) => setQuantity(e.target.value)}
-                          />
-                            </MDBCol>
-                            <MDBCol className="p-0"  sm="3">
-                              
-                            <Button variant="success" type="submit">
-                            Add to cart
-                          </Button>
-                          
-                            </MDBCol>
-                          </MDBRow>
-                        </form>
-                        
-                      </IsCustomer>
-                    </>
-                  ) : (
-                    <div>
-                      <p className="mt-4 text-danger">Out of stock.</p>
-                    </div>
-                  )}
-
-                  <IsAdmin>
-                    {showForm && (
-                      <PlantEdit
-                        plantData={plant}
-                        getPlantDetails={getPlantDetails}
-                      />
+                    {stock ? (
+                      <>
+                        <p className="mt-4">Currently in stock: {stock}</p>
+                        <p>Price: {currencyFormatter.format(plant.price)}</p>
+                        <IsCustomer>
+                          <form onSubmit={handleAddToCart}>
+                            <MDBRow>
+                              <MDBCol sm="6">
+                                <MDBInput
+                                  type="number"
+                                  id="quantity"
+                                  min={1}
+                                  max={plant.stock}
+                                  value={quantity}
+                                  label="Quantity"
+                                  onChange={(e) => setQuantity(e.target.value)}
+                                />
+                              </MDBCol>
+                              <MDBCol className="p-0" sm="3">
+                                {isLoggedIn ? (
+                                  <MDBBtn
+                                    className="m-0 addtocart-button"
+                                    type="submit"
+                                  >
+                                    Add to cart
+                                  </MDBBtn>
+                                ) : (
+                                  <MDBBtn className="m-0 addtocart-button">
+                                    <Link className="link-color" to="/login">Add to cart</Link>
+                                  </MDBBtn>
+                                )}
+                              </MDBCol>
+                            </MDBRow>
+                          </form>
+                        </IsCustomer>
+                      </>
+                    ) : (
+                      <div>
+                        <p className="mt-4 text-danger">Out of stock.</p>
+                      </div>
                     )}
 
-                    <Button className="mb-4" onClick={() => setShowForm(!showForm)}>
-                      {showForm ? "Hide Form" : "Edit"}
-                    </Button>
+                    <IsAdmin>
+                      {showForm && (
+                        <PlantEdit
+                          plantData={plant}
+                          getPlantDetails={getPlantDetails}
+                        />
+                      )}
 
-                    <form onSubmit={handleDelete}>
-                      <Button type="submit" variant="danger">
-                        Delete
+                      <Button
+                        className="mb-4"
+                        onClick={() => setShowForm(!showForm)}
+                      >
+                        {showForm ? "Hide Form" : "Edit"}
                       </Button>
-                    </form>
-                  </IsAdmin>
-                  <IsCustomer>
 
-                <AddReview props={productId} />
-
-              </IsCustomer>
-                </MDBCol>
-              </MDBRow>
-            </MDBCardBody>
-          </MDBCard>
+                      <form onSubmit={handleDelete}>
+                        <Button type="submit" variant="danger">
+                          Delete
+                        </Button>
+                      </form>
+                    </IsAdmin>
+                    <IsCustomer>
+                      <AddReview props={productId} />
+                    </IsCustomer>
+                  </MDBCol>
+                </MDBRow>
+              </MDBCardBody>
+            </MDBCard>
           </MDBRow>
-       <MDBRow>
-
-       <MDBCard className="mb-4 cards">
-            {reviews ? (
-              <div>
-                {reviews.map((eachReview) => (
-
-                  <ReviewHistory
-                    eachReview={eachReview}
-                    callbackToGetReviews={getReviews}
-                  ></ReviewHistory>
-                ))}
-              </div>
-            ) : (
-              <div>This plant does not have any reviews yet</div>
-            )}
-          </MDBCard>
+          <MDBRow>
+            <MDBCard className="mb-4 cards">
+              {reviews ? (
+                <div>
+                  {reviews.map((eachReview) => (
+                    <ReviewHistory
+                      eachReview={eachReview}
+                      callbackToGetReviews={getReviews}
+                    ></ReviewHistory>
+                  ))}
+                </div>
+              ) : (
+                <div>This plant does not have any reviews yet</div>
+              )}
+            </MDBCard>
           </MDBRow>
-          </MDBContainer>
+        </MDBContainer>
       </section>
-      </div>
+    </div>
   );
 }
 
