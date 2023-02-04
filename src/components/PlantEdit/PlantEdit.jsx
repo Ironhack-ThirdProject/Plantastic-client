@@ -1,6 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { MDBBtn, MDBCol, MDBInput, MDBInputGroup, MDBListGroup, MDBListGroupItem, MDBRow, MDBTextArea } from "mdb-react-ui-kit";
+import {
+  MDBBtn,
+  MDBCol,
+  MDBInput,
+  MDBInputGroup,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRow,
+  MDBTextArea,
+} from "mdb-react-ui-kit";
 
 function PlantEdit({ plantData, getPlantDetails }) {
   console.log(plantData);
@@ -90,10 +99,10 @@ function PlantEdit({ plantData, getPlantDetails }) {
       <div className="bg-light p-4">
         <h3>Edit product</h3>
         <form onSubmit={handleSubmit}>
-          
           <MDBInput
-          label="Name"
-          wrapperClass="mb-4"
+            className="w-100"
+            label="Name"
+            wrapperClass="mb-4"
             type="text"
             name="name"
             value={name}
@@ -101,9 +110,10 @@ function PlantEdit({ plantData, getPlantDetails }) {
           />
 
           <MDBTextArea
-                    label="Description"
-                    wrapperClass="mb-4"
-                    rows={4}
+            className="w-100"
+            label="Description"
+            wrapperClass="mb-4"
+            rows={4}
             type="text"
             name="description"
             value={description}
@@ -111,33 +121,37 @@ function PlantEdit({ plantData, getPlantDetails }) {
           />
 
           <MDBInput
-          wrapperClass="mb-4"
+            wrapperClass="mb-4"
             type="file"
             onChange={(e) => {
               handleFileUpload(e);
             }}
           />
 
-          <MDBInputGroup className='mb-4'>
-          <input
-                      className='form-control'
-                      label="Caring Tips"
-            type="text"
-            name="newTip"
-            value={newTip}
-            onChange={(e) => setNewTip(e.target.value)}
-            placeholder="Caring Tip"
-          />
-          <MDBBtn type="button" color="success" onClick={handleAddCaringTip}>
-            Add Input Field
-          </MDBBtn>
+          <MDBInputGroup className="mb-4">
+            <input
+              className="form-control"
+              label="Caring Tips"
+              type="text"
+              name="newTip"
+              value={newTip}
+              onChange={(e) => setNewTip(e.target.value)}
+              placeholder="Caring Tip"
+            />
+            <MDBBtn type="button" color="success" onClick={handleAddCaringTip}>
+              Add Input Field
+            </MDBBtn>
           </MDBInputGroup>
 
           <MDBListGroup className="mb-4">
             {caringTips.map((tip, index) => (
               <MDBListGroupItem key={index}>
                 {tip}
-                <MDBBtn color="danger" type="button" onClick={() => handleRemoveTip(index)}>
+                <MDBBtn
+                  color="danger"
+                  type="button"
+                  onClick={() => handleRemoveTip(index)}
+                >
                   X
                 </MDBBtn>
               </MDBListGroupItem>
@@ -145,19 +159,21 @@ function PlantEdit({ plantData, getPlantDetails }) {
           </MDBListGroup>
 
           <MDBInput
-        label="Price"
-        wrapperClass="mb-4"
-        min={1}
+            className="w-100"
+            label="Price"
+            wrapperClass="mb-4"
+            min={1}
             type="number"
             name="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
 
-<MDBInput
-                label="Stock"
-                wrapperClass="mb-4"
-                min={1}
+          <MDBInput
+            className="w-100"
+            label="Stock"
+            wrapperClass="mb-4"
+            min={1}
             type="number"
             name="stock"
             value={stock}
@@ -165,40 +181,41 @@ function PlantEdit({ plantData, getPlantDetails }) {
           />
           <MDBRow>
             <MDBCol>
-
-          <label>Category:</label>
-          <select
-                  className="mb-4"
-            name="category"
-            aria-label="category"
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="Indoor Plants" selected>
-              Indoor Plants
-            </option>
-            <option value="Outdoor Plants">Outdoor Plants</option>
-            <option value="Pet-Friendly">Pet-Friendly</option>
-            <option value="Tropical">Tropical</option>
-          </select>
-          </MDBCol>
-          <MDBCol>
-          <label>Tag:</label>
-          <select
-                  className="mb-4"
-            name="tag"
-            aria-label="tag"
-            onChange={(e) => setTag(e.target.value)}
-          >
-            <option value="Beginner-Friendly" selected>
-              Beginner-Friendly
-            </option>
-            <option value="Green Thumb">Green Thumb</option>
-            <option value="Gardening Guru">Gardening Guru</option>
-          </select>
-          </MDBCol>
+              <label>Category:</label>
+              <select
+                className="mb-4"
+                name="category"
+                aria-label="category"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="Indoor Plants" selected>
+                  Indoor Plants
+                </option>
+                <option value="Outdoor Plants">Outdoor Plants</option>
+                <option value="Pet-Friendly">Pet-Friendly</option>
+                <option value="Tropical">Tropical</option>
+              </select>
+            </MDBCol>
+            <MDBCol>
+              <label>Tag:</label>
+              <select
+                className="mb-4"
+                name="tag"
+                aria-label="tag"
+                onChange={(e) => setTag(e.target.value)}
+              >
+                <option value="Beginner-Friendly" selected>
+                  Beginner-Friendly
+                </option>
+                <option value="Green Thumb">Green Thumb</option>
+                <option value="Gardening Guru">Gardening Guru</option>
+              </select>
+            </MDBCol>
           </MDBRow>
 
-          <MDBBtn color="info" type="submit">Submit</MDBBtn>
+          <MDBBtn color="info" type="submit">
+            Submit
+          </MDBBtn>
         </form>
       </div>
     </div>

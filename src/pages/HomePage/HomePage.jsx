@@ -134,8 +134,8 @@ export function HomePage() {
           </div>
         </MDBContainer>
 
-        <MDBContainer fluid className="my-5">
-          <MDBRow md="10" lg="2" className="mb-4 mb-lg-0 row d-flex justify-content-center">
+        <MDBContainer fluid className="my-4">
+          <MDBRow md="10" lg="4" className="mb-4 mb-lg-0 row d-flex justify-content-center">
             {plants.map((plant) => (
               <PlantCard key={plant._id} {...plant} />
             ))}

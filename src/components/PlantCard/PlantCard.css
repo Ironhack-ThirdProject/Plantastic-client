@@ -14,11 +14,19 @@
 }
 
 .plant-name{
+  text-align: left;
+  max-width: 150px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+#plant-name{
   text-decoration: none;
   color:black;
 }
 
-.plant-name:hover{
+#plant-name:hover{
   text-decoration: none;
   color:#555;
   

@@ -66,7 +66,7 @@ export function PlantCard(props) {
 
   return (
     <MDBCol className="my-4 d-flex justify-content-center align-items-center">
-      <MDBCard className="p-3" style={{ width: "16rem" }}>
+      <MDBCard className="p-3" style={{ width: "18rem" }}>
         <MDBRipple
           className="bg-image hover-overlay rounded"
           rippleTag="div"
@@ -80,26 +80,34 @@ export function PlantCard(props) {
             ></div>
           </Link>
         </MDBRipple>
-        <MDBCardBody>
-          <div className="d-flex justify-content-between">
+        <MDBCardBody className="d-flex flex-column">
+          <MDBRow>
+            <MDBCol className="d-flex justify-content-start">
             <p className="small">{props.category}</p>
-          </div>
-
-          <div className="d-flex justify-content-between mb-3">
-          <Link className="plant-name" to={`/plants/${props._id}`}>
-            <h5 className="mb-0 plant-name">{props.name}</h5></Link>
+            </MDBCol>
+          </MDBRow>
+          <MDBRow className="d-flex flex-row mb-4">
+            <MDBCol className="d-flex justify-content-start" style={{width: '70%;'}}>
+              <Link id="plant-name" to={`/plants/${props._id}`}>
+                <h5 className="my-0 plant-name">{props.name}</h5>
+              </Link>
+              </MDBCol>
+              <MDBCol className="d-flex justify-content-end p-0" style={{width: '30%;'}}>
             <h5 className="text-dark mb-0">
               {currencyFormatter.format(props.price)}
             </h5>
-          </div>
+            </MDBCol>
+            </MDBRow>
 
           {stock ? (
             <>
-              <div class="d-flex justify-content-between mb-4">
+            <MDBRow className="mb-4">
+            <MDBCol className="d-flex justify-content-start">
                 <p class="text-muted mb-0">
                   Available: <span class="fw-bold">{stock}</span>
                 </p>
-              </div>
+                </MDBCol>
+                </MDBRow>
               <>
                 <IsCustomer>
                   {isLoggedIn ? (
@@ -117,7 +125,11 @@ export function PlantCard(props) {
                             onChange={(e) => setQuantity(e.target.value)}
                           />
 
-                          <MDBBtn className="m-0 addtocart-button" color="dark" type="submit">
+                          <MDBBtn
+                            className="m-0 addtocart-button"
+                            color="dark"
+                            type="submit"
+                          >
                             Add to cart
                           </MDBBtn>
                         </MDBInputGroup>
