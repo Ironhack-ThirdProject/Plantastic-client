@@ -62,8 +62,8 @@ export function HomePage() {
             ></div>
           </div>
           <Carousel.Caption>
-            <h3>New Arrivals</h3>
-            <p>
+            <h3 className="carousel-title">New Arrivals</h3>
+            <p className="carousel-text">
               Add a touch of the desert to your home with our stunning cacti
               collection.
             </p>
@@ -78,8 +78,8 @@ export function HomePage() {
             ></div>
           </div>
           <Carousel.Caption>
-            <h3>Nature's Beauty in Your Home</h3>
-            <p>
+            <h3 className="carousel-title">Nature's Beauty in Your Home</h3>
+            <p className="carousel-text">
               Bring the outdoors in and transform your space with our selection
               of lush plants.
             </p>
@@ -98,8 +98,8 @@ export function HomePage() {
             ></div>
           </div>
           <Carousel.Caption>
-            <h3>Green Your Home with Our Plant Collection</h3>
-            <p>
+            <h3 className="carousel-title">Green Your Home with Our Plant Collection</h3>
+            <p className="carousel-text">
               Nature at your fingertips: Shop now for the perfect plant to match
               your style.
             </p>

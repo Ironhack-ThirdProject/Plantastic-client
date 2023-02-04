@@ -1,3 +1,11 @@
+.carousel-title{
+ font-size: 18px;
+}
+
+.carousel-text{
+  font-size: 15px;
+}
+
 .searchForm {
   width: 40vw;
   height: 10vh;

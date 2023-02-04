@@ -50,7 +50,7 @@ function Navbar() {
             </MDBNavbarBrand>
           </MDBNavbarNav>
           <MDBCollapse navbar show={showNavRight}>
-            <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
+            <MDBNavbarNav left fullWidth={false}>
               <MDBNavbarItem>
                 <MDBNavbarLink aria-current="page" href="/" className="link">
                   All Plants
