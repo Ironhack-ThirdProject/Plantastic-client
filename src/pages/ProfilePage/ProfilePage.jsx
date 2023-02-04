@@ -10,13 +10,8 @@ import {
   MDBContainer,
   MDBRow,
   MDBCard,
-  MDBCardText,
   MDBCardBody,
   MDBCardTitle,
-  MDBBtn,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem,
 } from "mdb-react-ui-kit";
 
 function ProfilePage() {

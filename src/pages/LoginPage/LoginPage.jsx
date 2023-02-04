@@ -9,6 +9,7 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 import loginImage from "../../images/login-img.jpg";
 
@@ -28,25 +29,14 @@ function LoginPage() {
     e.preventDefault();
     const requestBody = { email, password };
 
-    // Send a request to the server using axios
-    /* 
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`)
-      .then((response) => {})
-    */
-
-    // Or using a service
     authService
       .login(requestBody)
       .then((response) => {
-        // If the POST request is successful store the authentication token,
-        // after the token is stored authenticate the user
-        // and at last navigate to the home page
         storeToken(response.data.authToken);
         authenticateUser();
         navigate("/");
       })
       .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
@@ -57,20 +47,19 @@ function LoginPage() {
       <MDBContainer fluid>
         <MDBRow>
           <MDBCol sm="6">
-            <div className="d-flex flex-row ps-5 pt-5">
-              <MDBIcon style={{ color: "#709085" }} />
+            <div className="d-none d-sm-block px-0">
             </div>
 
-            <div className="d-flex flex-column align-items-center h-custom-2 w-75 pt-4">
+            <div className="d-flex flex-column align-items-center h-custom-2 w-100 pt-4">
               <h3 className="login-title" style={{ letterSpacing: "1px" }}>
                 Log in
               </h3>
-              <form onSubmit={handleLoginSubmit}>
-                <div class="form-div">
+              <form className="w-50" onSubmit={handleLoginSubmit}>
+                <div class="sign-form-div mb-4">
                   <label for="exampleInputEmail1">Email address</label>
                   <input
                     type="email"
-                    class="form-control"
+                    class="form-control w-100"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
@@ -80,11 +69,11 @@ function LoginPage() {
                     onChange={handleEmail}
                   ></input>
                 </div>
-                <div class="form-div">
+                <div class="sign-form-div mb-4">
                   <label for="exampleInputPassword1">Password</label>
                   <input
                     type="password"
-                    class="form-control"
+                    class="form-control w-100"
                     id="exampleInputPassword1"
                     placeholder="Password"
                     value={password}
@@ -92,21 +81,21 @@ function LoginPage() {
                     onChange={handlePassword}
                   ></input>
                 </div>
-              <Button
-                type="submit"
-                className="login-button"
-                color="success"
-                size="lg"
-              >
-                Login
-              </Button>
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <p className="ms-5">
-                Don't have an account?{" "}
-                <a href="/signup">
-                  Register here
-                </a>
-              </p>
+                <MDBBtn
+                  type="submit"
+                  className="login-button"
+                  color="dark"
+                  size="lg"
+                >
+                  Login
+                </MDBBtn>
+                {errorMessage && (
+                  <p className="error-message">{errorMessage}</p>
+                )}
+                <p>
+                  Don't have an account? <a href="/signup">Register here</a>
+                </p>
+                <div className="d-flex flex-row ps-5 pt-5"></div>
               </form>
             </div>
           </MDBCol>

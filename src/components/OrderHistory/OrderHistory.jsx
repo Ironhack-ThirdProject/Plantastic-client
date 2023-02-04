@@ -1,13 +1,13 @@
 import "./OrderHistory.css";
 import { currencyFormatter } from "../../utils";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import {
   MDBCard,
   MDBCardBody,
   MDBCardTitle,
   MDBCardSubTitle,
   MDBCardText,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 
 function OrderHistory({ eachOrder }) {
@@ -43,12 +43,13 @@ function OrderHistory({ eachOrder }) {
               <span className="fw-bold">{eachOrder.products.length}</span>
             </p>
             <div className="ms-auto text-warning">
-              <Button
-                className="orderHistory-button"
+              <MDBBtn
+                className="reviewHistory-button"
+                color="dark"
                 onClick={handleAllProductsInOrderClick}
               >
                 {showProductsInOrder ? "Hide" : "Show All Purchased Plants"}
-              </Button>
+              </MDBBtn>
               {showProductsInOrder && (
                 <div className="text-color" key={eachOrder._id}>
                   {eachOrder.products.map((oneProduct) => (
@@ -62,26 +63,6 @@ function OrderHistory({ eachOrder }) {
                           Price:{" "}
                           {currencyFormatter.format(oneProduct.productId.price)}{" "}
                         </MDBCardText>
-                        {/*
-                        <div
-                          key={oneProduct.productId._id}
-                          className="d-flex justify-content-between mb-3"
-                        >
-                          <h5>
-                            {oneProduct.productId.name + " - "}
-                          </h5>
-                          <p className="text-muted mb-0">
-                          {" "}Quantity:{" "}
-                            <span className="fw-bold">{oneProduct.quantity}</span>
-                          </p>
-                          <h5 className="text-dark mb-0">
-                            Price:{" "}
-                            {currencyFormatter.format(
-                              oneProduct.productId.price
-                            )}{" "}
-                          </h5>
-                         
-                        </div>*/}
                       </MDBCardBody>
                     </MDBCard>
                   ))}

@@ -265,6 +265,7 @@ export default function CartPage() {
                       <MDBRow className="mb-4">
                         <MDBCol>
                           <MDBInput
+                          className="w-100"
                             type="text"
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
@@ -275,6 +276,7 @@ export default function CartPage() {
                         </MDBCol>
                         <MDBCol>
                           <MDBInput
+                          className="w-100"
                             type="text"
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
@@ -286,6 +288,7 @@ export default function CartPage() {
                       </MDBRow>
 
                       <MDBInput
+                      className="w-100"
                         type="text"
                         value={shippingAddress}
                         onChange={(e) => setShippingAddress(e.target.value)}
@@ -295,6 +298,7 @@ export default function CartPage() {
                         label="Shipping Address"
                       />
                       <MDBInput
+                      className="w-100"
                         type="text"
                         value={billingAddress}
                         onChange={(e) => setBillingAddress(e.target.value)}
@@ -391,10 +395,11 @@ export default function CartPage() {
                     Products
                     <span>{currencyFormatter.format(cart.totalPrice)}</span>
                   </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
+                  <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                     Shipping
-                    <span>Gratis</span>
+                    <span>Free</span>
                   </MDBListGroupItem>
+                  <hr />
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                     <div>
                       <strong>Total amount</strong>

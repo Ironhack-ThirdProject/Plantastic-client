@@ -10,13 +10,17 @@
 .reviewHistory-button {
   background-color: #435b38;
   color: #d6fbd6;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
 }
 .reviewHistory-button:hover {
   color: #435b38;
   background-color: #d6fbd6;
 }
+
+.reviewHistory-button:focus {
+  background-color: #435b38;
+  color: #d6fbd6;
+}
+
 .delete-button {
   margin-bottom: 2vh;
 }

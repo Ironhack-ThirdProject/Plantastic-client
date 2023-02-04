@@ -11,7 +11,7 @@ import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
 import IsPrivate from "../IsPrivate/IsPrivate";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   MDBBtn,
   MDBCard,
@@ -29,6 +29,7 @@ import {
   MDBRow,
   MDBTypography,
   MDBIcon,
+  MDBInputGroup,
 } from "mdb-react-ui-kit";
 import { AiFillStar } from "react-icons/ai";
 import { AuthContext } from "../../context/auth.context";
@@ -194,7 +195,7 @@ function PlantDetails() {
                     />
                   </MDBCol>
                   <MDBCol>
-                    <h3>
+                    <h3 className="mt-4">
                       <strong>{plant.name}</strong>
                     </h3>
                     <p>{plant.description}</p>
@@ -218,8 +219,8 @@ function PlantDetails() {
                         <p>Price: {currencyFormatter.format(plant.price)}</p>
                         <IsCustomer>
                           <form onSubmit={handleAddToCart}>
-                            <MDBRow>
-                              <MDBCol sm="6">
+                            {isLoggedIn ? (
+                              <MDBInputGroup>
                                 <MDBInput
                                   type="number"
                                   id="quantity"
@@ -229,22 +230,34 @@ function PlantDetails() {
                                   label="Quantity"
                                   onChange={(e) => setQuantity(e.target.value)}
                                 />
-                              </MDBCol>
-                              <MDBCol className="p-0" sm="3">
-                                {isLoggedIn ? (
-                                  <MDBBtn
-                                    className="m-0 addtocart-button"
-                                    type="submit"
-                                  >
+
+                                <MDBBtn
+                                  color="dark"
+                                  className="m-0 addtocart-button"
+                                  type="submit"
+                                >
+                                  Add to cart
+                                </MDBBtn>
+                              </MDBInputGroup>
+                            ) : (
+                              <MDBInputGroup>
+                                <MDBInput
+                                  type="number"
+                                  id="quantity"
+                                  min={1}
+                                  max={plant.stock}
+                                  value={quantity}
+                                  label="Quantity"
+                                  onChange={(e) => setQuantity(e.target.value)}
+                                />
+
+                                <MDBBtn color="dark" className="m-0 addtocart-button">
+                                  <Link className="link-color" to="/login">
                                     Add to cart
-                                  </MDBBtn>
-                                ) : (
-                                  <MDBBtn className="m-0 addtocart-button">
-                                    <Link className="link-color" to="/login">Add to cart</Link>
-                                  </MDBBtn>
-                                )}
-                              </MDBCol>
-                            </MDBRow>
+                                  </Link>
+                                </MDBBtn>
+                              </MDBInputGroup>
+                            )}
                           </form>
                         </IsCustomer>
                       </>
@@ -275,6 +288,7 @@ function PlantDetails() {
                         </Button>
                       </form>
                     </IsAdmin>
+                    
                     <IsCustomer>
                       <AddReview props={productId} />
                     </IsCustomer>

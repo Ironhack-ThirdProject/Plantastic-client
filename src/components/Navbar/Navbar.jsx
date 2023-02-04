@@ -21,6 +21,7 @@ import {
   MDBCollapse,
   MDBIcon,
   MDBBadge,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 
 function Navbar() {
@@ -40,7 +41,7 @@ function Navbar() {
             aria-label="Toggle navigation"
             onClick={() => setShowNavRight(!showNavRight)}
           >
-            <MDBIcon icon="bars" fas className="icon-color"/>
+            <MDBIcon icon="bars" fas className="icon-color" />
           </MDBNavbarToggler>
           <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
             <MDBNavbarBrand href="/">
@@ -51,11 +52,7 @@ function Navbar() {
           <MDBCollapse navbar show={showNavRight}>
             <MDBNavbarNav left fullWidth={false} className="mb-2 mb-lg-0">
               <MDBNavbarItem>
-                <MDBNavbarLink
-                  aria-current="page"
-                  href="/"
-                  className="link"
-                >
+                <MDBNavbarLink aria-current="page" href="/" className="link">
                   All Plants
                 </MDBNavbarLink>
               </MDBNavbarItem>
@@ -84,22 +81,22 @@ function Navbar() {
               {isLoggedIn && (
                 <MDBNavbarItem>
                   <MDBNavbarLink>
-                    <Button className="navbar-button" onClick={logOutUser}>
+                    <MDBBtn color="dark" className="navbar-button" onClick={logOutUser}>
                       Logout
-                    </Button>
+                    </MDBBtn>
                   </MDBNavbarLink>
                 </MDBNavbarItem>
               )}
               {!isLoggedIn && (
                 <>
                   <MDBNavbarItem>
-                    <MDBNavbarLink href="/login" className="link">
-                      Login
+                    <MDBNavbarLink href="/signup" className="link">
+                      Signup
                     </MDBNavbarLink>
                   </MDBNavbarItem>
                   <MDBNavbarItem>
-                    <MDBNavbarLink href="/signup" className="link">
-                      Signup
+                    <MDBNavbarLink href="/login" className="link">
+                      Login
                     </MDBNavbarLink>
                   </MDBNavbarItem>
                 </>
@@ -107,17 +104,17 @@ function Navbar() {
             </MDBNavbarNav>
           </MDBCollapse>
           {isLoggedIn && !isAdmin && (
-              <MDBNavbarLink href="/cart">
-                <MDBBadge pill color="#D6FBD6">
-                  {cartCount}
-                </MDBBadge>
-                <MDBIcon
-                  size="lg"
-                  fas
-                  icon="shopping-cart"
-                  className="icon-color"
-                ></MDBIcon>
-              </MDBNavbarLink>
+            <MDBNavbarLink href="/cart">
+              <MDBBadge pill color="#D6FBD6">
+                {cartCount}
+              </MDBBadge>
+              <MDBIcon
+                size="lg"
+                fas
+                icon="shopping-cart"
+                className="icon-color"
+              ></MDBIcon>
+            </MDBNavbarLink>
           )}
         </MDBContainer>
       </MDBNavbar>

@@ -13,6 +13,7 @@ import {
   MDBTypography,
   MDBInput,
   MDBTextArea,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 
 function ReviewHistory({ eachReview, callbackToGetReviews }) {
@@ -93,9 +94,9 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
               </MDBTypography>
               <IsCustomer>
                 <IsCreator review={eachReview}>
-                  <Button className="reviewHistory-button" onClick={handleEdit}>
+                  <MDBBtn color="dark" className="reviewHistory-button" onClick={handleEdit}>
                     Edit
-                  </Button>
+                  </MDBBtn>
                 </IsCreator>
               </IsCustomer>
             </MDBCardBody>
@@ -110,29 +111,33 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
               ):
             </label>
             <MDBInput
+            className="w-100"
               label="Rating"
               type="number"
               name="rating"
               value={rating}
               min="1"
               max="5"
+              required
               onChange={(e) => setRating(e.target.value)}
             />
 
-            <label className="mt-2">Please explain your review here:</label>
+            <label className="mt-2">Please enter your review here:</label>
             <MDBTextArea
+            className="w-100"
               wrapperClass="mb-4"
               id="textAreaExample"
               rows={4}
               label="Message"
               type="text"
               name="text"
+              required
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-            <Button type="submit" className="reviewHistory-button">
+            <MDBBtn color="dark" type="submit" className="reviewHistory-button mb-4">
               Submit
-            </Button>
+            </MDBBtn>
           </form>
           <IsCustomer>
             <IsCreator review={eachReview}>
@@ -147,41 +152,6 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
               </Button>
             </IsCreator>
           </IsCustomer>
-          {/*
-          <form onSubmit={handleSubmit}>
-            <label>Rating: (1-5)</label>
-            <input
-              type="number"
-              name="rating"
-              value={rating}
-              min="1"
-              max="5"
-              onChange={(e) => setRating(e.target.value)}
-            />
-
-            <label>Please explain your review here:</label>
-            <textarea
-              type="text"
-              name="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-            <br />
-            <Button type="submit" className="reviewHistory-button">Submit</Button>
-          </form>
-          <IsCustomer>
-            <IsCreator review={eachReview}>
-              <Button
-                onClick={() => {
-                  handleDelete(eachReview._id);
-                }}
-                variant="danger"
-              >
-                Delete
-              </Button>
-            </IsCreator>
-          </IsCustomer>
-           */}
         </>
       )}
     </>

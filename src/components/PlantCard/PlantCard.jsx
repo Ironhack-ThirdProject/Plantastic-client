@@ -65,8 +65,8 @@ export function PlantCard(props) {
   };
 
   return (
-    <MDBCol className="my-4">
-      <MDBCard className="p-3" style={{ width: "18rem" }}>
+    <MDBCol className="my-4 d-flex justify-content-center align-items-center">
+      <MDBCard className="p-3" style={{ width: "16rem" }}>
         <MDBRipple
           className="bg-image hover-overlay rounded"
           rippleTag="div"
@@ -86,7 +86,8 @@ export function PlantCard(props) {
           </div>
 
           <div className="d-flex justify-content-between mb-3">
-            <h5 className="mb-0">{props.name}</h5>
+          <Link className="plant-name" to={`/plants/${props._id}`}>
+            <h5 className="mb-0 plant-name">{props.name}</h5></Link>
             <h5 className="text-dark mb-0">
               {currencyFormatter.format(props.price)}
             </h5>
@@ -116,7 +117,7 @@ export function PlantCard(props) {
                             onChange={(e) => setQuantity(e.target.value)}
                           />
 
-                          <MDBBtn className="m-0" color="success" type="submit">
+                          <MDBBtn className="m-0 addtocart-button" color="dark" type="submit">
                             Add to cart
                           </MDBBtn>
                         </MDBInputGroup>

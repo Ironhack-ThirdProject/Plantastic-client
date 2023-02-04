@@ -3,7 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../../services/auth.service";
 import { Button } from "react-bootstrap";
-import { MDBContainer, MDBRow, MDBCol, MDBIcon } from "mdb-react-ui-kit";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBBtn,
+} from "mdb-react-ui-kit";
 import signupImage from "../../images/signup.jpg";
 
 function SignupPage() {
@@ -61,20 +67,18 @@ function SignupPage() {
             />
           </MDBCol>
           <MDBCol sm="6">
-            <div className="d-flex flex-row ps-5 pt-5">
-              <MDBIcon style={{ color: "#709085" }} />
-            </div>
+            <div className="d-flex flex-row ps-5 pt-5"></div>
 
             <div className="d-flex flex-column align-items-center h-custom-2 w-100 pt-4">
               <h3 className="signIn-title" style={{ letterSpacing: "1px" }}>
                 Sign Up
               </h3>
-              <form onSubmit={handleSignupSubmit}>
-                <div className="sign-form-div">
+              <form className="w-50" onSubmit={handleSignupSubmit}>
+                <div className="sign-form-div mb-4">
                   <label for="exampleInputName1">Name:</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control w-100"
                     id="exampleInputName1"
                     aria-describedby="nameHelp"
                     placeholder="Enter name"
@@ -84,11 +88,11 @@ function SignupPage() {
                     onChange={handleName}
                   />
                 </div>
-                <div className="sign-form-div">
+                <div className="sign-form-div mb-4">
                   <label for="exampleInputEmail1">Email address</label>
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control w-100"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
@@ -98,11 +102,11 @@ function SignupPage() {
                     onChange={handleEmail}
                   ></input>
                 </div>
-                <div className="sign-form-div">
+                <div className="sign-form-div mb-4">
                   <label for="exampleInputPassword1">Password</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control w-100"
                     id="exampleInputPassword1"
                     placeholder="Password"
                     value={password}
@@ -110,9 +114,14 @@ function SignupPage() {
                     onChange={handlePassword}
                   ></input>
                 </div>
-                <Button type="submit" className="signIn-button" size="lg">
+                <MDBBtn
+                  color="dark"
+                  type="submit"
+                  className="signIn-button"
+                  size="lg"
+                >
                   Sign Up
-                </Button>
+                </MDBBtn>
                 {errorMessage && (
                   <p className="error-message">{errorMessage}</p>
                 )}
@@ -120,6 +129,7 @@ function SignupPage() {
                   Already have an account? <br />
                   <a href="/login">Log In here</a>
                 </p>
+                <div className="d-flex flex-row ps-5 pt-5"></div>
               </form>
             </div>
           </MDBCol>

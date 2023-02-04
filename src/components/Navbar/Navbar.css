@@ -16,6 +16,13 @@
     background-color: #D6FBD6;
     color: #469924;
 }
+
+.navbar-button:hover {
+    background-color: #469924;
+    color: #D6FBD6;
+}
+
+
 .link:hover {
     color: #435B38;
     background-color: #d6fbd6;

@@ -2,21 +2,12 @@ import "./HomePage.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddProduct from "../../components/AddProduct/AddProduct";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import IsAdmin from "../../components/IsAdmin/isAdmin";
 import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCarousel,
-  MDBCarouselItem,
-  MDBCol,
   MDBContainer,
-  MDBIcon,
-  MDBRipple,
   MDBRow,
 } from "mdb-react-ui-kit";
-import { Link } from "react-router-dom";
 import { PlantCard } from "../../components/PlantCard/PlantCard";
 import plantsImage from "../../images/plants-on-cupboard.jpeg";
 import plantsImage2 from "../../images/plants-in-a-pot_720.jpg";
@@ -129,7 +120,7 @@ export function HomePage() {
                 <select
                   name="category"
                   aria-label="category"
-                  className="selectSearch"
+                  className="selectSearch w-100"
                   onChange={(e) => setSearchQuery(e.target.value)}
                 >
                   <option value="">All Plants</option>
@@ -144,7 +135,7 @@ export function HomePage() {
         </MDBContainer>
 
         <MDBContainer fluid className="my-5">
-          <MDBRow md="10" lg="2" className="mb-4 mb-lg-0">
+          <MDBRow md="10" lg="2" className="mb-4 mb-lg-0 row d-flex justify-content-center">
             {plants.map((plant) => (
               <PlantCard key={plant._id} {...plant} />
             ))}
