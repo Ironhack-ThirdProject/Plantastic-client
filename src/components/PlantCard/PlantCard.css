@@ -13,6 +13,14 @@
   color: #d6fbd6;
 }
 
+.link-color{
+  color: #d6fbd6;
+}
+
+.link-color:hover{
+  color: #435B38;
+}
+
 .plant-name{
   text-align: left;
   max-width: 150px;

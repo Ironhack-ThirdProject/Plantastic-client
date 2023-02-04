@@ -125,11 +125,7 @@ export function PlantCard(props) {
                             onChange={(e) => setQuantity(e.target.value)}
                           />
 
-                          <MDBBtn
-                            className="m-0 addtocart-button"
-                            color="dark"
-                            type="submit"
-                          >
+                          <MDBBtn className="m-0 addtocart-button" color="dark" type="submit">
                             Add to cart
                           </MDBBtn>
                         </MDBInputGroup>
@@ -149,7 +145,7 @@ export function PlantCard(props) {
                           onChange={(e) => setQuantity(e.target.value)}
                         />
 
-                        <MDBBtn className="m-0" color="success" type="submit">
+                        <MDBBtn className="m-0 addtocart-button" color="dark" type="submit">
                           <Link className="link-color" to="/login">
                             Add to cart
                           </Link>
