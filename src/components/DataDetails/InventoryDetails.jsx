@@ -59,7 +59,7 @@ export function InventoryDetails({ products }) {
         </MDBCardHeader>
         <MDBCardBody>
 
-          <MDBTable>
+          <MDBTable small>
           <MDBTableHead className="table-head-div">
                 <tr className="table-dark">
                   <th scope="col">Metric</th>
@@ -81,9 +81,10 @@ export function InventoryDetails({ products }) {
           <CategoryDetails products={products} />
 
           <TagDetails products={products} />
+          
           <div className="mt-5">
             <h3>Low stock</h3>
-            <MDBTable>
+            <MDBTable small>
               <MDBTableHead className="table-head-div">
                 <tr className="lowstock-title">
                   <th scope="col">Name</th>

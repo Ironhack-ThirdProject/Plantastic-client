@@ -7,11 +7,11 @@
 }
 
 .card-header1{
-    background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));
+    background: #AA8B56;
 }
 
 .card-header2{
-    background: linear-gradient(106.7deg, rgb(245, 167, 191) -6.2%, rgb(201, 218, 238) 46.4%, rgb(164, 240, 229) 86.4%);
+    background: #AA8B56;
 }
 
 .card-title1{
@@ -20,7 +20,7 @@
 }
 
 .card-title2{
-    color: #333;
+    color: white;
     font-size: 24px;
 }
 
@@ -40,3 +40,43 @@
     background-color: rgba(116, 0, 0, 0.514);
     color: white;
 }
+
+/*Category*/
+#category-Tropical{
+    color: rgb(118, 0, 187);
+    background-color: rgba(197, 118, 250, 0.219);
+}
+
+#category-Pet-Friendly{
+    color: rgb(0, 81, 187);
+    background-color: rgba(118, 186, 250, 0.322);
+}
+
+#category-Indoor-Plants{
+    color: rgb(150, 97, 0);
+    background-color: rgba(250, 204, 118, 0.322);
+}
+
+#category-Outdoor-Plants{
+    color: rgb(84, 148, 0);
+    background-color: rgba(177, 250, 118, 0.322);
+}
+
+/*Tag*/
+#tag-Beginner-Friendly{
+    color: rgb(117, 0, 59);
+    background-color: rgba(228, 147, 204, 0.322);
+}
+
+#tag-Green-Thumb{
+    color: rgb(0, 117, 111);
+    background-color: rgba(157, 221, 196, 0.322);
+}
+
+#tag-Gardening-Guru{
+    color: rgb(77, 50, 0);
+    background-color: rgba(201, 111, 51, 0.322);
+}
+
+
+

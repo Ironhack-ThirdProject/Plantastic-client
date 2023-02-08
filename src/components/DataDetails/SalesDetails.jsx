@@ -14,7 +14,6 @@ import {
 
 export function SalesDetails({ orders }) {
   const [revenue, setRevenue] = useState(0);
-  const [orderTotals, setOrderTotals] = useState([]);
   const [averageOrderValue, setAverageOrderValue] = useState(0);
   const [averageProductsOrdered, setAverageProductsOrdered] = useState(0);
 
@@ -43,7 +42,7 @@ export function SalesDetails({ orders }) {
         </MDBCardHeader>
         <MDBCardBody>
           
-        <MDBTable>
+        <MDBTable small>
           <MDBTableHead className="table-head-div">
           <tr className="table-dark">
           <th scope='col'>Metric</th>
