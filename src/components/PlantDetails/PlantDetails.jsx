@@ -93,7 +93,7 @@ function PlantDetails() {
       })
       .then((response) => {
         console.log("Plant deleted!");
-        navigate("/plants");
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);

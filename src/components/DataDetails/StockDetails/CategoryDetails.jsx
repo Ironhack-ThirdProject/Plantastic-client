@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTable, MDBTableHead, MDBTableBody, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTable, MDBTableHead, MDBTableBody, MDBRow, MDBCol, MDBContainer } from "mdb-react-ui-kit";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export function CategoryDetails({ products }) {
   const [plantsByCategory, setPlantsByCategory] = useState({});
@@ -54,6 +54,7 @@ export function CategoryDetails({ products }) {
   const data1 = {
     labels: Object.keys(plantsByCategory),
     datasets: [{
+      label: "Total Stock",
       data: Object.keys(plantsByCategory).map((category) => totalStock(category)),
       backgroundColor: [
         'rgba(177, 250, 118, 0.6)',
@@ -78,10 +79,23 @@ export function CategoryDetails({ products }) {
     }]
   };
 
+  const options1 = {
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Stock per category",
+      },
+    },
+  }
+
 
   const data2 = {
     labels: Object.keys(plantsByCategory),
     datasets: [{
+      label: "Unique products",
       data: Object.values(plantsByCategory).map((category) => category.length),
       backgroundColor: [
         'rgba(177, 250, 118, 0.6)',
@@ -106,6 +120,20 @@ export function CategoryDetails({ products }) {
     }]
   };
 
+  const options2 = {
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Unique products per category",
+      },
+    },
+  }
+
+
+
   useEffect(() => {
     getPlantsByCategory();
   }, [products]);
@@ -113,14 +141,16 @@ export function CategoryDetails({ products }) {
   return (
     <div className="mt-5">
       <h3>Total stock of products per category</h3>
-      <MDBRow>
-        <MDBCol>
-        <Doughnut data={data1}/>
+      <MDBContainer fluid className="mb-4">
+      <MDBRow className="d-flex justify-content-center">
+        <MDBCol md="6" lg="3" className="d-flex justify-content-center">
+        <Doughnut options={options1} data={data1}/>
         </MDBCol>
-        <MDBCol>
-        <Doughnut data={data2}/>    
+        <MDBCol md="6" lg="3" className="d-flex justify-content-center">
+        <Doughnut options={options2} data={data2}/>
         </MDBCol>
       </MDBRow>
+      </MDBContainer>
       <MDBTabs pills fill className='mb-3'>
       {Object.keys(plantsByCategory).map((category) => (
         <MDBTabsItem>
