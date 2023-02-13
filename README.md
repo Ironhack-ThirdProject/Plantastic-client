@@ -22,11 +22,14 @@ Plantastic is an e-commerce website built with the MERN stack dedicated to offer
 ## Table of Contents
 
 * [Features](#features)
+  - [Admin Features](#admin-features)
+  - [Customer Features](#customer-features)
 * [Environment Variables](#environment-variables)
 * [Run Locally](#run-locally)
 * [Demo](#demo)
 * [Roadmap](#roadmap)
 * [Server](#server)
+
 ## Features
 
 - Responsive Web Design / Cross platform
@@ -36,19 +39,20 @@ Plantastic is an e-commerce website built with the MERN stack dedicated to offer
 - Search Product by Category
 - Average star rating for each product
 
-Admin:
-- Product and Inventory Management: admins can create, edit and delete all products of the website.
-- Admin Dashboard built with Chart.js: Admin have access to real-time data visualizations of key performance indicators and financial metrics enabling informed decision making.
-    - Financial data: line chart with monthly revenue and orders, total orders, average order value and average products ordered.
-    - Inventory data: total stock, inventory count and unique products by tag and category displayed with dougnhut charts and tables, low stock products (10 items or less).
+### Admin Features
+- **Product and Inventory Management:** admins can create, edit and delete all products of the website.
+- **Admin Dashboard built with Chart.js:** Admin have access to real-time data visualizations of key performance indicators and financial metrics enabling informed decision making.
+    - **Financial data:** line chart with monthly revenue and orders, total orders, average order value and average products ordered.
+    - **Inventory data:** total stock, inventory count and unique products by tag and category displayed with dougnhut charts and tables, low stock products (10 items or less).
 
-Customers:
-- Shopping Cart: customers can manage their purchases with a real-time shopping cart that allows for adding, editing and removing products.
-- Reviews: customers can create, edit and delete their reviews for each product.
-- Star rating system: users can add and modify their rating for each review.
-- User profile: users can keep track of their order history, see and edit or delete their reviews directly in their profile.
-- Secure payment processing: payments are processed via a secure Stripe checkout session, with customers redirected to a confirmation page after payment completion or cancellation.
-- Confirmation e-mail: customers receive personalized confirmation emails via Nodemailer, upon successful payment completion.
+### Customer Features
+- **Shopping Cart:** customers can manage their purchases with a real-time shopping cart that allows for adding, editing and removing products.
+- **Reviews:** customers can create, edit and delete their reviews for each product.
+- **Star rating system:** users can add and modify their rating for each review.
+- **User profile:** users can keep track of their order history, see and edit or delete their reviews directly in their profile.
+- **Secure payment processing:** payments are processed via a secure Stripe checkout session, with customers redirected to a confirmation page after payment completion or cancellation.
+- **Confirmation e-mail:** customers receive personalized confirmation emails via Nodemailer, upon successful payment completion.
+
 ## Environment Variable
 
 To run this project, you will need to add the following environment variable to your .env file
