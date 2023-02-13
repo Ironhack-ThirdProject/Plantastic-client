@@ -1,5 +1,8 @@
 
-![Logo](https://res.cloudinary.com/dm6a8aocc/image/upload/v1676296604/third-project/image-name-removebg-preview_naj2ku.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://res.cloudinary.com/dm6a8aocc/image/upload/v1676302000/third-project/image-name-removebg-preview_ppgy33.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://res.cloudinary.com/dm6a8aocc/image/upload/v1676296604/third-project/image-name-removebg-preview_naj2ku.png">
+</picture>
 
 
 # Plantastic
@@ -32,7 +35,7 @@ Plantastic is an e-commerce website built with the MERN stack dedicated to offer
 
 ## Features
 
-- Responsive Web Design / Cross platform
+- Responsive Web Design
 - User Authentification
 - Protected routes
 - Conditional rendering
