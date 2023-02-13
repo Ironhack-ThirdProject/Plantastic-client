@@ -12,7 +12,6 @@ import {
 } from "mdb-react-ui-kit";
 
 function PlantEdit({ plantData, getPlantDetails }) {
-  console.log(plantData);
   const [name, setName] = useState(plantData.name);
   const [description, setDescription] = useState(plantData.description);
   const [caringTips, setCaringTips] = useState(plantData.caringTips);
@@ -86,7 +85,6 @@ function PlantEdit({ plantData, getPlantDetails }) {
 
     uploadImage(uploadData)
       .then((response) => {
-        console.log("response is === ", response);
         setImageURL(response.imageURL);
       })
       .catch((error) => {

@@ -8,7 +8,13 @@
 
 # Plantastic
 
-Plantastic is an e-commerce website built with the MERN stack dedicated to offering a unique shopping experience for plant enthusiasts. The design is responsive, providing an optimal user experience across all devices. Users can easily manage their cart, post reviews, complete secure transactions using Stripe, and receive confirmation emails for their orders. The admin is also equipped with a dynamic dashboard, displaying sales and inventory data in real-time.
+Plantastic is an e-commerce website built with the MERN stack dedicated to offering a unique shopping experience for plant enthusiasts. 
+
+The design is responsive, providing an optimal user experience across all devices. 
+
+Users can easily manage their cart, post reviews, complete secure transactions using Stripe, and receive confirmation emails for their orders. 
+
+The admin is also equipped with a dynamic dashboard, displaying sales and inventory data in real-time.
 
 ![App Screenshot](https://res.cloudinary.com/dm6a8aocc/image/upload/v1676297180/third-project/Screenshot1_xoz1qm.png)
 ## Authors
@@ -37,7 +43,8 @@ Plantastic is an e-commerce website built with the MERN stack dedicated to offer
 ## Features
 
 - Responsive Web Design
-- User Authentification
+- RESTful API
+- User Authentication
 - Protected routes
 - Conditional rendering
 - Search Product by Category
@@ -59,7 +66,7 @@ Plantastic is an e-commerce website built with the MERN stack dedicated to offer
 
 ## Environment Variable
 
-To run this project, you will need to add the following environment variable to your .env file
+To run this project, you will need to add the following environment variable to your .env file:
 
 `REACT_APP_SERVER_URL`: URL of your server
 

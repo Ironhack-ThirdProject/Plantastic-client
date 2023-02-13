@@ -11,7 +11,6 @@ import {
 } from "mdb-react-ui-kit";
 
 function OrderHistory({ eachOrder }) {
-  console.log(eachOrder);
   const [showProductsInOrder, setShowProductsInOrder] = useState(false);
   const handleAllProductsInOrderClick = () => {
     setShowProductsInOrder(!showProductsInOrder);

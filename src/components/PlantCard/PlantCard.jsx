@@ -31,9 +31,6 @@ export function PlantCard(props) {
   const { isLoggedIn } = useContext(AuthContext);
 
   const handleNewCartCount = (quantity) => {
-    console.log("THis is the current cart count");
-    console.log(typeof cartCount);
-    console.log(cartCount);
     //setCartCount(NaN || 0);
     setCartCount(cartCount + parseInt(quantity));
   };

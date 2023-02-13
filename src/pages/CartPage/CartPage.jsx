@@ -1,7 +1,7 @@
 import "./CartPage.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Image } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import UpdateQuantity from "../../components/UpdateQuantity/UpdateQuantity";
 import { currencyFormatter } from "../../utils";
@@ -40,6 +40,7 @@ export default function CartPage() {
   const storedToken = localStorage.getItem("authToken");
   const config = { headers: { Authorization: `Bearer ${storedToken}` } };
 
+
   const handleNewCartCount = () => {
     setCartCount(totalQuantity);
   };
@@ -49,11 +50,11 @@ export default function CartPage() {
   }, [totalQuantity]);
 
   const handleDelete = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     axios
       .delete(
-        `${process.env.REACT_APP_SERVER_URL}/cart?id=${productId}`,
+        `${process.env.REACT_APP_SERVER_URL}/cart/${productId}`,
         config
       )
       .then((response) => {
@@ -70,7 +71,6 @@ export default function CartPage() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/cart`, config)
       .then((res) => {
-        console.log("here is the cart: ", res.data);
         setCart(res.data);
       })
       .catch((error) => {
@@ -82,7 +82,7 @@ export default function CartPage() {
   function onUpdateQuantity(idOfTheProduct, newQuantity) {
     axios
       .put(
-        `${process.env.REACT_APP_SERVER_URL}/cart`,
+        `${process.env.REACT_APP_SERVER_URL}/cart/${idOfTheProduct}`,
         { productId: idOfTheProduct, quantity: parseInt(newQuantity) },
         {
           headers: { Authorization: `Bearer ${storedToken}` },
@@ -91,7 +91,6 @@ export default function CartPage() {
       .then((response) => {
         let quantityArr = [];
         response.data.updatedCart.products.forEach((product) => {
-          console.log(product);
           quantityArr.push(product.quantity);
         });
         let sum = quantityArr.reduce((a, b) => a + b, 0);
@@ -131,7 +130,7 @@ export default function CartPage() {
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/checkout`, requestBody, config)
       .then((res) => {
-        window.location = res.data.newUrl;
+        window.location = res.data.newUrl
       })
       .catch((err) => {
         console.log("Error sending payment: ", err);

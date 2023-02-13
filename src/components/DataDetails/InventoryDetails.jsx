@@ -5,23 +5,13 @@ import { TagDetails } from "./StockDetails/TagDetails";
 import "./Dashboard.css";
 
 import {
-  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardHeader,
-  MDBCardImage,
-  MDBCardText,
   MDBCardTitle,
   MDBTable,
   MDBTableHead,
   MDBTableBody,
-  MDBRow,
-  MDBCol,
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane,
 } from "mdb-react-ui-kit";
 
 export function InventoryDetails({ products }) {
@@ -72,7 +62,7 @@ export function InventoryDetails({ products }) {
                   <td scope="row">{totalStock()}</td>
                 </tr>
                 <tr className="table-secondary"> 
-                  <td scope="row">Unique products</td>
+                  <td scope="row">Inventory count</td>
                   <td scope="row">{products.length}</td>
                 </tr>
               </MDBTableBody>

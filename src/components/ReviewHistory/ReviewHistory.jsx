@@ -41,7 +41,6 @@ function ReviewHistory({ eachReview, callbackToGetReviews }) {
       rating,
       text,
     };
-    console.log(requestBody);
     const storedToken = localStorage.getItem("authToken");
     axios
       .put(

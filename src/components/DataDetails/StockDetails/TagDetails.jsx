@@ -79,7 +79,7 @@ export function TagDetails({ products }) {
       },
       title: {
         display: true,
-        text: "Stock per tag",
+        text: "Stock levels by tag",
       },
     },
   }
@@ -88,7 +88,7 @@ export function TagDetails({ products }) {
   const data2 = {
     labels: Object.keys(plantsByTag),
     datasets: [{
-      label: "Unique products",
+      label: "Unique items",
       data: Object.values(plantsByTag).map((tag) => tag.length),
       backgroundColor: [
         'rgba(157, 221, 196, 0.6)',
@@ -116,7 +116,7 @@ export function TagDetails({ products }) {
       },
       title: {
         display: true,
-        text: "Unique products per tag",
+        text: "Unique items by tag",
       },
     },
   }
@@ -127,7 +127,7 @@ export function TagDetails({ products }) {
 
   return (
     <div className="mt-5">
-      <h3>Total stock of products per tag</h3>
+      <h3>Products by tag</h3>
       <MDBContainer fluid className="mb-4">
       <MDBRow className="d-flex justify-content-center">
         <MDBCol md="6" lg="3" className="d-flex justify-content-center">
@@ -168,11 +168,11 @@ export function TagDetails({ products }) {
             </tr>
                 ))}
             <tr className="table-secondary">
-              <th scope="row">Total stock of {selectedTag}</th>
+              <th scope="row">Stock levels of {selectedTag}</th>
               <td>{totalStock(selectedTag)}</td>
             </tr>
             <tr className="table-secondary">
-              <th scope="row">Unique products</th>
+              <th scope="row">Unique items</th>
               <td>{plantsByTag[selectedTag].length}</td>
             </tr>
           </MDBTableBody>

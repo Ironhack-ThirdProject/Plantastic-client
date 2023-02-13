@@ -10,7 +10,6 @@ import IsAdmin from "../IsAdmin/isAdmin";
 import IsCustomer from "../IsCustomer/IsCustomer";
 import AddReview from "../AddReview/AddReview";
 import ReviewHistory from "../ReviewHistory/ReviewHistory";
-import IsPrivate from "../IsPrivate/IsPrivate";
 import { Link } from "react-router-dom";
 import {
   MDBBtn,
@@ -18,20 +17,15 @@ import {
   MDBCardBody,
   MDBCardHeader,
   MDBCardImage,
-  MDBCardText,
   MDBBadge,
   MDBCol,
   MDBContainer,
   MDBInput,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBRipple,
   MDBRow,
   MDBTypography,
   MDBIcon,
   MDBInputGroup,
 } from "mdb-react-ui-kit";
-import { AiFillStar } from "react-icons/ai";
 import { AuthContext } from "../../context/auth.context";
 
 function PlantDetails() {
@@ -78,8 +72,6 @@ function PlantDetails() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("--- This is the response from /reviews/userId");
-        console.log(response.data);
         setReviews(response.data);
       })
       .catch((error) => console.log(error));
@@ -139,7 +131,6 @@ function PlantDetails() {
         }
       )
       .then((response) => {
-        console.log("response from the API: ", response.data);
         setQuantity(1);
         setStock(response.data.productObject.stock);
       })

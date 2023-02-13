@@ -8,7 +8,6 @@ import { MDBContainer } from "mdb-react-ui-kit";
 
 function PaymentPage() {
   const path = window.location.pathname;
-  console.log("this is the path:::", path);
 
   const navigate = useNavigate();
 

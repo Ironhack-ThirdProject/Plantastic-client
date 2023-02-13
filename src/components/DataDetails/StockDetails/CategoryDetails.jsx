@@ -86,7 +86,7 @@ export function CategoryDetails({ products }) {
       },
       title: {
         display: true,
-        text: "Stock per category",
+        text: "Stock levels by category",
       },
     },
   }
@@ -95,7 +95,7 @@ export function CategoryDetails({ products }) {
   const data2 = {
     labels: Object.keys(plantsByCategory),
     datasets: [{
-      label: "Unique products",
+      label: "Unique items",
       data: Object.values(plantsByCategory).map((category) => category.length),
       backgroundColor: [
         'rgba(177, 250, 118, 0.6)',
@@ -127,7 +127,7 @@ export function CategoryDetails({ products }) {
       },
       title: {
         display: true,
-        text: "Unique products per category",
+        text: "Unique items by category",
       },
     },
   }
@@ -140,7 +140,7 @@ export function CategoryDetails({ products }) {
 
   return (
     <div className="mt-5">
-      <h3>Total stock of products per category</h3>
+      <h3>Products by category</h3>
       <MDBContainer fluid className="mb-4">
       <MDBRow className="d-flex justify-content-center">
         <MDBCol md="6" lg="3" className="d-flex justify-content-center">
@@ -181,11 +181,11 @@ export function CategoryDetails({ products }) {
             </tr>
                 ))}
             <tr className="table-secondary">
-              <th scope="row">Total stock of {selectedCategory}</th>
+              <th scope="row">Stock levels of {selectedCategory}</th>
               <td>{totalStock(selectedCategory)}</td>
             </tr>
             <tr className="table-secondary">
-              <th scope="row">Unique products</th>
+              <th scope="row">Unique items</th>
               <td>{plantsByCategory[selectedCategory].length}</td>
             </tr>
           </MDBTableBody>

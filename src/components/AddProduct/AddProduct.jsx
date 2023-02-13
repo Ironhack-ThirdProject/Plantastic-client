@@ -94,8 +94,6 @@ function AddProduct(props) {
 
     uploadImage(uploadData)
       .then((response) => {
-        console.log("This is the image url");
-        console.log("response is === ", response.imageURL);
         setImageURL(response.imageURL);
       })
       .catch((error) => {
