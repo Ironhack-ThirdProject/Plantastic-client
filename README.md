@@ -1,70 +1,89 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Logo](https://res.cloudinary.com/dm6a8aocc/image/upload/v1676296604/third-project/image-name-removebg-preview_naj2ku.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+# Plantastic
 
-### `npm start`
+Plantastic is an e-commerce website built with the MERN stack dedicated to offering a unique shopping experience for plant enthusiasts. The design is responsive, providing an optimal user experience across all devices. Users can easily manage their cart, post reviews, complete secure transactions using Stripe, and receive confirmation emails for their orders. The admin is also equipped with a dynamic dashboard, displaying sales and inventory data in real-time.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![App Screenshot](https://res.cloudinary.com/dm6a8aocc/image/upload/v1676297180/third-project/Screenshot1_xoz1qm.png)
+## Authors
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [@vrabec94](https://github.com/vrabec94)
+- [@marinedrp](https://github.com/marinedrp)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+**Client:** React.js, Chart.js, MDBootstrap
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Server:** MongoDB, Express.js, Node.js, Stripe, Nodemailer, Cloudinary
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Table of Contents
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* [Features](#features)
+* [Environment Variables](#environment-variables)
+* [Run Locally](#run-locally)
+* [Demo](#demo)
+* [Roadmap](#roadmap)
+* [Server](#server)
+## Features
 
-### `npm run eject`
+- Responsive Web Design / Cross platform
+- User Authentification
+- Protected routes
+- Conditional rendering
+- Search Product by Category
+- Average star rating for each product
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Admin:
+- Product and Inventory Management: admins can create, edit and delete all products of the website.
+- Admin Dashboard built with Chart.js: Admin have access to real-time data visualizations of key performance indicators and financial metrics enabling informed decision making.
+    - Financial data: line chart with monthly revenue and orders, total orders, average order value and average products ordered.
+    - Inventory data: total stock, inventory count and unique products by tag and category displayed with dougnhut charts and tables, low stock products (10 items or less).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Customers:
+- Shopping Cart: customers can manage their purchases with a real-time shopping cart that allows for adding, editing and removing products.
+- Reviews: customers can create, edit and delete their reviews for each product.
+- Star rating system: users can add and modify their rating for each review.
+- User profile: users can keep track of their order history, see and edit or delete their reviews directly in their profile.
+- Secure payment processing: payments are processed via a secure Stripe checkout session, with customers redirected to a confirmation page after payment completion or cancellation.
+- Confirmation e-mail: customers receive personalized confirmation emails via Nodemailer, upon successful payment completion.
+## Environment Variable
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+To run this project, you will need to add the following environment variable to your .env file
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`REACT_APP_SERVER_URL`: URL of your server
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Run Locally
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone the project:
 
-### Code Splitting
+```bash
+  git clone https://github.com/Ironhack-ThirdProject/Plantastic-client
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Install the dependencies:
 
-### Analyzing the Bundle Size
+```bash
+  npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Run the project:
 
-### Making a Progressive Web App
+```bash
+  npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+## Demo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Deployed project on Netlify: https://plantastic-shop.netlify.app/
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Server
+
+You can check out the repository of our server [here](https://github.com/Ironhack-ThirdProject/Plantastic-server).

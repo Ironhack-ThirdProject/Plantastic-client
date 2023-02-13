@@ -182,10 +182,6 @@ export function SalesDetails({ orders }) {
               </MDBCol>
             </MDBRow>
           </MDBContainer>
-
-          {/* <MDBContainer fluid>
-            <MDBRow className="d-flex justify-content-center">
-              <MDBCol lg={10} className="d-flex justify-content-center"> */}
                 <MDBTable small>
                   <MDBTableHead className="table-head-div">
                     <tr className="table-dark">
@@ -220,9 +216,6 @@ export function SalesDetails({ orders }) {
                     </tr>
                   </MDBTableBody>
                 </MDBTable>
-              {/* </MDBCol>
-            </MDBRow>
-          </MDBContainer> */}
         </MDBCardBody>
       </MDBCard>
     </div>
