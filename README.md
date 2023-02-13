@@ -2,6 +2,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://res.cloudinary.com/dm6a8aocc/image/upload/v1676302000/third-project/image-name-removebg-preview_ppgy33.png">
   <source media="(prefers-color-scheme: light)" srcset="https://res.cloudinary.com/dm6a8aocc/image/upload/v1676296604/third-project/image-name-removebg-preview_naj2ku.png">
+  <img alt="Plantastic logo" src="https://res.cloudinary.com/dm6a8aocc/image/upload/v1676296604/third-project/image-name-removebg-preview_naj2ku.png">
 </picture>
 
 
